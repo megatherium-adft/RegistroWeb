@@ -29,10 +29,9 @@ const GALLERY = [ {src:"assets/img/g-01.jpg", alt:"Boda Darinka y Rudy"} ];
 ```
 Los arreglos vacíos muestran placeholders. La galería respeta la proporción original de cada foto.
 
-## Logo
-Hoy el logo es un placeholder dibujado en SVG (`<svg class="logo">` en Inicio y Home 1, y el óvalo del botón "¡Escríbenos!" en Servicios). Para usar tu PNG, reemplaza ese `<svg>` por:
-`<img class="logo" src="assets/logo/logo-registro.png" alt="registro">`
-La palabra "registro" del título del Portafolio es la clase `.wm` (busca `class="wm"`).
+## Logos
+Ya conectados a `assets/logo/`: `logo-registro.png` (hero y Home 1), `registro-sin-circulo.png` (título del Portafolio) y `circulo-escribenos.png` (botón de Servicios; la palabra "¡Escríbenos!" es texto vivo para que se traduzca).
+El hero lo muestra en blanco y Home 1 en negro mediante filtros CSS, así que sirve cualquier color de PNG. Si el "registro" del Portafolio queda más alto o bajo que "de nuestro trabajo", ajusta `--wm-shift` en `css/styles.css` (clase `.wm-img`).
 
 ## Dibujos de Contacto
 Reemplaza `assets/team/brenda.png`, `andre.png` y `abril.png` por tus PNG en alta calidad (fondo transparente, unos 1500 px de alto, mismo nombre). No hay que tocar código: el efecto wiggle se aplica solo.

@@ -313,3 +313,13 @@ main,.nav-group{transition:opacity .15s ease}
   .hero .logo text,.hero .tagline,.hero .explore{opacity:1;animation:none!important}
   .txt-in{transform:none!important}
 }
+
+/* ============ Logos en PNG (assets/logo/) ============ */
+/* brightness(0) vuelve negro cualquier color; con invert(1) queda blanco: sirve sin importar el color del PNG original */
+.logo-hero{filter:brightness(0) invert(1);clip-path:inset(0 100% 0 0)}
+.hero.go .logo-hero{animation:wipe 1.5s var(--ease-in-out) .15s forwards}
+@keyframes wipe{to{clip-path:inset(0 0 0 0)}}
+.logo-sm img{display:block;width:100%;height:auto;filter:brightness(0)}
+.wm-img{display:block;width:clamp(120px,10.8vw,230px);height:auto;position:relative;top:var(--wm-shift,.3em)}
+.cta .cta-ring{position:absolute;inset:0;width:100%;height:100%;filter:brightness(0)}
+@media (prefers-reduced-motion:reduce){.logo-hero{clip-path:none;animation:none!important}}
