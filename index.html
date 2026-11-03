@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Registro · Fotografía de bodas en Lima</title>
+<meta name="description" content="Registro: momentos interpretados por artistas. Fotografía y video de bodas.">
+<meta name="theme-color" content="#f3eee7">
+<meta property="og:title" content="Registro">
+<meta property="og:description" content="Momentos interpretados por artistas.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&family=Instrument+Serif:ital@0;1&display=swap">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<!-- Filtros "wiggle" para los dibujos -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <filter id="w1" x="-8%" y="-8%" width="116%" height="116%"><feTurbulence type="fractalNoise" baseFrequency="0.018" numOctaves="2" seed="1"/><feDisplacementMap in="SourceGraphic" scale="4"/></filter>
+  <filter id="w2" x="-8%" y="-8%" width="116%" height="116%"><feTurbulence type="fractalNoise" baseFrequency="0.018" numOctaves="2" seed="4"/><feDisplacementMap in="SourceGraphic" scale="4"/></filter>
+  <filter id="w3" x="-8%" y="-8%" width="116%" height="116%"><feTurbulence type="fractalNoise" baseFrequency="0.018" numOctaves="2" seed="7"/><feDisplacementMap in="SourceGraphic" scale="4"/></filter>
+</svg>
+
+<header class="nav" id="nav">
+  <a class="brand-sm" href="#home" aria-label="Registro">registro</a>
+  <nav class="nav-group" aria-label="Principal">
+    <a class="nl" href="#home" data-route="home" data-i18n="nav_home">Inicio</a>
+    <a class="nl" href="#portafolio" data-route="portafolio" data-i18n="nav_port">Portafolio</a>
+    <a class="nl" href="#video" data-route="video" data-i18n="nav_video">Video</a>
+  </nav>
+  <div class="right" style="display:flex;align-items:center">
+    <nav class="nav-group" aria-label="Secundaria">
+      <a class="nl" href="#nosotros" data-route="nosotros" data-i18n="nav_about">Nosotros</a>
+      <a class="nl" href="#servicios" data-route="servicios" data-i18n="nav_serv">Servicios</a>
+      <a class="nl" href="#contacto" data-route="contacto" data-i18n="nav_contact">Contacto</a>
+    </nav>
+    <button class="lang" id="lang" type="button" aria-label="Cambiar idioma / Change language"><span data-l="es" class="on">ES</span><span data-l="en">EN</span></button>
+    <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="sheet" data-i18n="menu">Menú</button>
+  </div>
+</header>
+
+<div class="sheet" id="sheet" aria-hidden="true">
+  <button class="sheet-close" id="sheetClose" type="button" data-i18n="close">Cerrar</button>
+  <a href="#home" data-route="home" data-i18n="nav_home">Inicio</a>
+  <a href="#portafolio" data-route="portafolio" data-i18n="nav_port">Portafolio</a>
+  <a href="#video" data-route="video" data-i18n="nav_video">Video</a>
+  <a href="#nosotros" data-route="nosotros" data-i18n="nav_about">Nosotros</a>
+  <a href="#servicios" data-route="servicios" data-i18n="nav_serv">Servicios</a>
+  <a href="#contacto" data-route="contacto" data-i18n="nav_contact">Contacto</a>
+</div>
+
+<nav class="dots" id="dots" hidden aria-label="Secciones"></nav>
+
+<main id="app">
+
+  <!-- ============ HOME ============ -->
+  <section class="page" data-page="home" data-snap hidden>
+    <div class="screen hero" data-screen>
+      <div class="ss" data-ss="hero" data-tone="night" data-nolabel></div>
+      <div class="scrim"></div>
+      <div class="hero-core">
+        <svg class="logo logo-hero" viewBox="0 0 500 236" role="img" aria-label="registro"><path class="ring" data-oval="500,236,3,.022" pathLength="1"/><text x="250" y="150" text-anchor="middle" font-size="108" textLength="400" lengthAdjust="spacingAndGlyphs">registro</text></svg>
+        <p class="tagline" data-i18n="tagline">Momentos interpretados<br>por <i>artistas</i>.</p>
+      </div>
+      <div class="explore-wrap"><a class="explore" href="#portafolio"><span data-i18n="explore">Explora nuestro trabajo.</span><span class="arr" aria-hidden="true">→</span></a></div>
+    </div>
+
+    <div class="screen split s1" data-screen data-overlap>
+      <div class="frame"><div class="ss" data-ss="home1" data-tone="clay"></div></div>
+      <div class="txt"><div class="txt-in">
+        <p data-i18n="h1a">Registrar es observar, elegir y guardar.<br>Lo hacemos entre artistas que se complementan, cada uno con su mirada, para interpretar un día especial con atención y cuidado.</p>
+        <p data-i18n="h1b">Para que quede como una pieza <i>atemporal</i>.</p>
+        <a class="explore" href="#portafolio"><span data-i18n="explore">Explora nuestro trabajo.</span><span class="arr" aria-hidden="true">→</span></a>
+      </div></div>
+      <a class="logo-sm" href="#home" aria-label="Registro"><svg class="logo" viewBox="0 0 500 236" aria-hidden="true"><path class="ring" data-oval="500,236,3,.022"/><text x="250" y="150" text-anchor="middle" font-size="108" textLength="400" lengthAdjust="spacingAndGlyphs">registro</text></svg></a>
+    </div>
+
+    <div class="screen split s2" data-screen data-overlap>
+      <div class="frame"><div class="ss" data-ss="home2" data-tone="sage"></div></div>
+      <div class="txt"><div class="txt-in">
+        <div class="pair">
+          <div class="row"><span data-i18n="made">HECHO</span><i data-i18n="by">POR</i></div>
+          <div class="spread" data-spread data-i18n="humans">HUMANOS.</div>
+        </div>
+        <div class="pair">
+          <div class="row"><span data-i18n="made">HECHO</span><i data-i18n="by">POR</i></div>
+          <div class="spread" data-spread data-i18n="artists">ARTISTAS.</div>
+        </div>
+      </div></div>
+      <div class="explore-wrap"><a class="explore" href="#portafolio"><span data-i18n="explore">Explora nuestro trabajo.</span><span class="arr" aria-hidden="true">→</span></a></div>
+    </div>
+  </section>
+
+  <!-- ============ PORTAFOLIO ============ -->
+  <section class="page" data-page="portafolio" hidden>
+    <div class="gal-head" data-reveal>
+      <!-- Reemplaza por assets/logo-sin-circulo.svg cuando lo tengas -->
+      <span class="wm">registro</span><span class="rest" data-i18n="gal_of">de <i>nuestro</i> trabajo</span>
+    </div>
+    <div class="grid" id="grid"></div>
+  </section>
+
+  <!-- ============ VIDEO ============ -->
+  <section class="page" data-page="video" hidden>
+    <div class="video"><div class="video-in">
+      <h1 data-reveal data-i18n="video_h">registro en movimiento</h1>
+      <div class="vframe" data-reveal style="--d:80ms"><div class="ss" data-ss="video" data-tone="dusk"></div></div>
+      <p data-reveal style="--d:140ms" data-i18n="video_p">Aquí irá el video de la marca.</p>
+    </div></div>
+  </section>
+
+  <!-- ============ NOSOTROS ============ -->
+  <section class="page" data-page="nosotros" data-snap hidden>
+    <div class="screen n1" data-screen>
+      <div class="portrait" data-reveal><div class="ss" data-ss="nosotros" data-tone="dusk"></div></div>
+      <div class="n1-text">
+        <h1 data-reveal style="--d:80ms" data-i18n="about_h">Sobre nosotros<br>y <i>nuestra</i> misión</h1>
+        <div class="body" data-reveal style="--d:160ms" data-i18n="about_p"></div>
+      </div>
+    </div>
+    <div class="screen n2" data-screen>
+      <div class="n2-text" data-reveal>
+        <p class="lead" data-i18n="about2_a">Cada imagen es una pieza preciada, elegida y editada con <i>sensibilidad</i>. Fotografías para vivirlas hoy. Imágenes para volver a ellas después.</p>
+        <p class="lead" data-i18n="about2_b">Hecho por <i>personas</i>. Hecho por <i>artistas</i>.</p>
+      </div>
+      <div class="polaroids">
+        <div class="pol" data-reveal style="--d:60ms"><div class="ss" data-ss="p1" data-tone="clay" data-single></div></div>
+        <div class="pol" data-reveal style="--d:160ms"><div class="ss" data-ss="p2" data-tone="sage" data-single></div></div>
+        <div class="pol" data-reveal style="--d:260ms"><div class="ss" data-ss="p3" data-tone="dusk" data-single></div></div>
+      </div>
+      <div class="quote-wrap" id="quotes" data-reveal style="--d:120ms"></div>
+      <div class="pager"><a href="#servicios"><span data-i18n="next_serv">Siguiente · Servicios</span><span class="arr" aria-hidden="true">→</span></a></div>
+    </div>
+  </section>
+
+  <!-- ============ SERVICIOS ============ -->
+  <section class="page" data-page="servicios" hidden>
+    <div class="screen plain" style="overflow:hidden">
+      <div class="sv-frame"><div class="ss" data-ss="servicios" data-tone="sand"></div></div>
+      <div class="sv">
+        <h1 data-reveal data-i18n="serv_h">Servicios</h1>
+        <div class="copy-body" data-reveal style="--d:80ms" data-i18n="serv_p"></div>
+        <a class="cta" href="#contacto" data-reveal style="--d:160ms">
+          <!-- Reemplaza el <svg> por <img src="assets/circulo-logo.png"> si prefieres el PNG -->
+          <svg viewBox="0 0 205 100" aria-hidden="true"><path class="ring" data-oval="205,100,11,.03" pathLength="1"/></svg>
+          <span data-i18n="cta">¡Escríbenos!</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CONTACTO ============ -->
+  <section class="page" data-page="contacto" data-snap hidden>
+    <div class="screen c1" data-screen>
+      <div class="c1-in">
+        <h1 data-reveal data-i18n="c_h">¡Conversemos!</h1>
+        <p class="sub" data-reveal style="--d:70ms" data-i18n="c_sub">Gracias por hacernos parte de tu celebración.</p>
+        <p class="p" data-reveal style="--d:130ms" data-i18n="c_p1">Queremos conocer su historia, saber qué están planeando y conversar sobre cómo podemos acompañarlos. Estaremos encantados de responderles.</p>
+        <p class="p" data-reveal style="--d:190ms" data-i18n="c_p2">Si lo prefieren, también podemos coordinar una videollamada para conocernos, resolver sus dudas y conversar con más calma sobre su celebración.</p>
+        <div class="links" data-reveal style="--d:250ms">
+          <div class="mail-row">
+            <a class="big" href="mailto:registro.album.pe@gmail.com" id="mail">registro.album.pe@gmail.com</a>
+            <button class="copy" id="copyMail" type="button" data-i18n="copy">Copiar</button>
+          </div>
+          <a class="big" href="https://instagram.com/registro.album" target="_blank" rel="noopener noreferrer">@registro.album</a>
+        </div>
+      </div>
+      <div class="pager"><a href="#contacto" data-down><span>↓</span></a></div>
+    </div>
+    <div class="screen c2" data-screen>
+      <div class="team" id="team">
+        <figure style="--d:0ms"><img alt="Brenda, fotógrafa" src="assets/team/brenda.png"></figure>
+        <figure style="--d:110ms"><img alt="André, editor" src="assets/team/andre.png"></figure>
+        <figure style="--d:220ms"><img alt="Abril, videógrafa" src="assets/team/abril.png"></figure>
+      </div>
+      <div class="pager"><a href="#home"><span data-i18n="next_home">Volver al inicio</span><span class="arr" aria-hidden="true">↑</span></a></div>
+    </div>
+  </section>
+</main>
+
+<!-- Lightbox -->
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Foto" aria-hidden="true">
+  <button class="lb-btn lb-close" id="lbClose" type="button" aria-label="Cerrar">×</button>
+  <button class="lb-btn lb-prev" id="lbPrev" type="button" aria-label="Anterior">←</button>
+  <button class="lb-btn lb-next" id="lbNext" type="button" aria-label="Siguiente">→</button>
+  <div class="lb-stage" id="lbStage"></div>
+  <div class="lb-count" id="lbCount"></div>
+</div>
+<div class="toast" id="toast" role="status"></div>
+<script src="js/content.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

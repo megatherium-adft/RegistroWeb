@@ -1,0 +1,5 @@
+Pon aquí tu logo (PNG transparente o SVG):
+- logo-registro.png  (óvalo + palabra)
+- registro-sin-circulo.svg  (solo la palabra, para el título del Portafolio)
+- circulo-escribenos.png  (óvalo para el botón de Servicios)
+Ver README.md para saber qué reemplazar en index.html.

@@ -1,0 +1,2 @@
+Pon aquí tus fotos (JPG o WebP, lado largo 2000 px, calidad 80-85).
+Luego agrégalas en js/content.js (SLIDES y GALLERY).
