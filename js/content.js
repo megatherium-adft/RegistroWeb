@@ -4,7 +4,7 @@
    Si un arreglo está vacío se muestran placeholders de color.
    ===================================================================== */
 const SLIDES = {
-  hero: ["assets/images/Home-cover-1.jpg","assets/images/Home-cover-2.jpg","assets/images/Home-cover-3.jpg","assets/images/Home-cover-4.jpg"],   // se mezclan al azar en cada visita
+  hero: ["assets/img/Home-cover-1.jpg","assets/img/Home-cover-2.jpg","assets/img/Home-cover-3.jpg","assets/img/Home-cover-4.jpg"],   // se mezclan al azar en cada visita
   home1: [], home2: [],
   nosotros: [],               // retratos 3:4 vertical
   p1: [], p2: [], p3: [],     // una foto cada uno (3:4)
