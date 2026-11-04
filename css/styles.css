@@ -111,9 +111,9 @@ main,.nav-group{transition:opacity .15s ease}
 .hero .logo text{opacity:0}
 .hero.go .logo text{animation:fadeUp .9s var(--ease-out) .9s forwards}
 .hero .tagline{opacity:0}
-.hero.go .tagline{animation:fadeUp 1s var(--ease-out) 1.25s forwards}
+.hero.go .tagline{animation:fadeUp 1s var(--ease-out) .35s forwards}
 .hero .explore{opacity:0}
-.hero.go .explore{animation:fadeUp 1s var(--ease-out) 1.7s forwards}
+.hero.go .explore{animation:fadeUp 1s var(--ease-out) .8s forwards}
 @keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 .tagline{font-family:var(--text);font-size:clamp(19px,1.9vw,38px);line-height:1.12;text-align:left;margin:0;text-wrap:balance}
 .explore{
@@ -131,18 +131,18 @@ main,.nav-group{transition:opacity .15s ease}
 .split .txt{position:absolute;inset:0;pointer-events:none;color:var(--ink);z-index:2}
 .txt-in{position:absolute;will-change:transform}
 .txt-in a{pointer-events:auto}
-.s1 .txt-in{left:7.9%;top:19.2%;width:58%;font-family:var(--display);font-size:clamp(26px,4.25vw,92px);line-height:1.07;letter-spacing:-.022em}
+.s1 .txt-in{left:7.9%;top:19.2%;width:58%;font-family:var(--display);font-size:clamp(26px,calc(var(--u)*4.25),92px);line-height:1.07;letter-spacing:-.022em}
 .s1 .txt-in p{margin:0 0 .9em}
 .s1 .txt-in p:last-of-type{margin:0}
-.s1 .txt-in .explore{margin-top:3.4vw;font-size:clamp(16px,1.4vw,28px);letter-spacing:0;line-height:1.3}
+.s1 .txt-in .explore{margin-top:calc(var(--u)*3.4);font-size:clamp(16px,calc(var(--u)*1.4),28px);letter-spacing:0;line-height:1.3}
 .s2{--fl:28.2%;--fr:28.2%}
-.s2 .txt-in{left:26.2%;right:26.7%;top:7%;bottom:7.4%;display:flex;flex-direction:column;justify-content:space-between;font-family:var(--display);font-size:clamp(40px,7.85vw,170px);line-height:1;text-transform:uppercase}
+.s2 .txt-in{left:26.2%;right:26.7%;top:7%;bottom:7.4%;display:flex;flex-direction:column;justify-content:space-between;font-family:var(--display);font-size:clamp(40px,calc(var(--u)*7.85),170px);line-height:1;text-transform:uppercase}
 .s2 .pair{display:flex;flex-direction:column;gap:.14em}
 .s2 .row{display:flex;justify-content:space-between;align-items:baseline}
 .s2 .spread{display:flex;justify-content:space-between}
 .s2 .spread span{display:block}
 .s2 .explore-wrap{position:absolute;z-index:4;left:0;right:0;bottom:3.2%;display:flex;justify-content:center}
-.s2 .explore{font-size:clamp(17px,1.4vw,28px)}
+.s2 .explore{font-size:clamp(17px,calc(var(--u)*1.4),28px)}
 .logo-sm{position:absolute;z-index:4;left:42.9%;bottom:4.4%;width:13.6%}
 .logo-sm .logo{width:100%;height:auto}
 .logo-sm .logo .ring{stroke-width:11}
@@ -199,19 +199,19 @@ main,.nav-group{transition:opacity .15s ease}
 .n1 .body p{margin:0 0 .95em}.n1 .body p:last-child{margin:0}
 .n1 .wm{font-size:1.25em}
 .n2{position:relative}
-.n2-text{position:absolute;left:13.5%;top:25.6%;width:33%;font-size:clamp(15px,1.3vw,27px);line-height:1.2}
+.n2-text{position:absolute;left:13.5%;top:25.6%;width:33%;font-size:clamp(15px,calc(var(--u)*1.3),27px);line-height:1.2}
 .n2 .lead{margin:0}
 .n2 .lead+.lead{margin-top:1.2em}
 .polaroids{display:contents}
-.pol{position:absolute;width:16.8%;aspect-ratio:3/4;overflow:hidden;background:#333;rotate:var(--rot,0deg);transition:opacity .9s var(--ease-out),transform .9s var(--ease-out),scale .6s var(--ease-out);box-shadow:0 18px 40px -26px rgba(30,20,10,.45)}
+.pol{position:absolute;width:calc(var(--u)*16.8);aspect-ratio:3/4;overflow:hidden;background:#333;rotate:var(--rot,0deg);transition:opacity .9s var(--ease-out),transform .9s var(--ease-out),scale .6s var(--ease-out);box-shadow:0 18px 40px -26px rgba(30,20,10,.45)}
 .pol:nth-child(1){left:37.2%;top:31.6%;--rot:-.7deg}
 .pol:nth-child(2){left:57.05%;top:30.9%;--rot:.7deg}
 .pol:nth-child(3){left:76.6%;top:30.1%;--rot:.8deg}
 @media (hover:hover) and (pointer:fine){.pol:hover{scale:1.015}}
 .quote-wrap{position:absolute;left:13.75%;top:77.5%;width:29.5%;display:grid}
-.quote{margin:0;font-family:var(--display);font-style:italic;text-transform:uppercase;font-size:clamp(14px,1.2vw,25px);line-height:1.12;text-align:justify;text-align-last:left}
+.quote{margin:0;font-family:var(--display);font-style:italic;text-transform:uppercase;font-size:clamp(14px,calc(var(--u)*1.2),25px);line-height:1.12;text-align:justify;text-align-last:left}
 .quote q{quotes:"“" "”"}
-.quote-by{margin-top:.9em;text-align:center;font-size:clamp(14px,1.1vw,23px)}
+.quote-by{margin-top:.9em;text-align:center;font-size:clamp(14px,calc(var(--u)*1.1),23px)}
 .quote-item{grid-area:1/1;opacity:0;transition:opacity .8s ease}
 .quote-item.on{opacity:1}
 .pager{position:absolute;right:max(16px,var(--gutter));bottom:calc(4svh + env(safe-area-inset-bottom,0px));font-size:clamp(14px,1.05vw,20px);z-index:4}
@@ -316,20 +316,12 @@ main,.nav-group{transition:opacity .15s ease}
 
 /* ============ Logos en PNG (assets/logo/) ============ */
 /* brightness(0) vuelve negro cualquier color; con invert(1) queda blanco: sirve sin importar el color del PNG original */
-/* Logo del hero: el SVG se inserta en la página para poder animarlo */
-.logo-hero img{visibility:hidden}
-.logo-hero.fallback img{visibility:visible}
-.logo-hero img,.logo-hero svg{display:block;width:100%;height:auto}
-.logo-hero svg{overflow:visible}
-.logo-hero .draw{stroke-dasharray:1;stroke-dashoffset:1}
-.hero.go .logo-hero .draw{animation:draw 1.5s var(--ease-in-out) .15s forwards}
-.logo-hero .fill-in{opacity:0}
-.hero.go .logo-hero .fill-in{animation:fadeIn .9s ease .9s forwards}
-@keyframes fadeIn{to{opacity:1}}
-.logo-hero.wipe svg{clip-path:inset(0 100% 0 0)}
-.hero.go .logo-hero.wipe svg{animation:wipe 1.5s var(--ease-in-out) .15s forwards}
-@keyframes wipe{to{clip-path:inset(0 0 0 0)}}
+/* Logo del hero: imagen estática */
+.logo-hero{display:block}
 .logo-sm img{display:block;width:100%;height:auto;filter:brightness(0)}
 .wm-img{display:block;width:clamp(120px,10.8vw,230px);height:auto;position:relative;top:var(--wm-shift,.3em)}
 .cta .cta-ring{position:absolute;inset:0;width:100%;height:100%;filter:brightness(0)}
-@media (prefers-reduced-motion:reduce){.logo-hero .draw{stroke-dashoffset:0;animation:none!important}.logo-hero .fill-in{opacity:1;animation:none!important}.logo-hero.wipe svg{clip-path:none;animation:none!important}}
+
+/* Escala de diseño: el texto se ajusta al ancho o al alto de la ventana, lo que sea menor (evita choques en pantallas anchas y bajas) */
+:root{--u:min(1vw,1.6svh)}
+.nb{white-space:nowrap}
