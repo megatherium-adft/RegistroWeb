@@ -21,7 +21,7 @@ es:{nav_home:"Inicio",nav_port:"Portafolio",nav_video:"Video",nav_about:"Nosotro
  about2_a:"Cada imagen es una pieza preciada, elegida y editada con <i>sensibilidad</i>. Fotografías para vivirlas hoy. Imágenes para volver a ellas después.",about2_b:"Hecho por <i>personas</i>. Hecho por <i>artistas</i>.",
  next_serv:"Siguiente · Servicios",next_home:"Volver al inicio",
  serv_h:"Servicios",
- serv_p:"<p>Nuestros <u>Fotogramas</u> (o <i>experiencias fotográficas</i>) comienzan desde S/ 5,500.</p><p>Lo que se construye aquí es algo que va a existir mucho <i>después</i> de la fiesta. Fotografías que los transportan otra vez a la luz de esa tarde, a la risa, al abrazo.</p><p>Por eso cada propuesta se arma a medida, a partir de una <i>conversación</i> sobre cómo imaginan su boda y qué les gustaría tener entre las manos cuando pase el <i>tiempo</i>. Si esto se parece a lo que buscan, escríbannos. Lo demás lo vamos armando <u>juntos</u>.</p>",
+ serv_p:"<p>Nuestros <u>Fotogramas</u> (o <i>experiencias fotográficas</i>) comienzan <span class='nb'>desde S/&nbsp;5,500.</span></p><p>Lo que se construye aquí es algo que va a existir mucho <i>después</i> de la fiesta. Fotografías que los transportan otra vez a la luz de esa tarde, a la risa, al abrazo.</p><p>Por eso cada propuesta se arma a medida, a partir de una <i>conversación</i> sobre cómo imaginan su boda y qué les gustaría tener entre las manos cuando pase el <i>tiempo</i>. Si esto se parece a lo que buscan, escríbannos. Lo demás lo vamos armando <u>juntos</u>.</p>",
  cta:"¡Escríbenos!",
  c_h:"¡Conversemos!",c_sub:"Gracias por hacernos parte de tu celebración.",
  c_p1:"Queremos conocer su historia, saber qué están planeando y conversar sobre cómo podemos acompañarlos. Estaremos encantados de responderles.",
@@ -37,7 +37,7 @@ en:{nav_home:"Home",nav_port:"Portfolio",nav_video:"Video",nav_about:"About",nav
  about2_a:"Every image is a treasured piece, chosen and edited with <i>sensitivity</i>. Photographs to live today. Images to return to later.",about2_b:"Made by <i>people</i>. Made by <i>artists</i>.",
  next_serv:"Next · Services",next_home:"Back to start",
  serv_h:"Services",
- serv_p:"<p>Our <u>Fotogramas</u> (or <i>photographic experiences</i>) start at S/ 5,500.</p><p>What we build here will exist long <i>after</i> the party. Photographs that carry you back to the light of that afternoon, to the laughter, to the embrace.</p><p>That is why every proposal is tailored, starting from a <i>conversation</i> about how you imagine your wedding and what you would like to hold in your hands as <i>time</i> goes by. If this sounds like what you are looking for, write to us. The rest we build <u>together</u>.</p>",
+ serv_p:"<p>Our <u>Fotogramas</u> (or <i>photographic experiences</i>) start at <span class='nb'>S/&nbsp;5,500.</span></p><p>What we build here will exist long <i>after</i> the party. Photographs that carry you back to the light of that afternoon, to the laughter, to the embrace.</p><p>That is why every proposal is tailored, starting from a <i>conversation</i> about how you imagine your wedding and what you would like to hold in your hands as <i>time</i> goes by. If this sounds like what you are looking for, write to us. The rest we build <u>together</u>.</p>",
  cta:"Write to us!",
  c_h:"Let’s talk!",c_sub:"Thank you for letting us be part of your celebration.",
  c_p1:"We would love to hear your story, know what you are planning and talk about how we can accompany you. We will be happy to answer.",
@@ -275,30 +275,7 @@ function buildDots(page){
 $$('[data-down]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();const n=a.closest('.screen').nextElementSibling;if(n)n.scrollIntoView({behavior:reduce?'auto':'smooth'})}));
 addEventListener('hashchange',route);
 
-/* Logo animado del hero: se carga el SVG y se inserta en la página */
-async function inlineHeroLogo(){
-  const box=$('#heroLogo'); const img=box&&$('img',box); if(!img) return;
-  try{
-    const res=await fetch(img.getAttribute('src')); if(!res.ok) throw new Error('svg');
-    const doc=new DOMParser().parseFromString(await res.text(),'image/svg+xml');
-    const src=doc.documentElement; if(src.nodeName.toLowerCase()!=='svg'||doc.querySelector('parsererror')) throw new Error('svg');
-    $$('script,foreignObject',src).forEach(n=>n.remove());
-    if(!src.getAttribute('viewBox')){const w=parseFloat(src.getAttribute('width')),h=parseFloat(src.getAttribute('height')); if(w&&h) src.setAttribute('viewBox','0 0 '+w+' '+h);}
-    src.removeAttribute('width'); src.removeAttribute('height'); src.setAttribute('aria-hidden','true'); src.setAttribute('focusable','false');
-    const svg=document.importNode(src,true); box.replaceChildren(svg);
-    let draws=0;
-    $$('path,ellipse,circle,rect,line,polyline,polygon,text',svg).forEach(el=>{
-      const cs=getComputedStyle(el);
-      const stroked=cs.stroke!=='none'&&parseFloat(cs.strokeWidth)>0;
-      const filled=cs.fill!=='none'&&cs.fill!=='rgba(0, 0, 0, 0)'&&cs.fillOpacity!=='0';
-      if(stroked){ el.setAttribute('pathLength','1'); el.classList.add('draw'); draws++; }
-      if(filled||!stroked) el.classList.add('fill-in');
-    });
-    /* Si el SVG no tiene trazos (todo son formas rellenas), se revela con un barrido */
-    if(!draws){ box.classList.add('wipe'); $$('.fill-in',svg).forEach(n=>n.classList.remove('fill-in')); }
-  }catch(e){ box.classList.add('fallback'); }
-}
-inlineHeroLogo();
+
 
 applyLang();
 route();
