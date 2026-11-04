@@ -80,24 +80,42 @@ $$('[data-oval]').forEach(p=>{const [w,h,s,a]=p.dataset.oval.split(',').map(Numb
 
 /* ===================== Slideshows ===================== */
 const ssList=[];
+/* Fisher-Yates: orden aleatorio distinto en cada visita */
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
 function buildSS(el){
-  const key=el.dataset.ss, list=SLIDES[key]||[], tones=TONES[el.dataset.tone||'clay'];
+  const key=el.dataset.ss, tones=TONES[el.dataset.tone||'clay'];
+  const list=(SLIDES[key]||[]).slice();
+  if(el.hasAttribute('data-shuffle')) shuffle(list);
+  if(el.dataset.fade) el.style.setProperty('--fade',el.dataset.fade+'ms');
+  if(el.dataset.zoom) el.style.setProperty('--zoom',el.dataset.zoom+'ms');
   const single=el.hasAttribute('data-single');
   const n=list.length||(single?1:tones.length);
+  let st=null; const shuf=el.hasAttribute('data-shuffle');
   for(let i=0;i<n;i++){
     let s;
-    if(list[i]){ s=document.createElement('img'); s.src=list[i]; s.alt=''; s.draggable=false; s.decoding='async'; }
+    if(list[i]){ s=document.createElement('img'); s.src=list[i]; s.alt=''; s.draggable=false; s.decoding='async';
+      /* si una imagen no existe, se saca de la rotación en vez de dejar un marco vacío */
+      s.addEventListener('error',()=>{ if(!st||st.slides.length<2) return; const k=st.slides.indexOf(s); if(k<0) return; st.slides.splice(k,1); s.remove(); if(st.i>=st.slides.length) st.i=0; st.slides[st.i].classList.add('on'); }); }
     else { s=document.createElement('div'); s.className='ph'; const t=tones[i%tones.length]; s.style.cssText=`--a:${t[0]};--b:${t[1]};--c:${t[2]}`; }
     s.classList.add('slide'); el.append(s);
   }
   const sh=document.createElement('div'); sh.className='shield'; el.append(sh);
   if(!list.length && !el.hasAttribute('data-nolabel')){const l=document.createElement('span');l.className='ph-label';el.append(l);}
-  const st={el,i:0,slides:$$('.slide',el),vis:false,timer:null};
+  st={el,i:0,slides:$$('.slide',el),vis:false,timer:null};
   st.slides[0].classList.add('on');
   ssList.push(st);
   if(st.slides.length>1){
-    const delay=4800+Math.round(Math.random()*900);
-    st.timer=setInterval(()=>{ if(!st.vis||document.hidden) return; st.slides[st.i].classList.remove('on'); st.i=(st.i+1)%st.slides.length; st.slides[st.i].classList.add('on'); },delay);
+    const delay=+el.dataset.interval||(4800+Math.round(Math.random()*900));
+    st.timer=setInterval(()=>{
+      if(!st.vis||document.hidden||st.slides.length<2) return;
+      st.slides[st.i].classList.remove('on'); st.i++;
+      if(st.i>=st.slides.length){            /* terminó la vuelta: nuevo orden al azar, sin repetir la última foto como primera */
+        st.i=0;
+        if(shuf){ const last=st.slides[st.slides.length-1]; shuffle(st.slides);
+          if(st.slides[0]===last){ const j=1+Math.floor(Math.random()*(st.slides.length-1)); [st.slides[0],st.slides[j]]=[st.slides[j],st.slides[0]]; } }
+      }
+      st.slides[st.i].classList.add('on');
+    },delay);
   }
 }
 $$('.ss').forEach(buildSS);
@@ -256,6 +274,31 @@ function buildDots(page){
 }
 $$('[data-down]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();const n=a.closest('.screen').nextElementSibling;if(n)n.scrollIntoView({behavior:reduce?'auto':'smooth'})}));
 addEventListener('hashchange',route);
+
+/* Logo animado del hero: se carga el SVG y se inserta en la página */
+async function inlineHeroLogo(){
+  const box=$('#heroLogo'); const img=box&&$('img',box); if(!img) return;
+  try{
+    const res=await fetch(img.getAttribute('src')); if(!res.ok) throw new Error('svg');
+    const doc=new DOMParser().parseFromString(await res.text(),'image/svg+xml');
+    const src=doc.documentElement; if(src.nodeName.toLowerCase()!=='svg'||doc.querySelector('parsererror')) throw new Error('svg');
+    $$('script,foreignObject',src).forEach(n=>n.remove());
+    if(!src.getAttribute('viewBox')){const w=parseFloat(src.getAttribute('width')),h=parseFloat(src.getAttribute('height')); if(w&&h) src.setAttribute('viewBox','0 0 '+w+' '+h);}
+    src.removeAttribute('width'); src.removeAttribute('height'); src.setAttribute('aria-hidden','true'); src.setAttribute('focusable','false');
+    const svg=document.importNode(src,true); box.replaceChildren(svg);
+    let draws=0;
+    $$('path,ellipse,circle,rect,line,polyline,polygon,text',svg).forEach(el=>{
+      const cs=getComputedStyle(el);
+      const stroked=cs.stroke!=='none'&&parseFloat(cs.strokeWidth)>0;
+      const filled=cs.fill!=='none'&&cs.fill!=='rgba(0, 0, 0, 0)'&&cs.fillOpacity!=='0';
+      if(stroked){ el.setAttribute('pathLength','1'); el.classList.add('draw'); draws++; }
+      if(filled||!stroked) el.classList.add('fill-in');
+    });
+    /* Si el SVG no tiene trazos (todo son formas rellenas), se revela con un barrido */
+    if(!draws){ box.classList.add('wipe'); $$('.fill-in',svg).forEach(n=>n.classList.remove('fill-in')); }
+  }catch(e){ box.classList.add('fallback'); }
+}
+inlineHeroLogo();
 
 applyLang();
 route();

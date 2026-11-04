@@ -18,23 +18,26 @@ Sitio estático (HTML + CSS + JS, sin build). Funciona en GitHub + Cloudflare Pa
 ## Agregar fotos (js/content.js)
 ```js
 const SLIDES = {
-  hero:  ["assets/img/hero-1.jpg", "assets/img/hero-2.jpg"],
-  home1: ["assets/img/home1-1.jpg"],
-  home2: ["assets/img/home2-1.jpg"],
-  nosotros: ["assets/img/retrato-1.jpg"],   // verticales 3:4
-  p1: ["assets/img/n2-a.jpg"], p2: ["assets/img/n2-b.jpg"], p3: ["assets/img/n2-c.jpg"],
-  servicios: ["assets/img/serv-1.jpg"], video: []
+  hero:  ["assets/images/Home-cover-1.jpg", "assets/images/Home-cover-2.jpg", "assets/images/Home-cover-3.jpg", "assets/images/Home-cover-4.jpg"],  // ya conectado; se mezcla al azar
+  home1: ["assets/images/home1-1.jpg"],
+  home2: ["assets/images/home2-1.jpg"],
+  nosotros: ["assets/images/retrato-1.jpg"],   // verticales 3:4
+  p1: ["assets/images/n2-a.jpg"], p2: ["assets/images/n2-b.jpg"], p3: ["assets/images/n2-c.jpg"],
+  servicios: ["assets/images/serv-1.jpg"], video: []
 };
-const GALLERY = [ {src:"assets/img/g-01.jpg", alt:"Boda Darinka y Rudy"} ];
+const GALLERY = [ {src:"assets/images/g-01.jpg", alt:"Boda Darinka y Rudy"} ];
 ```
-Los arreglos vacíos muestran placeholders. La galería respeta la proporción original de cada foto.
+Los arreglos vacíos muestran placeholders. El slideshow del hero cambia de foto cada 6,5 s con fundido de 1,6 s y se mezcla al azar en cada visita y en cada vuelta. Los nombres respetan mayúsculas y minúsculas (Cloudflare las distingue). Para mezclar otro slideshow, agrega `data-shuffle` a su `<div class="ss">` en `index.html`. La galería respeta la proporción original de cada foto.
 
 ## Logos
-Ya conectados a `assets/logo/`: `logo-registro.png` (hero y Home 1), `registro-sin-circulo.png` (título del Portafolio) y `circulo-escribenos.png` (botón de Servicios; la palabra "¡Escríbenos!" es texto vivo para que se traduzca).
-El hero lo muestra en blanco y Home 1 en negro mediante filtros CSS, así que sirve cualquier color de PNG. Si el "registro" del Portafolio queda más alto o bajo que "de nuestro trabajo", ajusta `--wm-shift` en `css/styles.css` (clase `.wm-img`).
+Ya conectados a `assets/logo/`: `logo-registro-blanco.svg` (hero, animado: el óvalo se dibuja si es un trazo; si son formas rellenas se revela con un barrido), `logo-registro.png` (Home 1, en negro), `registro-sin-circulo.png` (título del Portafolio) y `circulo-escribenos.png` (botón de Servicios; la palabra "¡Escríbenos!" es texto vivo para que se traduzca).
+Home 1 muestra el PNG en negro mediante un filtro CSS, así que sirve cualquier color. Si el "registro" del Portafolio queda más alto o bajo que "de nuestro trabajo", ajusta `--wm-shift` en `css/styles.css` (clase `.wm-img`).
 
 ## Dibujos de Contacto
 Reemplaza `assets/team/brenda.png`, `andre.png` y `abril.png` por tus PNG en alta calidad (fondo transparente, unos 1500 px de alto, mismo nombre). No hay que tocar código: el efecto wiggle se aplica solo.
 
 ## Protección
 Bloquea clic derecho, arrastrar, selección, copiar, Ctrl+S/U/P e impresión. Un screenshot no se puede impedir. Sube las fotos a 2000 px como máximo.
+
+## Slideshow del hero
+`assets/images/Home-cover-1.jpg` a `Home-cover-4.jpg` (configurado en `js/content.js`). El orden se mezcla al azar en cada visita; cada foto dura 6,5 s con fundido de 1,6 s. Los tiempos están en `index.html` (`data-interval`, `data-fade`, `data-zoom`). Los nombres distinguen mayúsculas y minúsculas en Cloudflare.
