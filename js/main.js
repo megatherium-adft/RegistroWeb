@@ -108,6 +108,7 @@ function buildSS(el){
     const delay=+el.dataset.interval||(4800+Math.round(Math.random()*900));
     st.timer=setInterval(()=>{
       if(!st.vis||document.hidden||st.slides.length<2) return;
+      { const nx=st.slides[(st.i+1)%st.slides.length]; if(el.hasAttribute('data-cut')&&nx.tagName==='IMG'&&!nx.complete) return; }  /* en corte directo, espera a que la siguiente foto esté cargada para no mostrar un marco vacío */
       st.slides[st.i].classList.remove('on'); st.i++;
       if(st.i>=st.slides.length){            /* terminó la vuelta: nuevo orden al azar, sin repetir la última foto como primera */
         st.i=0;
@@ -123,7 +124,8 @@ function buildSS(el){
   const src=(SLIDES.retratos||[])[0]; const pols=$('.polaroids'); if(!src||!pols) return;
   const im=new Image(); im.alt=''; im.draggable=false;
   im.onload=()=>{
-    const wrap=document.createElement('div'); wrap.className='retratos-wrap'; wrap.setAttribute('data-reveal','');
+    const r=im.naturalWidth/im.naturalHeight;   /* ~1.6 = lienzo completo 2000x1250 · ~2.4 = grupo recortado · otro = se ajusta dentro de la zona */
+    const wrap=document.createElement('div'); wrap.className='retratos-wrap'+(r>=1.45&&r<=1.8?' full':(r>=2&&r<=2.9?'':' fit')); wrap.setAttribute('data-reveal','');
     const sh=document.createElement('div'); sh.className='shield'; wrap.append(im,sh); pols.replaceWith(wrap); revIO.observe(wrap);
   };
   im.src=src;
