@@ -341,3 +341,16 @@ main,.nav-group{transition:opacity .15s ease}
 
 /* Solo fundido, sin zoom: data-nozoom en index.html */
 .ss[data-nozoom] .slide{transform:none;transition:opacity var(--fade,1.4s) ease}
+
+/* Nosotros 2: la imagen compuesta calza con el diseño (zona de los 3 marcos: x 37.2%-93.6%, y 30%-67% del lienzo 2000x1250) */
+.retratos-wrap{position:absolute;left:37.2%;right:auto;top:30.1%;width:calc(var(--u)*56.4);z-index:1}
+.retratos-wrap img{display:block;width:100%;height:auto}
+.retratos-wrap.full{left:0;top:0;width:100%;height:100%;pointer-events:none}
+.retratos-wrap.full img{width:100%;height:100%;object-fit:cover;object-position:center}
+.retratos-wrap.fit{height:calc(var(--u)*23.3)}
+.retratos-wrap.fit img{height:100%;object-fit:contain}
+.n2-text,.quote-wrap,.n2 .pager{z-index:2}
+@media (max-width:860px){
+  .retratos-wrap,.retratos-wrap.full,.retratos-wrap.fit{position:relative;left:auto;top:auto;width:100%;height:auto}
+  .retratos-wrap.full img,.retratos-wrap.fit img{height:auto;object-fit:contain}
+}
