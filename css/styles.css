@@ -354,3 +354,21 @@ main,.nav-group{transition:opacity .15s ease}
   .retratos-wrap,.retratos-wrap.full,.retratos-wrap.fit{position:relative;left:auto;top:auto;width:100%;height:auto}
   .retratos-wrap.full img,.retratos-wrap.fit img{height:auto;object-fit:contain}
 }
+
+/* Video: título con el logo "registro" (sin óvalo), igual que el Portafolio */
+.vhead{margin:0;font-weight:400;display:flex;justify-content:center;align-items:baseline;gap:.3em;flex-wrap:wrap;font-size:clamp(26px,2.9vw,56px);line-height:1.1;text-align:center}
+.vhead .rest{font-family:var(--text)}
+
+/* Contacto: texto más pequeño y más sobrio */
+.c1-in{gap:clamp(12px,1.25vw,24px);max-width:min(100%,760px)}
+.c1 h1{font-size:clamp(28px,2.4vw,48px);line-height:1.1}
+.c1 .sub{font-size:clamp(17px,1.45vw,29px);line-height:1.25}
+.c1 .p{font-size:clamp(14px,1.02vw,20px);line-height:1.45;max-width:36em}
+.c1 .links{margin-top:clamp(14px,1.6vw,30px);gap:4px}
+.c1 .links a.big{font-size:clamp(17px,1.55vw,30px)}
+@media (max-width:860px){
+  .c1 h1{font-size:30px}
+  .c1 .sub{font-size:18px}
+  .c1 .p{font-size:15px}
+  .c1 .links a.big{font-size:18px}
+}
