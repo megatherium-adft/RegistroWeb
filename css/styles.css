@@ -335,3 +335,6 @@ main,.nav-group{transition:opacity .15s ease}
 .retratos-wrap img{display:block;width:100%;height:auto}
 .retratos-wrap .shield{position:absolute;inset:0;z-index:3}
 @media (max-width:860px){.retratos-wrap{position:relative;right:auto;top:auto;width:100%}}
+
+/* Slideshows de corte directo (sin fundido ni zoom): data-cut en index.html */
+.ss[data-cut] .slide{transition:none;transform:none}
