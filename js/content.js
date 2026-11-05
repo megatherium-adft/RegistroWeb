@@ -14,7 +14,9 @@ const SLIDES = {
   /* Nosotros, 2.ª pantalla: UNA sola imagen PNG con las 3 fotos ya compuestas (tamaño final) */
   retratos: ["assets/img/Retratos-Nosotros-2.png"],
   p1: [], p2: [], p3: [],     // solo se usan si "retratos" está vacío o no carga (3 fotos 3:4 sueltas)
-  servicios: [], video: []
+  /* Servicios (se mezclan al azar). OJO: 1 a 7 son .JPG, la 8 es .jpg y la 9 es .JPG */
+  servicios: ["assets/img/Servicios-1.JPG","assets/img/Servicios-2.JPG","assets/img/Servicios-3.JPG","assets/img/Servicios-4.JPG","assets/img/Servicios-5.JPG","assets/img/Servicios-6.JPG","assets/img/Servicios-7.JPG","assets/img/Servicios-8.jpg","assets/img/Servicios-9.JPG"],
+  video: []
 };
 const GALLERY = [];           // [{src:"img/foto-01.jpg", alt:"Boda Darinka y Rudy"}]  → respeta proporción nativa
 const QUOTES = [ {es:"Tradujeron con exactitud lo que buscábamos comunicar. Las sombras, los gestos, el movimiento. Gracias, chicos, por este registro tan pro y tan sentido.", en:"They translated exactly what we wanted to communicate. The shadows, the gestures, the movement. Thank you, guys, for this record so pro and so heartfelt.", by:"Darinka & Rudy"} ];
