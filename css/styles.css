@@ -325,3 +325,13 @@ main,.nav-group{transition:opacity .15s ease}
 /* Escala de diseño: el texto se ajusta al ancho o al alto de la ventana, lo que sea menor (evita choques en pantallas anchas y bajas) */
 :root{--u:min(1vw,1.6svh)}
 .nb{white-space:nowrap}
+
+/* Las capas internas del slideshow no deben tapar enlaces de la pantalla (arregla "Explora nuestro trabajo" del hero) */
+.ss{isolation:isolate}
+/* Cita de Nosotros 2: texto centrado */
+.quote{text-align:center;text-align-last:center}
+/* Nosotros 2: imagen compuesta con las 3 fotos (tamaño final) */
+.retratos-wrap{position:absolute;right:6.4%;top:30%;width:calc(var(--u)*56.4)}
+.retratos-wrap img{display:block;width:100%;height:auto}
+.retratos-wrap .shield{position:absolute;inset:0;z-index:3}
+@media (max-width:860px){.retratos-wrap{position:relative;right:auto;top:auto;width:100%}}
