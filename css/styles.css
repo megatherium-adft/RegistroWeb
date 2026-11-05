@@ -338,3 +338,6 @@ main,.nav-group{transition:opacity .15s ease}
 
 /* Slideshows de corte directo (sin fundido ni zoom): data-cut en index.html */
 .ss[data-cut] .slide{transition:none;transform:none}
+
+/* Solo fundido, sin zoom: data-nozoom en index.html */
+.ss[data-nozoom] .slide{transform:none;transition:opacity var(--fade,1.4s) ease}
