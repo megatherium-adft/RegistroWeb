@@ -5,9 +5,15 @@
    ===================================================================== */
 const SLIDES = {
   hero: ["assets/img/Home-cover-1.jpg","assets/img/Home-cover-2.jpg","assets/img/Home-cover-3.jpg","assets/img/Home-cover-4.jpg"],   // se mezclan al azar en cada visita
-  home1: [], home2: [],
-  nosotros: [],               // retratos 3:4 vertical
-  p1: [], p2: [], p3: [],     // una foto cada uno (3:4)
+  /* Home, 2.ª pantalla (se mezclan al azar). OJO: la primera es .jpg y las demás .JPG */
+  home1: ["assets/img/Home-Page2-1.jpg","assets/img/Home-Page2-2.JPG","assets/img/Home-Page2-3.JPG","assets/img/Home-Page2-4.JPG","assets/img/Home-Page2-5.JPG","assets/img/Home-Page2-6.JPG","assets/img/Home-Page2-7.JPG","assets/img/Home-Page2-8.JPG","assets/img/Home-Page2-9.JPG"],
+  /* Home, 3.ª pantalla (en este orden). OJO: la 5 es .jpg, el resto .JPG */
+  home2: ["assets/img/Home-Page3-1.JPG","assets/img/Home-Page3-2.JPG","assets/img/Home-Page3-3.JPG","assets/img/Home-Page3-4.JPG","assets/img/Home-Page3-5.jpg","assets/img/Home-Page3-6.JPG","assets/img/Home-Page3-7.JPG","assets/img/Home-Page3-8.JPG","assets/img/Home-Page3-9.JPG"],
+  /* Nosotros, 1.er slideshow (se mezclan al azar) */
+  nosotros: ["assets/img/RegistroGrupalesLogo-1.jpg","assets/img/RegistroGrupalesLogo-2.jpg"],
+  /* Nosotros, 2.ª pantalla: UNA sola imagen PNG con las 3 fotos ya compuestas (tamaño final) */
+  retratos: ["assets/img/Retratos-Nosotros-2.png"],
+  p1: [], p2: [], p3: [],     // solo se usan si "retratos" está vacío o no carga (3 fotos 3:4 sueltas)
   servicios: [], video: []
 };
 const GALLERY = [];           // [{src:"img/foto-01.jpg", alt:"Boda Darinka y Rudy"}]  → respeta proporción nativa
