@@ -93,7 +93,7 @@ function buildSS(el){
   let st=null; const shuf=el.hasAttribute('data-shuffle');
   for(let i=0;i<n;i++){
     let s;
-    if(list[i]){ s=document.createElement('img'); s.src=list[i]; s.alt=''; s.draggable=false; s.decoding='async';
+    if(list[i]){ s=document.createElement('img'); s.loading=(key==='hero'&&i===0)?'eager':'lazy'; s.src=list[i]; s.alt=''; s.draggable=false; s.decoding='async';
       /* si una imagen no existe, se saca de la rotación en vez de dejar un marco vacío */
       s.addEventListener('error',()=>{ if(!st||st.slides.length<2) return; const k=st.slides.indexOf(s); if(k<0) return; st.slides.splice(k,1); s.remove(); if(st.i>=st.slides.length) st.i=0; st.slides[st.i].classList.add('on'); }); }
     else { s=document.createElement('div'); s.className='ph'; const t=tones[i%tones.length]; s.style.cssText=`--a:${t[0]};--b:${t[1]};--c:${t[2]}`; }
@@ -118,6 +118,16 @@ function buildSS(el){
     },delay);
   }
 }
+/* Nosotros, 2.ª pantalla: si existe la imagen compuesta (PNG con las 3 fotos), reemplaza a los 3 marcos sueltos */
+(function(){
+  const src=(SLIDES.retratos||[])[0]; const pols=$('.polaroids'); if(!src||!pols) return;
+  const im=new Image(); im.alt=''; im.draggable=false;
+  im.onload=()=>{
+    const wrap=document.createElement('div'); wrap.className='retratos-wrap'; wrap.setAttribute('data-reveal','');
+    const sh=document.createElement('div'); sh.className='shield'; wrap.append(im,sh); pols.replaceWith(wrap); revIO.observe(wrap);
+  };
+  im.src=src;
+})();
 $$('.ss').forEach(buildSS);
 const ssIO=new IntersectionObserver(es=>es.forEach(e=>{const s=ssList.find(x=>x.el===e.target);if(s)s.vis=e.isIntersecting}),{threshold:.05});
 ssList.forEach(s=>ssIO.observe(s.el));
