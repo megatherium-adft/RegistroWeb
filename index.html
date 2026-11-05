@@ -60,7 +60,7 @@
       <div class="ss" data-ss="hero" data-tone="night" data-nolabel data-shuffle data-interval="6500" data-fade="1600" data-zoom="10000"></div>
       <div class="scrim"></div>
       <div class="hero-core">
-        <img class="logo logo-hero" src="assets/logo/logo-registro-blanco.svg" alt="registro" draggable="false">
+        <img class="logo logo-hero" src="assets/logo/logo-registro-blanco.svg?v=2" alt="registro" draggable="false" onerror="this.onerror=null;this.src='assets/logo/logo-registro.png?v=2';this.style.filter='brightness(0) invert(1)'">
         <p class="tagline" data-i18n="tagline">Momentos interpretados<br>por <i>artistas</i>.</p>
       </div>
       <div class="explore-wrap"><a class="explore" href="#portafolio"><span data-i18n="explore">Explora nuestro trabajo.</span><span class="arr" aria-hidden="true">→</span></a></div>
@@ -95,7 +95,7 @@
   <!-- ============ PORTAFOLIO ============ -->
   <section class="page" data-page="portafolio" hidden>
     <div class="gal-head" data-reveal>
-      <img class="wm-img" src="assets/logo/registro-sin-circulo.png" alt="registro" draggable="false"><span class="rest" data-i18n="gal_of">de <i>nuestro</i> trabajo</span>
+      <img class="wm-img" src="assets/logo/registro-sin-circulo.png?v=2" alt="registro" draggable="false"><span class="rest" data-i18n="gal_of">de <i>nuestro</i> trabajo</span>
     </div>
     <div class="grid" id="grid"></div>
   </section>
@@ -103,7 +103,7 @@
   <!-- ============ VIDEO ============ -->
   <section class="page" data-page="video" hidden>
     <div class="video"><div class="video-in">
-      <h1 data-reveal data-i18n="video_h">registro en movimiento</h1>
+      <h1 class="vhead" data-reveal><img class="wm-img" src="assets/logo/registro-sin-circulo.png?v=2" alt="registro" draggable="false"><span class="rest" data-i18n="video_h">en movimiento</span></h1>
       <div class="vframe" data-reveal style="--d:80ms"><div class="ss" data-ss="video" data-tone="dusk"></div></div>
       <p data-reveal style="--d:140ms" data-i18n="video_p">Aquí irá el video de la marca.</p>
     </div></div>
@@ -157,10 +157,7 @@
         <p class="p" data-reveal style="--d:130ms" data-i18n="c_p1">Queremos conocer su historia, saber qué están planeando y conversar sobre cómo podemos acompañarlos. Estaremos encantados de responderles.</p>
         <p class="p" data-reveal style="--d:190ms" data-i18n="c_p2">Si lo prefieren, también podemos coordinar una videollamada para conocernos, resolver sus dudas y conversar con más calma sobre su celebración.</p>
         <div class="links" data-reveal style="--d:250ms">
-          <div class="mail-row">
-            <a class="big" href="mailto:registro.album.pe@gmail.com" id="mail">registro.album.pe@gmail.com</a>
-            <button class="copy" id="copyMail" type="button" data-i18n="copy">Copiar</button>
-          </div>
+          <a class="big" href="mailto:registro.album.pe@gmail.com" id="mail">registro.album.pe@gmail.com</a>
           <a class="big" href="https://instagram.com/registro.album" target="_blank" rel="noopener noreferrer">@registro.album</a>
         </div>
       </div>
