@@ -15,7 +15,7 @@ es:{nav_home:"Inicio",nav_port:"Portafolio",nav_video:"Video",nav_about:"Nosotro
  tagline:"Momentos interpretados<br>por <i>artistas</i>.",explore:"Explora nuestro trabajo.",
  h1a:"Registrar es observar, elegir y guardar.<br>Lo hacemos entre artistas que se complementan, cada uno con su mirada, para interpretar un día especial con atención y cuidado.",h1b:"Para que quede como una pieza <i>atemporal</i>.",
  made:"HECHO",by:"POR",humans:"HUMANOS.",artists:"ARTISTAS.",
- gal_of:"de <i>nuestro</i> trabajo",video_h:"registro en movimiento",video_p:"Aquí irá el video de la marca.",
+ gal_of:"de <i>nuestro</i> trabajo",video_h:"en movimiento",video_p:"Aquí irá el video de la marca.",
  about_h:"Sobre nosotros<br>y <i>nuestra</i> misión",
  about_p:"<p><span class='wm'>registro</span> nace en la intersección de la fotografía, el arte y el álbum familiar.</p><p>Lo que ofrecemos son momentos interpretados por artistas. Antes de fotografiar, nos interesa conocer a cada pareja: su <i>historia</i>, sus <i>vínculos</i>, su <i>complicidad</i>.</p><p>Buscamos momentos honestos. Nos conmueve la humanidad de lo que ocurre sin ser dirigido.</p>",
  about2_a:"Cada imagen es una pieza preciada, elegida y editada con <i>sensibilidad</i>. Fotografías para vivirlas hoy. Imágenes para volver a ellas después.",about2_b:"Hecho por <i>personas</i>. Hecho por <i>artistas</i>.",
@@ -31,7 +31,7 @@ en:{nav_home:"Home",nav_port:"Portfolio",nav_video:"Video",nav_about:"About",nav
  tagline:"Moments interpreted<br>by <i>artists</i>.",explore:"Explore our work.",
  h1a:"To register is to observe, choose and keep.<br>We do it as artists who complement each other, each with their own eye, to interpret a special day with attention and care.",h1b:"So it remains as a <i>timeless</i> piece.",
  made:"MADE",by:"BY",humans:"HUMANS.",artists:"ARTISTS.",
- gal_of:"of <i>our</i> work",video_h:"registro in motion",video_p:"The brand film will live here.",
+ gal_of:"of <i>our</i> work",video_h:"in motion",video_p:"The brand film will live here.",
  about_h:"About us<br>and <i>our</i> mission",
  about_p:"<p><span class='wm'>registro</span> was born at the intersection of photography, art and the family album.</p><p>What we offer are moments interpreted by artists. Before photographing, we want to know each couple: their <i>story</i>, their <i>bonds</i>, their <i>complicity</i>.</p><p>We look for honest moments. We are moved by the humanity of what happens without being directed.</p>",
  about2_a:"Every image is a treasured piece, chosen and edited with <i>sensitivity</i>. Photographs to live today. Images to return to later.",about2_b:"Made by <i>people</i>. Made by <i>artists</i>.",
@@ -169,13 +169,6 @@ function renderQuotes(){
 }
 setInterval(()=>{ const w=$('#quotes'); if(!w||QUOTES.length<2||document.hidden) return; const it=$$('.quote-item',w); it[w._i].classList.remove('on'); w._i=(w._i+1)%it.length; it[w._i].classList.add('on'); },7000);
 
-/* Copiar correo (el copiado manual está bloqueado, este botón sí funciona) */
-const toast=$('#toast'); let toastT;
-function showToast(msg){ toast.textContent=msg; toast.classList.add('show'); clearTimeout(toastT); toastT=setTimeout(()=>toast.classList.remove('show'),2200); }
-$('#copyMail').addEventListener('click',()=>{
-  const mail='registro.album.pe@gmail.com';
-  (navigator.clipboard?navigator.clipboard.writeText(mail):Promise.reject()).then(()=>showToast(I18N[lang].copied)).catch(()=>showToast(mail));
-});
 
 /* ===================== Galería (cuadrícula con proporción nativa) ===================== */
 const PH_RATIOS=[1.39,.77,.96,1.62,.68,1.5,1,.8,1.33,.75,1.78,.66,1.0,1.5];
