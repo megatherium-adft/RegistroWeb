@@ -372,3 +372,22 @@ main,.nav-group{transition:opacity .15s ease}
   .c1 .p{font-size:15px}
   .c1 .links a.big{font-size:18px}
 }
+
+/* ===== Afinado general: barra de navegación más baja y elementos de UI más delicados ===== */
+:root{--nav-h:62px}
+.nav{font-size:clamp(13px,.92vw,17px);box-shadow:0 1px 0 rgba(11,11,11,.06)}
+.nav-group{gap:clamp(18px,3.6vw,84px)}
+.nav a.nl{padding:6px 0;letter-spacing:.005em}
+.nav a.nl::after{bottom:1px}
+.lang{font-size:.72em;padding:5px 10px;border-color:rgba(11,11,11,.2);margin-left:clamp(0px,.9vw,20px)}
+.dots button{width:20px;height:20px}
+.dots button::before{width:5px;height:5px}
+.pager{font-size:clamp(13px,.9vw,17px)}
+.lb-btn{width:40px;height:40px;font-size:20px}
+.lb-count{font-size:13px}
+@media (max-width:860px){
+  :root{--nav-h:54px}
+  .nav{font-size:14px}
+  .brand-sm{font-size:19px}
+  .menu-btn{font-size:14px}
+}
