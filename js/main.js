@@ -11,7 +11,8 @@ document.addEventListener('keydown',e=>{
 
 /* ===================== i18n ===================== */
 const I18N = {
-es:{nav_home:"Inicio",nav_port:"Portafolio",nav_video:"Video",nav_about:"Nosotros",nav_serv:"Servicios",nav_contact:"Contacto",menu:"Menú",close:"Cerrar",
+es:{nav_home:"Inicio",nav_alb:"Álbumes",nav_video:"Video",nav_about:"Nosotros",nav_serv:"Servicios",nav_contact:"Contacto",menu:"Menú",close:"Cerrar",
+ alb_loc:"Locación",alb_couple:"Nombre de la pareja",alb_back:"Todos los álbumes",alb_next:"Siguiente álbum",photo:"Foto",
  tagline:"Momentos interpretados<br>por <i>artistas</i>.",explore:"Explora nuestro trabajo.",
  h1a:"Registrar es observar, elegir y guardar.<br>Lo hacemos entre artistas que se complementan, cada uno con su mirada, para interpretar un día especial con atención y cuidado.",h1b:"Para que quede como una pieza <i>atemporal</i>.",
  made:"HECHO",by:"POR",humans:"HUMANOS.",artists:"ARTISTAS.",
@@ -23,11 +24,12 @@ es:{nav_home:"Inicio",nav_port:"Portafolio",nav_video:"Video",nav_about:"Nosotro
  serv_h:"Servicios",
  serv_p:"<p>Nuestros <u>Fotogramas</u> (o <i>experiencias fotográficas</i>) comienzan <span class='nb'>desde S/&nbsp;5,500.</span></p><p>Lo que se construye aquí es algo que va a existir mucho <i>después</i> de la fiesta. Fotografías que los transportan otra vez a la luz de esa tarde, a la risa, al abrazo.</p><p>Por eso cada propuesta se arma a medida, a partir de una <i>conversación</i> sobre cómo imaginan su boda y qué les gustaría tener entre las manos cuando pase el <i>tiempo</i>. Si esto se parece a lo que buscan, escríbannos. Lo demás lo vamos armando <u>juntos</u>.</p>",
  cta:"¡Escríbenos!",
- c_h:"¡Conversemos!",c_sub:"Gracias por hacernos parte de tu celebración.",
+ c_h:"¡Conversemos!",c_sub:"Gracias por considerar hacernos parte de tu celebración.",
  c_p1:"Queremos conocer su historia, saber qué están planeando y conversar sobre cómo podemos acompañarlos. Estaremos encantados de responderles.",
  c_p2:"Si lo prefieren, también podemos coordinar una videollamada para conocernos, resolver sus dudas y conversar con más calma sobre su celebración.",
  copy:"Copiar",copied:"Correo copiado",copyfail:"registro.album.pe@gmail.com",lbclose:"Cerrar",lbprev:"Anterior",lbnext:"Siguiente",ph:"Slideshow · placeholder"},
-en:{nav_home:"Home",nav_port:"Portfolio",nav_video:"Video",nav_about:"About",nav_serv:"Services",nav_contact:"Contact",menu:"Menu",close:"Close",
+en:{nav_home:"Home",nav_alb:"Albums",nav_video:"Video",nav_about:"About",nav_serv:"Services",nav_contact:"Contact",menu:"Menu",close:"Close",
+ alb_loc:"Location",alb_couple:"Couple’s name",alb_back:"All albums",alb_next:"Next album",photo:"Photo",
  tagline:"Moments interpreted<br>by <i>artists</i>.",explore:"Explore our work.",
  h1a:"To register is to observe, choose and keep.<br>We do it as artists who complement each other, each with their own eye, to interpret a special day with attention and care.",h1b:"So it remains as a <i>timeless</i> piece.",
  made:"MADE",by:"BY",humans:"HUMANS.",artists:"ARTISTS.",
@@ -39,8 +41,8 @@ en:{nav_home:"Home",nav_port:"Portfolio",nav_video:"Video",nav_about:"About",nav
  serv_h:"Services",
  serv_p:"<p>Our <u>Fotogramas</u> (or <i>photographic experiences</i>) start at <span class='nb'>S/&nbsp;5,500.</span></p><p>What we build here will exist long <i>after</i> the party. Photographs that carry you back to the light of that afternoon, to the laughter, to the embrace.</p><p>That is why every proposal is tailored, starting from a <i>conversation</i> about how you imagine your wedding and what you would like to hold in your hands as <i>time</i> goes by. If this sounds like what you are looking for, write to us. The rest we build <u>together</u>.</p>",
  cta:"Write to us!",
- c_h:"Let’s talk!",c_sub:"Thank you for letting us be part of your celebration.",
- c_p1:"We would love to hear your story, know what you are planning and talk about how we can accompany you. We will be happy to answer.",
+ c_h:"Let’s talk!",c_sub:"Thank you for considering us as part of your celebration.",
+ c_p1:"We would love to hear your story, learn what you are planning and talk about how we can accompany you. We will be happy to answer.",
  c_p2:"If you prefer, we can also set up a video call to get to know each other, answer your questions and talk more calmly about your celebration.",
  copy:"Copy",copied:"Email copied",copyfail:"registro.album.pe@gmail.com",lbclose:"Close",lbprev:"Previous",lbnext:"Next",ph:"Slideshow · placeholder"}
 };
@@ -58,7 +60,8 @@ function applyLang(){
   $$('#lang span').forEach(s=>s.classList.toggle('on',s.dataset.l===lang));
   $('#lbClose').setAttribute('aria-label',d.lbclose);$('#lbPrev').setAttribute('aria-label',d.lbprev);$('#lbNext').setAttribute('aria-label',d.lbnext);
   $$('.ph-label').forEach(l=>l.textContent=d.ph);
-  renderQuotes();
+  menuBtn.setAttribute('aria-label',d.menu); $('#drawerClose').setAttribute('aria-label',d.close+' '+d.menu.toLowerCase()); drawer.setAttribute('aria-label',d.menu);
+  renderQuotes(); renderAlbumHead();
 }
 $('#lang').addEventListener('click',()=>{
   lang = lang==='es'?'en':'es'; store.set('registro-lang',lang);
@@ -119,6 +122,31 @@ function buildSS(el){
     },delay);
   }
 }
+/* Contacto: sello de papel (PNG cuadrado de 1832 × 1832 px en assets/logo/sello-papel.png).
+   Mientras no exista se ve el placeholder. Al cargar, mide el óvalo dentro del PNG y lo ajusta al tamaño del diseño (sin importar cuánto margen transparente tenga). */
+(function(){
+  const seal=$('#seal'); if(!seal) return;
+  const SEAL_AR=143/302;                       /* proporción del óvalo en el diseño de referencia */
+  const im=new Image(); im.alt=''; im.draggable=false; im.decoding='async';
+  im.onload=()=>{
+    let box=null;
+    try{
+      const S=360, c=document.createElement('canvas'); c.width=c.height=S;
+      const x=c.getContext('2d',{willReadFrequently:true}); x.drawImage(im,0,0,S,S);
+      const d=x.getImageData(0,0,S,S).data; let x0=S,y0=S,x1=-1,y1=-1;
+      for(let y=0;y<S;y++)for(let u=0;u<S;u++){ if(d[(y*S+u)*4+3]>40){ if(u<x0)x0=u; if(u>x1)x1=u; if(y<y0)y0=y; if(y>y1)y1=y; } }
+      if(x1>x0&&y1>y0) box={x:x0/S,y:y0/S,w:(x1-x0+1)/S,h:(y1-y0+1)/S};
+    }catch(e){}
+    if(box){
+      const ar=im.naturalHeight/im.naturalWidth;
+      im.style.width=(100/box.w).toFixed(3)+'%';
+      im.style.left=(-box.x/box.w*100).toFixed(3)+'%';
+      im.style.top=(50-(box.y+box.h/2)*ar/(box.w*SEAL_AR)*100).toFixed(3)+'%';
+    } else im.className='fit';
+    seal.append(im); seal.classList.add('has-img');
+  };
+  im.src='assets/logo/sello-papel.png?v=1';
+})();
 /* Nosotros, 2.ª pantalla: si existe la imagen compuesta (PNG con las 3 fotos), reemplaza a los 3 marcos sueltos */
 (function(){
   const src=(SLIDES.retratos||[])[0]; const pols=$('.polaroids'); if(!src||!pols) return;
@@ -170,20 +198,50 @@ function renderQuotes(){
 setInterval(()=>{ const w=$('#quotes'); if(!w||QUOTES.length<2||document.hidden) return; const it=$$('.quote-item',w); it[w._i].classList.remove('on'); w._i=(w._i+1)%it.length; it[w._i].classList.add('on'); },7000);
 
 
-/* ===================== Galería (cuadrícula con proporción nativa) ===================== */
+/* ===================== Álbumes (hub) ===================== */
+const albumsEl=$('#albums');
+function buildAlbums(){
+  if(!albumsEl) return;
+  const frag=document.createDocumentFragment(); const T=['clay','sage','dusk','sand'];
+  for(let i=0;i<ALBUMS.length;i+=2){
+    const row=document.createElement('div'); row.className='alb-row';
+    ALBUMS.slice(i,i+2).forEach((a,k)=>{
+      const el=document.createElement('a'); el.className='alb'; el.href='#album/'+a.slug;
+      el.setAttribute('data-reveal',''); el.style.setProperty('--d',(k*110)+'ms'); el.style.setProperty('--r',a.r||1.3);
+      const cov=document.createElement('div'); cov.className='alb-cover';
+      const ph=document.createElement('div'); ph.className='ph'; const t=TONES[T[(i+k)%4]][(i+k)%4]; ph.style.cssText=`--a:${t[0]};--b:${t[1]};--c:${t[2]}`; cov.append(ph);
+      if(a.cover){ const im=new Image(); im.alt=''; im.draggable=false; im.decoding='async';
+        im.onload=()=>{ el.style.setProperty('--r',(im.naturalWidth/im.naturalHeight).toFixed(4)); cov.append(im); ph.remove(); };
+        im.src=a.cover; }
+      const meta=document.createElement('div'); meta.className='alb-meta';
+      const l=document.createElement('p'); l.className='alb-loc'; if(a.loc) l.textContent=a.loc; else l.dataset.i18n='alb_loc';
+      const n=document.createElement('p'); n.className='alb-name'; const sp=document.createElement('span'); if(a.couple) sp.textContent=a.couple; else sp.dataset.i18n='alb_couple'; n.append(sp);
+      meta.append(l,n); el.append(cov,meta); row.append(el);
+    });
+    frag.append(row);
+  }
+  albumsEl.append(frag);
+}
+buildAlbums();
+
+/* ===================== Galería de un álbum (cuadrícula con proporción nativa) ===================== */
 const PH_RATIOS=[1.39,.77,.96,1.62,.68,1.5,1,.8,1.33,.75,1.78,.66,1.0,1.5];
-const galItems=(GALLERY.length?GALLERY:PH_RATIOS.map((r,i)=>({r,tone:['clay','sage','dusk','sand'][i%4],ti:i}))).map(g=>({...g}));
-const gridEl=$('#grid'); let figs=[];
-function buildGallery(){
+let galItems=[], figs=[], curAlbum=null;
+const gridEl=$('#grid');
+let lgRaf=0; function scheduleLayout(){ cancelAnimationFrame(lgRaf); lgRaf=requestAnimationFrame(layoutGallery); }
+function buildGallery(album){
+  const photos=album.photos||[];
+  galItems=(photos.length?photos.map(p=>typeof p==='string'?{src:p}:{...p}):PH_RATIOS.map((r,i)=>({r,tone:['clay','sage','dusk','sand'][i%4],ti:i})));
   figs=galItems.map((g,i)=>{
-    const b=document.createElement('button'); b.type='button'; b.className='g-item'; b.setAttribute('aria-label','Foto '+(i+1));
-    if(g.src){ const im=new Image(); im.alt=g.alt||''; im.draggable=false; im.decoding='async'; im.onload=()=>{g.r=im.naturalWidth/im.naturalHeight;layoutGallery()}; im.src=g.src; g.r=g.r||1.5; b.append(im); }
+    const b=document.createElement('button'); b.type='button'; b.className='g-item'; b.setAttribute('aria-label',I18N[lang].photo+' '+(i+1));
+    if(g.src){ const im=new Image(); im.alt=g.alt||album.couple||''; im.draggable=false; im.decoding='async'; im.onload=()=>{g.r=im.naturalWidth/im.naturalHeight;scheduleLayout()}; im.src=g.src; g.r=g.r||1.5; b.append(im); }
     else { const p=document.createElement('div'); p.className='ph'; const t=TONES[g.tone][g.ti%4]; p.style.cssText=`--a:${t[0]};--b:${t[1]};--c:${t[2]}`; b.append(p); }
     b.addEventListener('click',()=>openLB(i)); revIO.observe(b); return b;
   });
   layoutGallery();
 }
 function layoutGallery(){
+  if(!galItems.length) return;
   const W=gridEl.clientWidth-parseFloat(getComputedStyle(gridEl).paddingLeft)-parseFloat(getComputedStyle(gridEl).paddingRight);
   if(W<=0) return;
   const gap=Math.max(10,Math.min(30,innerWidth*.015)); gridEl.style.setProperty('--gap',gap+'px');
@@ -200,7 +258,14 @@ function layoutGallery(){
   });
   gridEl.replaceChildren(inner);
 }
-let rsT; addEventListener('resize',()=>{cancelAnimationFrame(rsT);rsT=requestAnimationFrame(()=>{ if(current==='portafolio') layoutGallery(); })});
+function renderAlbumHead(){
+  if(!curAlbum) return; const d=I18N[lang], a=curAlbum;
+  $('#albLoc').textContent=a.loc||d.alb_loc; $('#albCouple').textContent=a.couple||d.alb_couple;
+  const nx=ALBUMS[(ALBUMS.indexOf(a)+1)%ALBUMS.length], nl=$('#albNext'); nl.href='#album/'+nx.slug; nl.hidden=ALBUMS.length<2;
+  document.title=(a.couple||d.alb_couple)+' · Registro';
+  figs.forEach((f,i)=>f.setAttribute('aria-label',d.photo+' '+(i+1)));
+}
+let rsT; addEventListener('resize',()=>{cancelAnimationFrame(rsT);rsT=requestAnimationFrame(()=>{ if(curAlbum) layoutGallery(); })});
 
 /* ===================== Lightbox con FLIP ===================== */
 const lb=$('#lb'), stage=$('#lbStage'); let lbI=0, lastFocus=null;
@@ -243,28 +308,50 @@ addEventListener('keydown',e=>{ if(!lb.classList.contains('open')) return; if(e.
 let tx=null; lb.addEventListener('touchstart',e=>{tx=e.touches[0].clientX},{passive:true});
 lb.addEventListener('touchend',e=>{ if(tx==null)return; const dx=e.changedTouches[0].clientX-tx; if(Math.abs(dx)>50) stepLB(dx<0?1:-1); tx=null; });
 
-/* ===================== Menú móvil ===================== */
-const sheet=$('#sheet');
-function setSheet(o){ sheet.classList.toggle('open',o); sheet.setAttribute('aria-hidden',!o); $('#menuBtn').setAttribute('aria-expanded',o); document.body.style.overflow=o?'hidden':''; }
-$('#menuBtn').addEventListener('click',()=>setSheet(true));
-$('#sheetClose').addEventListener('click',()=>setSheet(false));
-$$('#sheet a').forEach(a=>a.addEventListener('click',()=>setSheet(false)));
+/* ===================== Panel de navegación (botón de la izquierda) ===================== */
+const drawer=$('#drawer'), catcher=$('#drawerCatch'), menuBtn=$('#menuBtn');
+function setDrawer(o){
+  if(o===drawer.classList.contains('open')) return;
+  drawer.classList.toggle('open',o); catcher.classList.toggle('open',o);
+  drawer.setAttribute('aria-hidden',!o); drawer.inert=!o; menuBtn.setAttribute('aria-expanded',o);
+  if(o) $('#drawerClose').focus({preventScroll:true}); else if(drawer.contains(document.activeElement)) menuBtn.focus({preventScroll:true});
+}
+menuBtn.addEventListener('click',()=>setDrawer(!drawer.classList.contains('open')));
+$('#drawerClose').addEventListener('click',()=>setDrawer(false));
+catcher.addEventListener('click',()=>setDrawer(false));
+addEventListener('keydown',e=>{ if(e.key==='Escape'&&drawer.classList.contains('open')&&!lb.classList.contains('open')) setDrawer(false); });
 
 /* ===================== Router (hash) ===================== */
-const ROUTES=['home','portafolio','video','nosotros','servicios','contacto'];
+const ROUTES=['home','albumes','video','nosotros','servicios','contacto'];
 let current=null, dotIO=null;
+function parseHash(){
+  let h=decodeURIComponent(location.hash.replace('#',''))||'home';
+  if(h==='portafolio'){ h='albumes'; history.replaceState(null,'','#albumes'); }          /* enlaces antiguos */
+  const [r,arg]=h.split('/');
+  if(r==='album'){
+    const a=ALBUMS.find(x=>x.slug===arg);
+    if(a) return {key:'album/'+a.slug,page:'album',album:a};
+    history.replaceState(null,'','#albumes'); return {key:'albumes',page:'albumes'};
+  }
+  return ROUTES.includes(r)?{key:r,page:r}:{key:'home',page:'home'};
+}
 function route(){
-  let h=location.hash.replace('#','')||'home'; if(!ROUTES.includes(h)) h='home';
-  if(h===current) return;
-  current=h;
-  $$('.page').forEach(p=>p.hidden=p.dataset.page!==h);
-  const page=$(`.page[data-page="${h}"]`);
+  const R=parseHash();
+  if(R.key===current) return;
+  current=R.key; curAlbum=R.album||null;
+  if(lb.classList.contains('open')){ lb.classList.remove('open'); lb.setAttribute('aria-hidden','true'); document.body.style.overflow=''; }
+  setDrawer(false);
+  $$('.page').forEach(p=>p.hidden=p.dataset.page!==R.page);
+  const page=$(`.page[data-page="${R.page}"]`);
+  page.style.animation='none'; void page.offsetWidth; page.style.animation='';
   window.scrollTo(0,0);
   document.documentElement.classList.toggle('snap',page.hasAttribute('data-snap'));
-  $$('[data-route]').forEach(a=>{ if(a.dataset.route===h) a.setAttribute('aria-current','page'); else a.removeAttribute('aria-current'); });
+  const navKey=R.page==='album'?'albumes':R.page;
+  $$('[data-route]').forEach(a=>{ if(a.dataset.route===navKey) a.setAttribute('aria-current','page'); else a.removeAttribute('aria-current'); });
+  if(R.page!=='album') document.title='Registro · Fotografía de bodas en Lima';
+  if(R.page==='album'){ buildGallery(R.album); renderAlbumHead(); }
   observeReveals(page);
-  if(h==='portafolio'){ if(!figs.length) buildGallery(); else layoutGallery(); figs.forEach(f=>{f.classList.remove('in');revIO.observe(f)}); }
-  if(h==='home'){ const hero=$('.hero'); hero.classList.remove('go'); void hero.offsetWidth; hero.classList.add('go'); }
+  if(R.page==='home'){ const hero=$('.hero'); hero.classList.remove('go'); void hero.offsetWidth; hero.classList.add('go'); }
   buildDots(page);
   tickParallax();
 }
@@ -284,4 +371,4 @@ addEventListener('hashchange',route);
 
 applyLang();
 route();
-document.fonts&&document.fonts.ready.then(()=>{ if(current==='portafolio') layoutGallery(); });
+document.fonts&&document.fonts.ready.then(()=>{ if(curAlbum) layoutGallery(); });
