@@ -23,10 +23,11 @@
 </svg>
 
 <header class="nav" id="nav">
+  <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="drawer" aria-label="Menú"><span class="burger" aria-hidden="true"><i></i><i></i></span></button>
   <a class="brand-sm" href="#home" aria-label="Registro">registro</a>
   <nav class="nav-group" aria-label="Principal">
     <a class="nl" href="#home" data-route="home" data-i18n="nav_home">Inicio</a>
-    <a class="nl" href="#portafolio" data-route="portafolio" data-i18n="nav_port">Portafolio</a>
+    <a class="nl" href="#albumes" data-route="albumes" data-i18n="nav_alb">Álbumes</a>
     <a class="nl" href="#video" data-route="video" data-i18n="nav_video">Video</a>
   </nav>
   <div class="right" style="display:flex;align-items:center">
@@ -36,19 +37,25 @@
       <a class="nl" href="#contacto" data-route="contacto" data-i18n="nav_contact">Contacto</a>
     </nav>
     <button class="lang" id="lang" type="button" aria-label="Cambiar idioma / Change language"><span data-l="es" class="on">ES</span><span data-l="en">EN</span></button>
-    <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="sheet" data-i18n="menu">Menú</button>
   </div>
 </header>
 
-<div class="sheet" id="sheet" aria-hidden="true">
-  <button class="sheet-close" id="sheetClose" type="button" data-i18n="close">Cerrar</button>
-  <a href="#home" data-route="home" data-i18n="nav_home">Inicio</a>
-  <a href="#portafolio" data-route="portafolio" data-i18n="nav_port">Portafolio</a>
-  <a href="#video" data-route="video" data-i18n="nav_video">Video</a>
-  <a href="#nosotros" data-route="nosotros" data-i18n="nav_about">Nosotros</a>
-  <a href="#servicios" data-route="servicios" data-i18n="nav_serv">Servicios</a>
-  <a href="#contacto" data-route="contacto" data-i18n="nav_contact">Contacto</a>
-</div>
+<div class="drawer-catch" id="drawerCatch"></div>
+<aside class="drawer" id="drawer" aria-hidden="true" aria-label="Navegación" inert>
+  <button class="drawer-close" id="drawerClose" type="button" aria-label="Cerrar menú"><span class="burger" aria-hidden="true"><i></i><i></i></span><span class="lbl" data-i18n="close">Cerrar</span></button>
+  <nav class="drawer-links" aria-label="Menú">
+    <a href="#home" data-route="home" data-i18n="nav_home">Inicio</a>
+    <a href="#albumes" data-route="albumes" data-i18n="nav_alb">Álbumes</a>
+    <a href="#video" data-route="video" data-i18n="nav_video">Video</a>
+    <a href="#nosotros" data-route="nosotros" data-i18n="nav_about">Nosotros</a>
+    <a href="#servicios" data-route="servicios" data-i18n="nav_serv">Servicios</a>
+    <a href="#contacto" data-route="contacto" data-i18n="nav_contact">Contacto</a>
+  </nav>
+  <div class="drawer-foot">
+    <a href="https://instagram.com/registro.album" target="_blank" rel="noopener noreferrer">@registro.album</a>
+    <a href="mailto:registro.album.pe@gmail.com">registro.album.pe@gmail.com</a>
+  </div>
+</aside>
 
 <nav class="dots" id="dots" hidden aria-label="Secciones"></nav>
 
@@ -63,7 +70,7 @@
         <img class="logo logo-hero" src="assets/logo/logo-registro-blanco.svg?v=2" alt="registro" draggable="false" onerror="this.onerror=null;this.src='assets/logo/logo-registro.png?v=2';this.style.filter='brightness(0) invert(1)'">
         <p class="tagline" data-i18n="tagline">Momentos interpretados<br>por <i>artistas</i>.</p>
       </div>
-      <div class="explore-wrap"><a class="explore" href="#portafolio"><span data-i18n="explore">Explora nuestro trabajo.</span><span class="arr" aria-hidden="true">→</span></a></div>
+      <div class="explore-wrap"><a class="explore" href="#albumes"><span data-i18n="explore">Explora nuestro trabajo.</span><span class="arr" aria-hidden="true">→</span></a></div>
     </div>
 
     <div class="screen split s1" data-screen data-overlap>
@@ -71,7 +78,7 @@
       <div class="txt"><div class="txt-in">
         <p data-i18n="h1a">Registrar es observar, elegir y guardar.<br>Lo hacemos entre artistas que se complementan, cada uno con su mirada, para interpretar un día especial con atención y cuidado.</p>
         <p data-i18n="h1b">Para que quede como una pieza <i>atemporal</i>.</p>
-        <a class="explore" href="#portafolio"><span data-i18n="explore">Explora nuestro trabajo.</span><span class="arr" aria-hidden="true">→</span></a>
+        <a class="explore" href="#albumes"><span data-i18n="explore">Explora nuestro trabajo.</span><span class="arr" aria-hidden="true">→</span></a>
       </div></div>
       <a class="logo-sm" href="#home" aria-label="Registro"><img src="assets/logo/logo-registro.png" alt="" draggable="false"></a>
     </div>
@@ -88,16 +95,29 @@
           <div class="spread" data-spread data-i18n="artists">ARTISTAS.</div>
         </div>
       </div></div>
-      <div class="explore-wrap"><a class="explore" href="#portafolio"><span data-i18n="explore">Explora nuestro trabajo.</span><span class="arr" aria-hidden="true">→</span></a></div>
+      <div class="explore-wrap"><a class="explore" href="#albumes"><span data-i18n="explore">Explora nuestro trabajo.</span><span class="arr" aria-hidden="true">→</span></a></div>
     </div>
   </section>
 
-  <!-- ============ PORTAFOLIO ============ -->
-  <section class="page" data-page="portafolio" hidden>
+  <!-- ============ ÁLBUMES (hub) ============ -->
+  <section class="page" data-page="albumes" hidden>
     <div class="gal-head" data-reveal>
       <img class="wm-img" src="assets/logo/registro-sin-circulo.png?v=2" alt="registro" draggable="false"><span class="rest" data-i18n="gal_of">de <i>nuestro</i> trabajo</span>
     </div>
+    <div class="albums" id="albums"></div>
+  </section>
+
+  <!-- ============ GALERÍA DE UN ÁLBUM ============ -->
+  <section class="page" data-page="album" hidden>
+    <header class="alb-head" data-reveal>
+      <p class="alb-loc" id="albLoc"></p>
+      <h1 class="alb-couple" id="albCouple"></h1>
+    </header>
     <div class="grid" id="grid"></div>
+    <nav class="alb-foot" aria-label="Álbumes">
+      <a href="#albumes"><span class="arr" aria-hidden="true">←</span><span data-i18n="alb_back">Todos los álbumes</span></a>
+      <a href="#albumes" id="albNext"><span data-i18n="alb_next">Siguiente álbum</span><span class="arr" aria-hidden="true">→</span></a>
+    </nav>
   </section>
 
   <!-- ============ VIDEO ============ -->
@@ -151,6 +171,10 @@
   <!-- ============ CONTACTO ============ -->
   <section class="page" data-page="contacto" data-snap hidden>
     <div class="screen c1" data-screen>
+      <div class="c1-frame">
+        <div class="ss" data-ss="contacto" data-tone="sand" data-shuffle data-nozoom data-fade="1800" data-interval="5200"></div>
+        <div class="seal" id="seal" aria-hidden="true"><div class="seal-ph"><span>registro</span></div></div>
+      </div>
       <div class="c1-in">
         <h1 data-reveal data-i18n="c_h">¡Conversemos!</h1>
         <p class="sub" data-reveal style="--d:70ms" data-i18n="c_sub">Gracias por hacernos parte de tu celebración.</p>
@@ -166,7 +190,7 @@
     <div class="screen c2" data-screen>
       <div class="team" id="team">
         <figure style="--d:0ms"><img alt="Brenda, fotógrafa" src="assets/team/brenda.png"></figure>
-        <figure style="--d:110ms"><img alt="André, editor" src="assets/team/andre.png"></figure>
+        <figure style="--d:110ms"><img alt="Andre, editor" src="assets/team/andre.png"></figure>
         <figure style="--d:220ms"><img alt="Abril, videógrafa" src="assets/team/abril.png"></figure>
       </div>
       <div class="pager"><a href="#home"><span data-i18n="next_home">Volver al inicio</span><span class="arr" aria-hidden="true">↑</span></a></div>
