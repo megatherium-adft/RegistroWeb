@@ -475,7 +475,7 @@ body.swapping .drawer{opacity:0}
 .grid{padding-bottom:clamp(36px,4vw,70px)}
 
 /* --- Home, 3.ª pantalla: "HECHO POR…" en blanco, dentro del marco de la foto --- */
-.s2 .txt-in{left:29.8%;right:29.8%;top:12%;bottom:12.4%;color:#fff;text-shadow:0 1px 26px rgba(0,0,0,.16)}
+.s2 .txt-in{left:27.9%;right:27.9%;top:12%;bottom:12.4%;color:#fff;text-shadow:0 1px 26px rgba(0,0,0,.16)}
 
 /* --- Contacto V2: slideshow a la izquierda, texto a la derecha, sello de papel --- */
 .c1{display:block;position:relative;text-align:left;padding:0}
@@ -508,7 +508,7 @@ body.swapping .drawer{opacity:0}
   .alb-name{font-size:30px}
   .alb-loc{font-size:15px}
   .alb-foot{padding:0 16px 44px;font-size:15px}
-  .s2 .txt-in{left:17%;right:17%;top:15%;bottom:24%}
+  .s2 .txt-in{left:13.7%;right:13.7%;top:15%;bottom:24%}
   .c1{padding:0}
   .c1-frame{position:relative;width:100%;height:46svh;top:auto;margin-top:var(--nav-h)}
   .c1-in{margin-left:0;width:100%;min-height:0;padding:30px 20px 76px}
