@@ -16,10 +16,31 @@ const SLIDES = {
   p1: [], p2: [], p3: [],     // solo se usan si "retratos" está vacío o no carga (3 fotos 3:4 sueltas)
   /* Servicios (se mezclan al azar). OJO: 1 a 7 son .JPG, la 8 es .jpg y la 9 es .JPG */
   servicios: ["assets/img/Servicios-1.JPG","assets/img/Servicios-2.JPG","assets/img/Servicios-3.JPG","assets/img/Servicios-4.JPG","assets/img/Servicios-5.JPG","assets/img/Servicios-6.JPG","assets/img/Servicios-7.JPG","assets/img/Servicios-8.jpg","assets/img/Servicios-9.JPG"],
+  /* Contacto (mitad izquierda, se mezclan al azar, solo fundido). Marco: proporción 1000:1130 → fotos de 1800 × 2034 px */
+  contacto: [],
   video: []
 };
-const GALLERY = [];           // [{src:"img/foto-01.jpg", alt:"Boda Darinka y Rudy"}]  → respeta proporción nativa
-const QUOTES = [ {es:"Tradujeron con exactitud lo que buscábamos comunicar. Las sombras, los gestos, el movimiento. Gracias, chicos, por este registro tan pro y tan sentido.", en:"They translated exactly what we wanted to communicate. The shadows, the gestures, the movement. Thank you, guys, for this record so pro and so heartfelt.", by:"Darinka & Rudy"} ];
+/* =====================================================================
+   ÁLBUMES  (página "Álbumes" y la galería de cada uno)
+   Cada álbum = una portada + sus fotos. Se muestran de a dos por fila, en este orden.
+     slug   → nombre corto sin espacios ni tildes; es la dirección: registro.pages.dev/#album/darinka-rudy
+     loc    → locación (texto)            couple → nombre de la pareja (texto)
+     cover  → portada (JPG). Respeta su proporción original: vertical u horizontal
+     r      → proporción del placeholder mientras no hay portada (0.77 = vertical, 1.3 = horizontal)
+     photos → fotos de la galería (se muestran con su proporción original, en este orden)
+   Si "loc" o "couple" quedan vacíos se muestran los textos de ejemplo (Locación / Nombre de la pareja).
+   Ejemplo ya armado:
+     {slug:"darinka-rudy", loc:"Cusco", couple:"Darinka & Rudy", cover:"assets/img/albumes/darinka-rudy/portada.jpg",
+      photos:["assets/img/albumes/darinka-rudy/01.jpg","assets/img/albumes/darinka-rudy/02.jpg"]}
+   Los nombres de archivo distinguen mayúsculas y minúsculas (.jpg ≠ .JPG).
+   ===================================================================== */
+const ALBUMS = [
+  {slug:"album-1", loc:"", couple:"", cover:"", r:0.77, photos:[]},
+  {slug:"album-2", loc:"", couple:"", cover:"", r:1.3,  photos:[]},
+  {slug:"album-3", loc:"", couple:"", cover:"", r:1.3,  photos:[]},
+  {slug:"album-4", loc:"", couple:"", cover:"", r:0.77, photos:[]}
+];
+const QUOTES = [ {es:"Tradujeron con exactitud lo que buscábamos comunicar. Las sombras, los gestos, el movimiento. Gracias, chicos, por este registro tan pro y tan sentido.", en:"They translated exactly what we wanted to communicate. The shadows, the gestures, the movement. Thank you, guys, for such a professional and heartfelt record.", by:"Darinka & Rudy"} ];
 
 const TONES = {
   night:[["#5a5a5a","#3b3b3b","#222"],["#69635c","#403c38","#252321"],["#555b60","#363a3d","#202224"],["#645e57","#3c3733","#211f1d"]],
