@@ -15,7 +15,7 @@ const SLIDES = {
   retratos: ["assets/img/Retratos-Nosotros-2.png"],
   p1: [], p2: [], p3: [],     // solo se usan si "retratos" está vacío o no carga (3 fotos 3:4 sueltas)
   /* Servicios (se mezclan al azar). OJO: 1 a 7 son .JPG, la 8 es .jpg y la 9 es .JPG */
-  servicios: ["assets/img/Servicios-1.JPG","assets/img/Servicios-2.JPG","assets/img/Servicios-3.JPG","assets/img/Servicios-4.JPG","assets/img/Servicios-5.JPG","assets/img/Servicios-6.JPG","assets/img/Servicios-7.JPG","assets/img/Servicios-8.jpg","assets/img/Servicios-9.JPG"],
+  servicios: ["assets/img/Servicios-1.JPG","assets/img/Servicios-2.jpg","assets/img/Servicios-3.JPG","assets/img/Servicios-4.JPG","assets/img/Servicios-5.JPG","assets/img/Servicios-6.JPG","assets/img/Servicios-7.JPG","assets/img/Servicios-8.jpg","assets/img/Servicios-9.JPG"],
   /* Contacto (mitad izquierda, se mezclan al azar, solo fundido). Marco: proporción 1000:1130 → fotos de 1800 × 2034 px */
   contacto: [],
   video: []
