@@ -518,3 +518,33 @@ body.swapping .drawer{opacity:0}
 .c1-frame,.c1-frame .ss{background:var(--paper)}
 .ss.cycled .slide.alpha.on{transition-delay:var(--fade,1.4s)}
 @media (prefers-reduced-motion:reduce){.ss.cycled .slide.alpha.on{transition-delay:.6s}}
+
+/* =====================================================================
+   V3 · Ajustes de Contacto, títulos, panel lateral sólido y barra superior
+   ===================================================================== */
+
+/* --- Barra superior: color sólido del fondo hasta que se hace scroll; luego translúcida --- */
+.nav{background:var(--paper)}
+.nav.scrolled{background:var(--veil)}
+
+/* --- Botón de idioma: Helvetica y más separado de "Contacto" --- */
+.lang{font-family:"Helvetica Neue",Helvetica,Arial,"Liberation Sans",sans-serif;margin-left:clamp(14px,2.3vw,48px)}
+
+/* --- Contacto: párrafos en la serif de Servicios (Instrument Serif) --- */
+.c1 .p{font-family:var(--display);font-size:clamp(17px,1.32vw,27px);line-height:1.22;max-width:30em}
+@media (max-width:860px){.c1 .p{font-size:19px}.lang{margin-left:0}}
+
+/* --- Títulos de Álbumes y Video: más pequeños, centrados, letras más juntas, logo calibrado --- */
+.gal-head,.vhead{font-size:clamp(20px,1.9vw,38px);line-height:1.1;gap:.26em;justify-content:center;align-items:baseline;text-align:center}
+.gal-head .rest,.vhead .rest{letter-spacing:-.02em}
+.wm-img{width:clamp(78px,7.4vw,150px)}
+@media (max-width:860px){.gal-head,.vhead{font-size:22px}.wm-img{width:86px}}
+
+/* --- Panel lateral: sólido (color del fondo), enfoque al pasar el cursor --- */
+.drawer{background:var(--paper);-webkit-backdrop-filter:none;backdrop-filter:none;box-shadow:1px 0 0 rgba(11,11,11,.08)}
+.drawer-close .lbl{font-family:"Helvetica Neue",Helvetica,Arial,"Liberation Sans",sans-serif;font-size:clamp(12.5px,.8vw,15.5px);top:calc(var(--nav-h) - 4px)}
+@media (hover:hover) and (pointer:fine){
+  .drawer.open .drawer-links a:hover{transform:translateX(clamp(8px,.75vw,16px))}
+  .drawer.open .drawer-links:hover a:not(:hover){opacity:.4}
+}
+@media (max-width:860px){.drawer-close .lbl{font-size:14px}}
