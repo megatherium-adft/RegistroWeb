@@ -24,7 +24,7 @@ es:{nav_home:"Inicio",nav_alb:"Álbumes",nav_video:"Video",nav_about:"Nosotros",
  serv_h:"Servicios",
  serv_p:"<p>Nuestros <u>Fotogramas</u> (o <i>experiencias fotográficas</i>) comienzan <span class='nb'>desde S/&nbsp;5,500.</span></p><p>Lo que se construye aquí es algo que va a existir mucho <i>después</i> de la fiesta. Fotografías que los transportan otra vez a la luz de esa tarde, a la risa, al abrazo.</p><p>Por eso cada propuesta se arma a medida, a partir de una <i>conversación</i> sobre cómo imaginan su boda y qué les gustaría tener entre las manos cuando pase el <i>tiempo</i>. Si esto se parece a lo que buscan, escríbannos. Lo demás lo vamos armando <u>juntos</u>.</p>",
  cta:"¡Escríbenos!",
- c_h:"¡Conversemos!",c_sub:"Gracias por considerar hacernos parte de tu celebración.",
+ c_h:"¡Conversemos!",c_sub:"Gracias por considerar hacernos parte de su celebración.",
  c_p1:"Queremos conocer su historia, saber qué están planeando y conversar sobre cómo podemos acompañarlos. Estaremos encantados de responderles.",
  c_p2:"Si lo prefieren, también podemos coordinar una videollamada para conocernos, resolver sus dudas y conversar con más calma sobre su celebración.",
  copy:"Copiar",copied:"Correo copiado",copyfail:"registro.album.pe@gmail.com",lbclose:"Cerrar",lbprev:"Anterior",lbnext:"Siguiente",ph:"Slideshow · placeholder"},
@@ -329,6 +329,11 @@ $('#drawerClose').addEventListener('click',()=>setDrawer(false));
 catcher.addEventListener('click',()=>setDrawer(false));
 addEventListener('keydown',e=>{ if(e.key==='Escape'&&drawer.classList.contains('open')&&!lb.classList.contains('open')) setDrawer(false); });
 
+/* ===================== Barra superior: sólida arriba, translúcida al hacer scroll ===================== */
+const navEl=$('#nav');
+function tickNav(){ navEl.classList.toggle('scrolled',scrollY>4); }
+addEventListener('scroll',tickNav,{passive:true});
+
 /* ===================== Router (hash) ===================== */
 const ROUTES=['home','albumes','video','nosotros','servicios','contacto'];
 let current=null, dotIO=null;
@@ -361,7 +366,7 @@ function route(){
   observeReveals(page);
   if(R.page==='home'){ const hero=$('.hero'); hero.classList.remove('go'); void hero.offsetWidth; hero.classList.add('go'); }
   buildDots(page);
-  tickParallax();
+  tickParallax(); tickNav();
 }
 function buildDots(page){
   const dots=$('#dots'); const screens=$$('[data-screen]',page);
