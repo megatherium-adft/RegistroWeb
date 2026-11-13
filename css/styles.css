@@ -513,3 +513,8 @@ body.swapping .drawer{opacity:0}
   .c1-frame{position:relative;width:100%;height:46svh;top:auto;margin-top:var(--nav-h)}
   .c1-in{margin-left:0;width:100%;min-height:0;padding:30px 20px 76px}
 }
+
+/* --- Contacto: PNG con transparencia. Se respeta sobre el color del papel; la foto anterior se desvanece primero y luego entra el PNG --- */
+.c1-frame,.c1-frame .ss{background:var(--paper)}
+.ss.cycled .slide.alpha.on{transition-delay:var(--fade,1.4s)}
+@media (prefers-reduced-motion:reduce){.ss.cycled .slide.alpha.on{transition-delay:.6s}}
