@@ -85,6 +85,14 @@ $$('[data-oval]').forEach(p=>{const [w,h,s,a]=p.dataset.oval.split(',').map(Numb
 const ssList=[];
 /* Fisher-Yates: orden aleatorio distinto en cada visita */
 function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+/* ¿El PNG tiene zonas transparentes? (para que no se vea la foto anterior a través de él) */
+function hasAlpha(img){
+  try{
+    const S=48, c=document.createElement('canvas'); c.width=c.height=S; const x=c.getContext('2d',{willReadFrequently:true}); x.drawImage(img,0,0,S,S);
+    const d=x.getImageData(0,0,S,S).data; for(let i=3;i<d.length;i+=4) if(d[i]<250) return true;
+  }catch(e){}
+  return false;
+}
 function buildSS(el){
   const key=el.dataset.ss, tones=TONES[el.dataset.tone||'clay'];
   const list=(SLIDES[key]||[]).slice();
@@ -96,7 +104,7 @@ function buildSS(el){
   let st=null; const shuf=el.hasAttribute('data-shuffle');
   for(let i=0;i<n;i++){
     let s;
-    if(list[i]){ s=document.createElement('img'); s.loading=(key==='hero'&&i===0)?'eager':'lazy'; s.src=list[i]; s.alt=''; s.draggable=false; s.decoding='async';
+    if(list[i]){ s=document.createElement('img'); const isPng=/\.png$/i.test(list[i]); s.loading=((key==='hero'&&i===0)||isPng)?'eager':'lazy'; if(isPng) s.addEventListener('load',()=>{ if(hasAlpha(s)) s.classList.add('alpha'); }); s.src=list[i]; s.alt=''; s.draggable=false; s.decoding='async';
       /* si una imagen no existe, se saca de la rotación en vez de dejar un marco vacío */
       s.addEventListener('error',()=>{ if(!st||st.slides.length<2) return; const k=st.slides.indexOf(s); if(k<0) return; st.slides.splice(k,1); s.remove(); if(st.i>=st.slides.length) st.i=0; st.slides[st.i].classList.add('on'); }); }
     else { s=document.createElement('div'); s.className='ph'; const t=tones[i%tones.length]; s.style.cssText=`--a:${t[0]};--b:${t[1]};--c:${t[2]}`; }
@@ -112,7 +120,7 @@ function buildSS(el){
     st.timer=setInterval(()=>{
       if(!st.vis||document.hidden||st.slides.length<2) return;
       { const nx=st.slides[(st.i+1)%st.slides.length]; if(el.hasAttribute('data-cut')&&nx.tagName==='IMG'&&!nx.complete) return; }  /* en corte directo, espera a que la siguiente foto esté cargada para no mostrar un marco vacío */
-      st.slides[st.i].classList.remove('on'); st.i++;
+      el.classList.add('cycled'); st.slides[st.i].classList.remove('on'); st.i++;
       if(st.i>=st.slides.length){            /* terminó la vuelta: nuevo orden al azar, sin repetir la última foto como primera */
         st.i=0;
         if(shuf){ const last=st.slides[st.slides.length-1]; shuffle(st.slides);
