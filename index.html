@@ -99,12 +99,18 @@
     </div>
   </section>
 
-  <!-- ============ ÁLBUMES (hub) ============ -->
+  <!-- ============ ÁLBUMES (hub: índice + portada que cambia al pasar el cursor) ============ -->
   <section class="page" data-page="albumes" hidden>
-    <div class="gal-head" data-reveal>
-      <img class="wm-img" src="assets/logo/registro-sin-circulo.png?v=2" alt="registro" draggable="false"><span class="rest" data-i18n="gal_of">de <i>nuestro</i> trabajo</span>
+    <div class="idx">
+      <div class="idx-l">
+        <h1 class="idx-h" data-reveal><img class="wm-img" src="assets/logo/registro-sin-circulo.png?v=2" alt="registro" draggable="false"><span class="rest" data-i18n="gal_of">de <i>nuestro</i> trabajo</span></h1>
+        <div class="idx-stage" id="idxStage" data-reveal style="--d:.15s"></div>
+      </div>
+      <div class="idx-r">
+        <nav class="idx-list" id="albums" aria-label="Álbumes" data-reveal style="--d:.08s"></nav>
+        <p class="idx-quote" data-reveal style="--d:.2s" data-i18n="idx_quote"><i>Historias</i> en las que<br>tuvimos el <i>privilegio</i> de<br><i>capturar</i> e <i>interpretar</i>.</p>
+      </div>
     </div>
-    <div class="albums" id="albums"></div>
   </section>
 
   <!-- ============ GALERÍA DE UN ÁLBUM ============ -->
