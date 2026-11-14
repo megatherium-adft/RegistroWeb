@@ -566,7 +566,8 @@ body.swapping .drawer{opacity:0}
 
 /* recuadro de información: ubicación / pareja / fecha — Helvetica */
 .idx-info{width:84.9%;display:flex;justify-content:center;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:clamp(12px,.9vw,19px);line-height:1}
-.ib{box-sizing:border-box;width:10.8em;border:1.5px solid #0b0b0b;color:#0b0b0b;transition:width .5s var(--ease-out)}
+.ib{box-sizing:border-box;width:10.8em;border:1.5px solid #0b0b0b;color:#0b0b0b;transition:width .5s var(--ease-out),opacity .3s var(--ease-out) .1s}
+.ib.off{opacity:0;transition-delay:.18s}
 .ir{position:relative;height:1.55em;overflow:hidden}
 .ir+.ir{border-top:1.5px solid #0b0b0b}
 .iv{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;white-space:nowrap;letter-spacing:-.005em}
