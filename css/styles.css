@@ -601,3 +601,54 @@ body.swapping .drawer{opacity:0}
   .idx-quote.fx{filter:none}
 }
 @media (prefers-reduced-motion:reduce){.ib{transition:none}.cv{transition:none}}
+
+
+/* =====================================================================
+   V4 · Contacto (diseño final) + título de Servicios
+   Medidas de la referencia (2420 de ancho): marco 0→50%, titular rojo desde 21.9% (1.ª línea) y 51% (2.ª y 3.ª),
+   sello centrado en el borde del marco, textos y recuadro en la columna 56.4%→94.2%.
+   ===================================================================== */
+:root{--red:#f82901}
+
+/* --- Servicios: título en el rojo de Contacto, Instrument Serif, bastante más grande --- */
+.sv h1{font-family:var(--display);font-style:normal;font-weight:400;color:var(--red);font-size:clamp(40px,3.3vw,84px);line-height:.95;letter-spacing:-.03em;margin:0 0 clamp(18px,1.9vw,38px)}
+@media (max-width:860px){.sv h1{font-size:clamp(40px,11vw,60px)}}
+
+/* --- Contacto --- */
+.c1{display:block;position:relative;min-height:100svh;padding:0;overflow:hidden}
+.c1 h1.c1-h{position:absolute;z-index:5;top:calc(var(--nav-h) + 1.1vw);left:0;right:0;margin:0;font-family:var(--display);font-style:normal;font-weight:400;
+  font-size:7.05vw;line-height:.865;letter-spacing:-.032em;color:var(--red);text-align:left;pointer-events:none;text-wrap:nowrap}
+.c1 h1.c1-h span{display:block}
+.c1 h1.c1-h .l1{padding-left:21.9vw}
+.c1 h1.c1-h .l2,.c1 h1.c1-h .l3{padding-left:51vw}
+.c1 .seal{left:50%;width:15.2vw;top:49%;bottom:auto;transform:translateX(-50%);z-index:4}
+.c1-in{position:absolute;z-index:3;left:56.4vw;width:37.8vw;bottom:10.5svh;margin:0;min-height:0;max-width:none;padding:0;
+  display:flex;flex-direction:column;align-items:stretch;gap:3.4vw}
+.c1-txt{display:grid;gap:1.35em;padding-left:1.3vw;font-size:clamp(17px,1.32vw,30px)}
+.c1 .c1-txt .p{margin:0;font-size:1em;line-height:1.22;max-width:30em;letter-spacing:-.01em;text-wrap:pretty}
+
+/* recuadro de contacto: mismo lenguaje que el recuadro de los álbumes — Helvetica, líneas gruesas */
+.cbox{--bw:max(2px,.14vw);font-family:"Helvetica Neue",Helvetica,Arial,"Liberation Sans",sans-serif;font-size:clamp(14px,1.18vw,28px);color:#2b2b2b;border:var(--bw) solid currentColor}
+.cr{display:grid;grid-template-columns:18% 1fr;height:2.05em;align-items:stretch}
+.cr+.cr{border-top:var(--bw) solid currentColor}
+.ck{display:flex;align-items:center;justify-content:center;font-style:italic;border-right:var(--bw) solid currentColor;letter-spacing:-.01em}
+.cvl{display:flex;align-items:center;padding-left:3.4vw;color:inherit;text-decoration:none;letter-spacing:-.005em;white-space:nowrap;transition:background .22s var(--ease-out),color .22s var(--ease-out)}
+@media (hover:hover) and (pointer:fine){.cvl:hover{background:var(--red);color:var(--paper)}}
+.cvl:active{background:var(--red);color:var(--paper)}
+.cvl:focus-visible{outline:2px solid var(--red);outline-offset:-4px}
+
+@media (max-width:860px){
+  .c1{min-height:0;overflow:visible;padding-bottom:84px}
+  .c1-frame{position:relative;width:100%;height:46svh;top:auto;margin-top:var(--nav-h)}
+  .c1 .seal{width:38vw;top:calc(var(--nav-h) + 46svh - 9vw)}
+  .c1 h1.c1-h{position:static;pointer-events:auto;padding:calc(9vw + 34px) 20px 0;font-size:clamp(42px,13vw,64px);line-height:.9;text-wrap:balance}
+  .c1 h1.c1-h .l1,.c1 h1.c1-h .l2,.c1 h1.c1-h .l3{padding-left:0}
+  .c1 h1.c1-h span{display:inline}
+  .c1 h1.c1-h span+span::before{content:" "}
+  .c1-in{position:static;width:auto;margin:28px 20px 0;gap:30px}
+  .c1-txt{padding-left:0;font-size:19px}
+  .cbox{font-size:15px}
+  .cr{grid-template-columns:30% 1fr}
+  .cvl{padding-left:14px;white-space:normal;overflow-wrap:anywhere}
+}
+@media (prefers-reduced-motion:reduce){.cvl{transition:none}}
