@@ -12,7 +12,7 @@ document.addEventListener('keydown',e=>{
 /* ===================== i18n ===================== */
 const I18N = {
 es:{nav_home:"Inicio",nav_alb:"Álbumes",nav_video:"Video",nav_about:"Nosotros",nav_serv:"Servicios",nav_contact:"Contacto",menu:"Menú",close:"Cerrar",
- alb_loc:"Locación",alb_couple:"Nombre de la pareja",alb_back:"Todos los álbumes",alb_next:"Siguiente álbum",photo:"Foto",
+ alb_loc:"Locación",alb_couple:"Nombre de la pareja",idx_quote:"<i>Historias</i> en las que<br>tuvimos el <i>privilegio</i> de<br><i>capturar</i> e <i>interpretar</i>.",alb_back:"Todos los álbumes",alb_next:"Siguiente álbum",photo:"Foto",
  tagline:"Momentos interpretados<br>por <i>artistas</i>.",explore:"Explora nuestro trabajo.",
  h1a:"Registrar es observar, elegir y guardar.<br>Lo hacemos entre artistas que se complementan, cada uno con su mirada, para interpretar un día especial con atención y cuidado.",h1b:"Para que quede como una pieza <i>atemporal</i>.",
  made:"HECHO",by:"POR",humans:"HUMANOS.",artists:"ARTISTAS.",
@@ -29,7 +29,7 @@ es:{nav_home:"Inicio",nav_alb:"Álbumes",nav_video:"Video",nav_about:"Nosotros",
  c_p2:"Si lo prefieren, también podemos coordinar una videollamada para conocernos, resolver sus dudas y conversar con más calma sobre su celebración.",
  copy:"Copiar",copied:"Correo copiado",copyfail:"registro.album.pe@gmail.com",lbclose:"Cerrar",lbprev:"Anterior",lbnext:"Siguiente",ph:"Slideshow · placeholder"},
 en:{nav_home:"Home",nav_alb:"Albums",nav_video:"Video",nav_about:"About",nav_serv:"Services",nav_contact:"Contact",menu:"Menu",close:"Close",
- alb_loc:"Location",alb_couple:"Couple’s name",alb_back:"All albums",alb_next:"Next album",photo:"Photo",
+ alb_loc:"Location",alb_couple:"Couple’s name",idx_quote:"<i>Stories</i> we had the<br><i>privilege</i> of<br><i>capturing</i> and <i>interpreting</i>.",alb_back:"All albums",alb_next:"Next album",photo:"Photo",
  tagline:"Moments interpreted<br>by <i>artists</i>.",explore:"Explore our work.",
  h1a:"To register is to observe, choose and keep.<br>We do it as artists who complement each other, each with their own eye, to interpret a special day with attention and care.",h1b:"So it remains as a <i>timeless</i> piece.",
  made:"MADE",by:"BY",humans:"HUMANS.",artists:"ARTISTS.",
@@ -206,29 +206,31 @@ function renderQuotes(){
 setInterval(()=>{ const w=$('#quotes'); if(!w||QUOTES.length<2||document.hidden) return; const it=$$('.quote-item',w); it[w._i].classList.remove('on'); w._i=(w._i+1)%it.length; it[w._i].classList.add('on'); },7000);
 
 
-/* ===================== Álbumes (hub) ===================== */
-const albumsEl=$('#albums');
+/* ===================== Álbumes (hub): índice + portada que cambia al pasar el cursor ===================== */
+const albumsEl=$('#albums'), stageEl=$('#idxStage'); let albActive=-1; const albRows=[], albPv=[];
+function setAlbum(i){
+  if(i===albActive) return; albActive=i;
+  albRows.forEach((r,k)=>r.classList.toggle('on',k===i)); albPv.forEach((p,k)=>p.classList.toggle('on',k===i));
+}
 function buildAlbums(){
-  if(!albumsEl) return;
-  const frag=document.createDocumentFragment(); const T=['clay','sage','dusk','sand'];
-  for(let i=0;i<ALBUMS.length;i+=2){
-    const row=document.createElement('div'); row.className='alb-row';
-    ALBUMS.slice(i,i+2).forEach((a,k)=>{
-      const el=document.createElement('a'); el.className='alb'; el.href='#album/'+a.slug;
-      el.setAttribute('data-reveal',''); el.style.setProperty('--d',(k*110)+'ms'); el.style.setProperty('--r',a.r||1.3);
-      const cov=document.createElement('div'); cov.className='alb-cover';
-      const ph=document.createElement('div'); ph.className='ph'; const t=TONES[T[(i+k)%4]][(i+k)%4]; ph.style.cssText=`--a:${t[0]};--b:${t[1]};--c:${t[2]}`; cov.append(ph);
-      if(a.cover){ const im=new Image(); im.alt=''; im.draggable=false; im.decoding='async';
-        im.onload=()=>{ el.style.setProperty('--r',(im.naturalWidth/im.naturalHeight).toFixed(4)); cov.append(im); ph.remove(); };
-        im.src=a.cover; }
-      const meta=document.createElement('div'); meta.className='alb-meta';
-      const l=document.createElement('p'); l.className='alb-loc'; if(a.loc) l.textContent=a.loc; else l.dataset.i18n='alb_loc';
-      const n=document.createElement('p'); n.className='alb-name'; const sp=document.createElement('span'); if(a.couple) sp.textContent=a.couple; else sp.dataset.i18n='alb_couple'; n.append(sp);
-      meta.append(l,n); el.append(cov,meta); row.append(el);
-    });
-    frag.append(row);
-  }
-  albumsEl.append(frag);
+  if(!albumsEl||!stageEl) return; const T=['clay','sage','dusk','sand'];
+  ALBUMS.forEach((a,i)=>{
+    const row=document.createElement('a'); row.className='rw'; row.href='#album/'+a.slug;
+    const nm=document.createElement('span'); nm.className='nm'; if(a.couple) nm.textContent=a.couple; else nm.dataset.i18n='alb_couple';
+    const ld=document.createElement('span'); ld.className='ld'; ld.setAttribute('aria-hidden','true');
+    const lc=document.createElement('span'); lc.className='lc'; if(a.loc) lc.textContent=a.loc; else lc.dataset.i18n='alb_loc';
+    row.append(nm,ld,lc);
+    row.addEventListener('mouseenter',()=>setAlbum(i)); row.addEventListener('focus',()=>setAlbum(i));
+    albumsEl.append(row); albRows.push(row);
+    /* portada: respeta la proporción real de la foto */
+    const pv=document.createElement('a'); pv.className='pv'; pv.href=row.href; pv.tabIndex=-1; pv.setAttribute('aria-hidden','true'); pv.style.setProperty('--r',a.r||1.3333);
+    const ph=document.createElement('div'); ph.className='ph'; const t=TONES[T[i%4]][i%4]; ph.style.cssText=`--a:${t[0]};--b:${t[1]};--c:${t[2]}`; pv.append(ph);
+    if(a.cover){ const im=new Image(); im.alt=''; im.draggable=false; im.decoding='async';
+      im.onload=()=>{ pv.style.setProperty('--r',(im.naturalWidth/im.naturalHeight).toFixed(4)); pv.append(im); ph.remove(); };
+      im.src=a.cover; }
+    stageEl.append(pv); albPv.push(pv);
+  });
+  setAlbum(0);
 }
 buildAlbums();
 
