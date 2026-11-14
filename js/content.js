@@ -25,18 +25,19 @@ const SLIDES = {
    Cada álbum = una portada + sus fotos. Se muestran de a dos por fila, en este orden.
      slug   → nombre corto sin espacios ni tildes; es la dirección: registro.pages.dev/#album/darinka-rudy
      loc    → locación (texto)            couple → nombre de la pareja (texto)
+     date   → fecha de la boda (texto, ej. "Septiembre 2026"; opcional "dateEn" para inglés)
      cover  → portada (JPG). Respeta su proporción original: vertical u horizontal
      r      → proporción del placeholder mientras no hay portada (0.77 = vertical, 1.3 = horizontal)
      photos → fotos de la galería (se muestran con su proporción original, en este orden)
    Si "loc" o "couple" quedan vacíos se muestran los textos de ejemplo (Locación / Nombre de la pareja).
    Ejemplo ya armado:
-     {slug:"darinka-rudy", loc:"Cusco", couple:"Darinka & Rudy", cover:"assets/img/albumes/darinka-rudy/portada.jpg",
+     {slug:"darinka-rudy", loc:"Cusco", couple:"Darinka & Rudy", date:"Septiembre 2026", cover:"assets/img/albumes/darinka-rudy/portada.jpg",
       photos:["assets/img/albumes/darinka-rudy/01.jpg","assets/img/albumes/darinka-rudy/02.jpg"]}
    Los nombres de archivo distinguen mayúsculas y minúsculas (.jpg ≠ .JPG).
    ===================================================================== */
 const ALBUMS = [
-  {slug:"darinka-rudy", loc:"Valle de Santa Eulalia", couple:"Darinka & Rudy", cover:"assets/img/DarinkaRudy-Cover.jpg", r:0.75, photos:[]},
-  {slug:"veronica-mario", loc:"Barranco", couple:"Verónica & Mario", cover:"assets/img/VeronicaMario-Cover.jpg", r:1.3333, photos:[]},
+  {slug:"darinka-rudy", loc:"Valle de Santa Eulalia", couple:"Darinka & Rudy", date:"Septiembre 2026", cover:"assets/img/DarinkaRudy-Cover.jpg", r:0.75, photos:[]},
+  {slug:"veronica-mario", loc:"Barranco", couple:"Verónica & Mario", date:"", cover:"assets/img/VeronicaMario-Cover.jpg", r:1.3333, photos:[]},
   {slug:"album-3", loc:"", couple:"", cover:"", r:1.3333, photos:[]},
   {slug:"album-4", loc:"", couple:"", cover:"", r:0.75, photos:[]}
 ];
