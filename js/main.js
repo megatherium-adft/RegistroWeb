@@ -12,11 +12,11 @@ document.addEventListener('keydown',e=>{
 /* ===================== i18n ===================== */
 const I18N = {
 es:{nav_home:"Inicio",nav_alb:"Álbumes",nav_video:"Video",nav_about:"Nosotros",nav_serv:"Servicios",nav_contact:"Contacto",menu:"Menú",close:"Cerrar",
- alb_loc:"Locación",alb_couple:"Nombre de la pareja",idx_quote:"<i>Historias</i> en las que<br>tuvimos el <i>privilegio</i> de<br><i>capturar</i> e <i>interpretar</i>.",alb_back:"Todos los álbumes",alb_next:"Siguiente álbum",photo:"Foto",
+ alb_loc:"Locación",alb_date:"Fecha",alb_couple:"Nombre de la pareja",idx_quote:"<i>Historias</i> que tuvimos<br>el <i>privilegio</i> de <i>capturar</i> e<br><i>interpretar</i>.",alb_back:"Todos los álbumes",alb_next:"Siguiente álbum",photo:"Foto",
  tagline:"Momentos interpretados<br>por <i>artistas</i>.",explore:"Explora nuestro trabajo.",
  h1a:"Registrar es observar, elegir y guardar.<br>Lo hacemos entre artistas que se complementan, cada uno con su mirada, para interpretar un día especial con atención y cuidado.",h1b:"Para que quede como una pieza <i>atemporal</i>.",
  made:"HECHO",by:"POR",humans:"HUMANOS.",artists:"ARTISTAS.",
- gal_of:"de <i>nuestro</i> trabajo",video_h:"en movimiento",video_p:"Aquí irá el video de la marca.",
+ gal_of:"de <i>nuestro</i><br>trabajo.",video_h:"en movimiento",video_p:"Aquí irá el video de la marca.",
  about_h:"Sobre nosotros<br>y <i>nuestra</i> misión",
  about_p:"<p><span class='wm'>registro</span> nace en la intersección de la fotografía, el arte y el álbum familiar.</p><p>Lo que ofrecemos son momentos interpretados por artistas. Antes de fotografiar, nos interesa conocer a cada pareja: su <i>historia</i>, sus <i>vínculos</i>, su <i>complicidad</i>.</p><p>Buscamos momentos honestos. Nos conmueve la humanidad de lo que ocurre sin ser dirigido.</p>",
  about2_a:"Cada imagen es una pieza preciada, elegida y editada con <i>sensibilidad</i>. Fotografías para vivirlas hoy. Imágenes para volver a ellas después.",about2_b:"Hecho por <i>personas</i>. Hecho por <i>artistas</i>.",
@@ -29,11 +29,11 @@ es:{nav_home:"Inicio",nav_alb:"Álbumes",nav_video:"Video",nav_about:"Nosotros",
  c_p2:"Si lo prefieren, también podemos coordinar una videollamada para conocernos, resolver sus dudas y conversar con más calma sobre su celebración.",
  copy:"Copiar",copied:"Correo copiado",copyfail:"registro.album.pe@gmail.com",lbclose:"Cerrar",lbprev:"Anterior",lbnext:"Siguiente",ph:"Slideshow · placeholder"},
 en:{nav_home:"Home",nav_alb:"Albums",nav_video:"Video",nav_about:"About",nav_serv:"Services",nav_contact:"Contact",menu:"Menu",close:"Close",
- alb_loc:"Location",alb_couple:"Couple’s name",idx_quote:"<i>Stories</i> we had the<br><i>privilege</i> of<br><i>capturing</i> and <i>interpreting</i>.",alb_back:"All albums",alb_next:"Next album",photo:"Photo",
+ alb_loc:"Location",alb_date:"Date",alb_couple:"Couple’s name",idx_quote:"<i>Stories</i> we had the<br><i>privilege</i> of <i>capturing</i> and<br><i>interpreting</i>.",alb_back:"All albums",alb_next:"Next album",photo:"Photo",
  tagline:"Moments interpreted<br>by <i>artists</i>.",explore:"Explore our work.",
  h1a:"To register is to observe, choose and keep.<br>We do it as artists who complement each other, each with their own eye, to interpret a special day with attention and care.",h1b:"So it remains as a <i>timeless</i> piece.",
  made:"MADE",by:"BY",humans:"HUMANS.",artists:"ARTISTS.",
- gal_of:"of <i>our</i> work",video_h:"in motion",video_p:"The brand film will live here.",
+ gal_of:"of <i>our</i><br>work.",video_h:"in motion",video_p:"The brand film will live here.",
  about_h:"About us<br>and <i>our</i> mission",
  about_p:"<p><span class='wm'>registro</span> was born at the intersection of photography, art and the family album.</p><p>What we offer are moments interpreted by artists. Before photographing, we want to know each couple: their <i>story</i>, their <i>bonds</i>, their <i>complicity</i>.</p><p>We look for honest moments. We are moved by the humanity of what happens without being directed.</p>",
  about2_a:"Every image is a treasured piece, chosen and edited with <i>sensitivity</i>. Photographs to live today. Images to return to later.",about2_b:"Made by <i>people</i>. Made by <i>artists</i>.",
@@ -61,7 +61,7 @@ function applyLang(){
   $('#lbClose').setAttribute('aria-label',d.lbclose);$('#lbPrev').setAttribute('aria-label',d.lbprev);$('#lbNext').setAttribute('aria-label',d.lbnext);
   $$('.ph-label').forEach(l=>l.textContent=d.ph);
   menuBtn.setAttribute('aria-label',d.menu); $('#drawerClose').setAttribute('aria-label',d.close+' '+d.menu.toLowerCase()); drawer.setAttribute('aria-label',d.menu);
-  renderQuotes(); renderAlbumHead();
+  renderQuotes(); renderAlbumHead(); albInfoRefresh();
 }
 $('#lang').addEventListener('click',()=>{
   lang = lang==='es'?'en':'es'; store.set('registro-lang',lang);
@@ -206,32 +206,113 @@ function renderQuotes(){
 setInterval(()=>{ const w=$('#quotes'); if(!w||QUOTES.length<2||document.hidden) return; const it=$$('.quote-item',w); it[w._i].classList.remove('on'); w._i=(w._i+1)%it.length; it[w._i].classList.add('on'); },7000);
 
 
-/* ===================== Álbumes (hub): índice + portada que cambia al pasar el cursor ===================== */
-const albumsEl=$('#albums'), stageEl=$('#idxStage'); let albActive=-1; const albRows=[], albPv=[];
-function setAlbum(i){
-  if(i===albActive) return; albActive=i;
-  albRows.forEach((r,k)=>r.classList.toggle('on',k===i)); albPv.forEach((p,k)=>p.classList.toggle('on',k===i));
+/* ===================== Álbumes (hub): grilla de covers + recuadro de info + texto que se desenfoca ===================== */
+var albReady=false;                       /* var: applyLang puede llamarlo antes de que esto se ejecute */
+const pgAlb=$('[data-page="albumes"]'), albumsEl=$('#albums'), boxEl=$('#ibBox'), quoteEl=$('#idxQuote');
+const ibRows=boxEl?$$('.ir',boxEl):[], albCards=[], reduceMo=matchMedia('(prefers-reduced-motion:reduce)'), canHover=matchMedia('(hover:hover)');
+const EASE_O='cubic-bezier(.23,1,.32,1)';
+let albActive=-1, albHover=-1;
+
+function albTexts(i){ const a=ALBUMS[i], t=I18N[lang]; return [a.loc||t.alb_loc, a.couple||t.alb_couple, (lang==='en'&&a.dateEn)||a.date||t.alb_date]; }
+
+/* ancho del recuadro = texto más largo + aire; se anima con CSS */
+const ibMs=document.createElement('span'); ibMs.className='ib-ms'; ibMs.setAttribute('aria-hidden','true'); if(boxEl) boxEl.parentNode.append(ibMs);
+function ibWidth(txts){
+  let w=0; txts.forEach(s=>{ ibMs.textContent=s; w=Math.max(w,ibMs.getBoundingClientRect().width); });
+  const fs=parseFloat(getComputedStyle(ibMs).fontSize)||16; return Math.round(Math.max(fs*10.8,w+fs*2.3));
 }
-function buildAlbums(){
-  if(!albumsEl||!stageEl) return; const T=['clay','sage','dusk','sand'];
-  ALBUMS.forEach((a,i)=>{
-    const row=document.createElement('a'); row.className='rw'; row.href='#album/'+a.slug;
-    const nm=document.createElement('span'); nm.className='nm'; if(a.couple) nm.textContent=a.couple; else nm.dataset.i18n='alb_couple';
-    const ld=document.createElement('span'); ld.className='ld'; ld.setAttribute('aria-hidden','true');
-    const lc=document.createElement('span'); lc.className='lc'; if(a.loc) lc.textContent=a.loc; else lc.dataset.i18n='alb_loc';
-    row.append(nm,ld,lc);
-    row.addEventListener('mouseenter',()=>setAlbum(i)); row.addEventListener('focus',()=>setAlbum(i));
-    albumsEl.append(row); albRows.push(row);
-    /* portada: respeta la proporción real de la foto */
-    const pv=document.createElement('a'); pv.className='pv'; pv.href=row.href; pv.tabIndex=-1; pv.setAttribute('aria-hidden','true'); pv.style.setProperty('--r',a.r||1.3333);
-    const ph=document.createElement('div'); ph.className='ph'; const t=TONES[T[i%4]][i%4]; ph.style.cssText=`--a:${t[0]};--b:${t[1]};--c:${t[2]}`; pv.append(ph);
-    if(a.cover){ const im=new Image(); im.alt=''; im.draggable=false; im.decoding='async';
-      im.onload=()=>{ pv.style.setProperty('--r',(im.naturalWidth/im.naturalHeight).toFixed(4)); pv.append(im); ph.remove(); };
-      im.src=a.cover; }
-    stageEl.append(pv); albPv.push(pv);
+
+/* cambia el contenido: cada fila sale/entra por separado, recortada por su propia línea.
+   dir>0: el nuevo contenido llega desde abajo; dir<0: desde arriba */
+function setInfo(i,dir,instant){
+  if(!boxEl) return; const txts=albTexts(i); boxEl.style.width=ibWidth(txts)+'px';
+  ibRows.forEach((row,k)=>{
+    const old=row._cur;
+    $$('.iv.lv',row).forEach(s=>s.remove());
+    const nu=document.createElement('span'); nu.className='iv'; nu.textContent=txts[k]; row.append(nu); row._cur=nu;
+    if(!old) return;
+    if(instant||reduceMo.matches){ old.remove(); return; }
+    const d=(dir>0?k:ibRows.length-1-k)*36;
+    if(old._a){ try{ old._a.commitStyles(); old._a.cancel(); }catch(e){} }
+    old.classList.add('lv');
+    const out=old.animate([{transform:`translateY(${-dir*72}%)`,opacity:0}],{duration:260,delay:d,easing:EASE_O,fill:'forwards'});
+    out.onfinish=()=>old.remove();
+    nu._a=nu.animate([{transform:`translateY(${dir*72}%)`,opacity:0},{transform:'none',opacity:1}],{duration:440,delay:d+70,easing:EASE_O,fill:'backwards'});
   });
-  setAlbum(0);
 }
+function albInfoRefresh(){ if(albReady&&albActive>=0) setInfo(albActive,1,true); }
+
+function setAlbum(i){
+  if(i===albActive||i<0) return; const prev=albActive; albActive=i; let dir=1;
+  if(prev>=0){ const a=albCards[prev].getBoundingClientRect(), b=albCards[i].getBoundingClientRect(), dy=(b.top+b.height/2)-(a.top+a.height/2); dir=Math.abs(dy)>6?Math.sign(dy):(i>prev?1:-1); }
+  albCards.forEach((c,k)=>c.classList.toggle('on',k===i)); setInfo(i,dir,prev<0);
+}
+
+function buildAlbums(){
+  if(!albumsEl||!boxEl) return; const T=['clay','sage','dusk','sand'];
+  ALBUMS.forEach((a,i)=>{
+    const cd=document.createElement('a'); cd.className='cd'; cd.href='#album/'+a.slug; cd.setAttribute('data-reveal',''); cd.style.setProperty('--d',(i%2)*.09+'s');
+    const setR=r=>{ cd.style.setProperty('--r',r); cd.style.setProperty('--k',Math.min(1,r)); };
+    setR(a.r||1.3333);
+    const cv=document.createElement('div'); cv.className='cv';
+    const ph=document.createElement('div'); ph.className='ph'; const t=TONES[T[i%4]][i%4]; ph.style.cssText=`--a:${t[0]};--b:${t[1]};--c:${t[2]}`; cv.append(ph);
+    if(a.cover){ const im=new Image(); im.alt=''; im.draggable=false; im.decoding='async';
+      im.onload=()=>{ setR((im.naturalWidth/im.naturalHeight).toFixed(4)); cv.append(im); ph.remove(); albMeasure(); };
+      im.src=a.cover; }
+    const cl=document.createElement('span'); cl.className='cl'; if(a.loc) cl.textContent=a.loc; else cl.dataset.i18n='alb_loc';
+    const cn=document.createElement('span'); cn.className='cn'; if(a.couple) cn.textContent=a.couple; else cn.dataset.i18n='alb_couple';
+    cd.append(cv,cl,cn);
+    cd.addEventListener('focus',()=>{ albHover=i; setAlbum(i); }); cd.addEventListener('blur',()=>{ if(albHover===i) albHover=-1; });
+    if(canHover.matches){
+      cd.addEventListener('pointerenter',()=>{ albHover=i; setAlbum(i); });
+      cd.addEventListener('pointerleave',()=>{ if(albHover===i) albHover=-1; });
+    }
+    albumsEl.append(cd); albCards.push(cd);
+  });
+  albReady=true; setAlbum(0); albMeasure();
+}
+
+/* --- el activo sigue al scroll cuando el cursor no está sobre un cover (el más cercano al centro, con histéresis) --- */
+function pickByScroll(){
+  if(albHover>=0||!albCards.length) return;
+  const vh=innerHeight, nav=parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--nav-h'))||64, probe=nav+(vh-nav)*.5;
+  const dist=c=>{ const r=c.getBoundingClientRect(); return Math.abs(r.top+r.height/2-probe); };
+  let best=0,bd=Infinity; albCards.forEach((c,k)=>{ const d=dist(c); if(d<bd-0.5){bd=d;best=k;} });
+  if(albActive<0||(best!==albActive&&dist(albCards[albActive])-bd>48)) setAlbum(best);
+}
+
+/* --- texto "Historias…": se desenfoca con ruido y desaparece al bajar más allá de la 2.ª fila; vuelve a foco al parar --- */
+const fxTurb=$('#qfxT'), fxDisp=$('#qfxD');
+let row2Bottom=Infinity, lastY=scrollY, idleT=0, fxV=0, fxT=0, fxRaf=0, fxLast=0, fxF=0, scrTick=false;
+function albMeasure(){
+  const rows=[]; albCards.forEach(c=>{ const r=c.getBoundingClientRect(), top=r.top+scrollY; let row=rows.find(x=>Math.abs(x.top-top)<24); if(!row){row={top,bottom:0};rows.push(row);} row.bottom=Math.max(row.bottom,r.bottom+scrollY); });
+  rows.sort((a,b)=>a.top-b.top); row2Bottom=rows.length>2?rows[1].bottom:Infinity;
+}
+function applyFx(v){
+  if(!quoteEl) return;
+  if(v<=0){ quoteEl.classList.remove('fx'); quoteEl.style.removeProperty('--qb'); quoteEl.style.removeProperty('opacity'); return; }
+  quoteEl.classList.add('fx'); quoteEl.style.setProperty('--qb',(v*13).toFixed(2)+'px'); quoteEl.style.opacity=(1-v).toFixed(3);
+  if(fxDisp) fxDisp.setAttribute('scale',(v*34).toFixed(1));
+  if(fxTurb&&++fxF%3===0) fxTurb.setAttribute('seed',String(1+(fxF/3)%9));
+}
+function fxStep(t){
+  const dt=Math.min(48,t-fxLast); fxLast=t; const tau=fxT>fxV?70:100;      /* entra rápido, vuelve a foco aún más rápido */
+  fxV+=(fxT-fxV)*(1-Math.exp(-dt/tau)); if(Math.abs(fxT-fxV)<.004) fxV=fxT;
+  applyFx(fxV); fxRaf=fxV!==fxT?requestAnimationFrame(fxStep):0;
+}
+function fxKick(){ if(!fxRaf){ fxLast=performance.now(); fxRaf=requestAnimationFrame(fxStep); } }
+function albScroll(){
+  if(!albReady||pgAlb.hidden) return;
+  const y=scrollY, dy=y-lastY; lastY=y;
+  if(!scrTick){ scrTick=true; requestAnimationFrame(()=>{ scrTick=false; pickByScroll(); }); }
+  if(reduceMo.matches||!quoteEl) return;
+  const past=row2Bottom-y<innerHeight*.5;
+  if(dy>0&&past) fxT=1; else if(dy!==0) fxT=0;
+  clearTimeout(idleT); idleT=setTimeout(()=>{ fxT=0; fxKick(); },140);
+  fxKick();
+}
+addEventListener('scroll',albScroll,{passive:true});
+addEventListener('resize',()=>{ if(!albReady) return; albMeasure(); albInfoRefresh(); });
 buildAlbums();
 
 /* ===================== Galería de un álbum (cuadrícula con proporción nativa) ===================== */
