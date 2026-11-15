@@ -663,9 +663,9 @@ body.swapping .drawer{opacity:0}
 .sv-h{position:absolute;z-index:1;left:3vw;top:calc(var(--nav-h) + 4.3vw);margin:0;font-family:var(--display);font-style:normal;font-weight:400;color:var(--red);
   font-size:15vw;line-height:1;letter-spacing:-.042em;white-space:nowrap}
 .sv-h[data-reveal]{opacity:1;transform:none;transition:none}
-.sv-h .ln{display:block;overflow:hidden;padding:.05em .06em;margin:-.05em -.06em}
-.sv-h .ln>span{display:block;transform:translateY(108%);transition:transform 1.05s cubic-bezier(.16,1,.3,1)}
-.sv-h.in .ln>span{transform:none}
+.sv-h .ln{display:block;padding:.05em .06em;margin:-.05em -.06em}
+.sv-h .ln>span{display:block;clip-path:inset(-.1em 100% -.1em -.1em);transition:clip-path 1.2s cubic-bezier(.16,1,.3,1)}
+.sv-h.in .ln>span{clip-path:inset(-.1em -.1em -.1em -.1em)}
 @supports (text-box:trim-both cap alphabetic){.sv-h .ln{text-box:trim-both cap alphabetic}}
 @supports not (text-box:trim-both cap alphabetic){.sv-h{margin-top:-.19em}}
 
@@ -683,7 +683,7 @@ body.swapping .drawer{opacity:0}
 .sv .copy-body.in p:nth-child(3){transition-delay:.52s}
 .sv-frame{position:relative;right:auto;top:auto;bottom:auto;width:100%;height:auto;aspect-ratio:827/906;overflow:hidden;background:#e9e2d6}
 .sv-fw[data-reveal]{opacity:1;transform:none;transition:none}
-.sv-fw .sv-frame{clip-path:inset(100% 0 0 0);transition:clip-path 1.15s cubic-bezier(.16,1,.3,1) var(--d,0s)}
+.sv-fw .sv-frame{clip-path:inset(0 100% 0 0);transition:clip-path 1.15s cubic-bezier(.16,1,.3,1) var(--d,0s)}
 .sv-fw.in .sv-frame{clip-path:inset(0)}
 .sv-fw .sv-frame .ss{transform:scale(1.07);transition:transform 1.6s cubic-bezier(.16,1,.3,1) calc(var(--d,0s) + .08s)}
 .sv-fw.in .sv-frame .ss{transform:none}
@@ -695,14 +695,11 @@ body.swapping .drawer{opacity:0}
 /* sello "escríbenos": enlace a Contacto. Cae como un sello; al pasar el cursor se levanta */
 .sv-seal{position:absolute;z-index:6;left:50%;top:52.9%;bottom:auto;width:15.2vw;translate:-50% -50%;display:block;pointer-events:auto;cursor:pointer;-webkit-tap-highlight-color:transparent;
   scale:1;rotate:0deg;transition:scale .5s var(--ease-out),rotate .5s var(--ease-out)}
-.sv-seal[data-reveal]{transform:none;transition:scale .5s var(--ease-out),rotate .5s var(--ease-out)}
-.sv-seal[data-reveal].in{animation:sealStamp .8s cubic-bezier(.2,.8,.2,1) var(--d,0s) backwards}
-@keyframes sealStamp{0%{opacity:0;scale:1.18;rotate:-4deg}55%{opacity:1}100%{opacity:1;scale:1;rotate:0deg}}
 .sv-seal img,.sv-seal .seal-ph{transition:filter .5s var(--ease-out),box-shadow .5s var(--ease-out)}
-.sv-seal img{filter:drop-shadow(0 2px 3px rgba(40,28,16,.14))}
+.sv-seal img{filter:drop-shadow(0 1px 2px rgba(40,28,16,.1))}
 @media (hover:hover) and (pointer:fine){
   .sv-seal:hover,.sv-page:has(.jl:hover) .sv-seal{scale:1.04;rotate:-2.2deg}
-  .sv-seal:hover img,.sv-page:has(.jl:hover) .sv-seal img{filter:drop-shadow(0 14px 16px rgba(40,28,16,.26))}
+  .sv-seal:hover img,.sv-page:has(.jl:hover) .sv-seal img{filter:drop-shadow(0 7px 9px rgba(40,28,16,.15))}
   .sv .copy-body a.jl:hover,.sv-page:has(.sv-seal:hover) .sv .copy-body a.jl{color:var(--red)}
 }
 .sv-seal:active{scale:.972;rotate:0deg;transition-duration:.12s}
@@ -718,8 +715,8 @@ body.swapping .drawer{opacity:0}
   .sv .copy-body{font-size:19px}
 }
 @media (prefers-reduced-motion:reduce){
-  .sv-h .ln>span{transform:none;transition:none}
+  .sv-h .ln>span{clip-path:none;transition:none}
   .sv-fw .sv-frame{clip-path:none;transition:none}.sv-fw .sv-frame .ss{transform:none;transition:none}
   .sv .copy-body p{opacity:1;transform:none;transition:none}
-  .sv-seal[data-reveal].in{animation:none}.sv-seal{transition:none}
+  .sv-seal{transition:none}
 }
