@@ -652,3 +652,74 @@ body.swapping .drawer{opacity:0}
   .cvl{padding-left:14px;white-space:normal;overflow-wrap:anywhere}
 }
 @media (prefers-reduced-motion:reduce){.cvl{transition:none}}
+
+
+/* =====================================================================
+   V5 · Servicios (diseño final)
+   Medidas de la referencia (1920×1114): título 15vw con la altura de las mayúsculas alineada al borde superior del marco,
+   marco 827×906 (53.3vw→96.4vw), texto 4.27vw→43.75vw alineado al borde inferior del marco, sello centrado en 50%.
+   ===================================================================== */
+.sv-page{position:relative;display:block;padding:0;overflow:hidden;min-height:max(100svh,calc(var(--nav-h) + 4.3vw + 47.2vw + 3.3vw))}
+.sv-h{position:absolute;z-index:1;left:3vw;top:calc(var(--nav-h) + 4.3vw);margin:0;font-family:var(--display);font-style:normal;font-weight:400;color:var(--red);
+  font-size:15vw;line-height:1;letter-spacing:-.042em;white-space:nowrap}
+.sv-h[data-reveal]{opacity:1;transform:none;transition:none}
+.sv-h .ln{display:block;overflow:hidden;padding:.05em .06em;margin:-.05em -.06em}
+.sv-h .ln>span{display:block;transform:translateY(108%);transition:transform 1.05s cubic-bezier(.16,1,.3,1)}
+.sv-h.in .ln>span{transform:none}
+@supports (text-box:trim-both cap alphabetic){.sv-h .ln{text-box:trim-both cap alphabetic}}
+@supports not (text-box:trim-both cap alphabetic){.sv-h{margin-top:-.19em}}
+
+.sv-stage{position:relative;z-index:2;display:grid;grid-template-columns:minmax(0,39.7vw) 43.07vw;justify-content:space-between;align-items:stretch;
+  padding:calc(var(--nav-h) + 4.3vw) 3.6vw 3.3vw 4.27vw;box-sizing:border-box;pointer-events:none}
+.sv-stage>*{pointer-events:auto}
+.sv{display:flex;flex-direction:column;justify-content:flex-end;width:auto;min-height:0;padding:0}
+.sv .copy-body{max-width:none;font-size:clamp(18px,1.5vw,34px);line-height:1.22;letter-spacing:-.012em;text-wrap:pretty}
+.sv .copy-body[data-reveal]{opacity:1;transform:none;transition:none}
+.sv .copy-body p{margin:0 0 1.15em;opacity:0;transform:translateY(14px);transition:opacity .9s var(--ease-out),transform .9s var(--ease-out)}
+.sv .copy-body p:last-child{margin-bottom:0}
+.sv .copy-body.in p{opacity:1;transform:none}
+.sv .copy-body.in p:nth-child(1){transition-delay:.32s}
+.sv .copy-body.in p:nth-child(2){transition-delay:.42s}
+.sv .copy-body.in p:nth-child(3){transition-delay:.52s}
+.sv-frame{position:relative;right:auto;top:auto;bottom:auto;width:100%;height:auto;aspect-ratio:827/906;overflow:hidden;background:#e9e2d6}
+.sv-fw[data-reveal]{opacity:1;transform:none;transition:none}
+.sv-fw .sv-frame{clip-path:inset(100% 0 0 0);transition:clip-path 1.15s cubic-bezier(.16,1,.3,1) var(--d,0s)}
+.sv-fw.in .sv-frame{clip-path:inset(0)}
+.sv-fw .sv-frame .ss{transform:scale(1.07);transition:transform 1.6s cubic-bezier(.16,1,.3,1) calc(var(--d,0s) + .08s)}
+.sv-fw.in .sv-frame .ss{transform:none}
+
+/* enlace "juntos": subrayado que se vuelve rojo */
+.sv .copy-body a.jl{color:inherit;text-decoration:none;background:linear-gradient(currentColor,currentColor) 0 100%/100% 1px no-repeat;padding-bottom:1px;transition:color .22s var(--ease-out)}
+.sv .copy-body a.jl:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+
+/* sello "escríbenos": enlace a Contacto. Cae como un sello; al pasar el cursor se levanta */
+.sv-seal{position:absolute;z-index:6;left:50%;top:52.9%;bottom:auto;width:15.2vw;translate:-50% -50%;display:block;pointer-events:auto;cursor:pointer;-webkit-tap-highlight-color:transparent;
+  scale:1;rotate:0deg;transition:scale .5s var(--ease-out),rotate .5s var(--ease-out)}
+.sv-seal[data-reveal]{transform:none;transition:scale .5s var(--ease-out),rotate .5s var(--ease-out)}
+.sv-seal[data-reveal].in{animation:sealStamp .8s cubic-bezier(.2,.8,.2,1) var(--d,0s) backwards}
+@keyframes sealStamp{0%{opacity:0;scale:1.18;rotate:-4deg}55%{opacity:1}100%{opacity:1;scale:1;rotate:0deg}}
+.sv-seal img,.sv-seal .seal-ph{transition:filter .5s var(--ease-out),box-shadow .5s var(--ease-out)}
+.sv-seal img{filter:drop-shadow(0 2px 3px rgba(40,28,16,.14))}
+@media (hover:hover) and (pointer:fine){
+  .sv-seal:hover,.sv-page:has(.jl:hover) .sv-seal{scale:1.04;rotate:-2.2deg}
+  .sv-seal:hover img,.sv-page:has(.jl:hover) .sv-seal img{filter:drop-shadow(0 14px 16px rgba(40,28,16,.26))}
+  .sv .copy-body a.jl:hover,.sv-page:has(.sv-seal:hover) .sv .copy-body a.jl{color:var(--red)}
+}
+.sv-seal:active{scale:.972;rotate:0deg;transition-duration:.12s}
+.sv-seal:focus-visible{outline:2px solid var(--red);outline-offset:6px;border-radius:50%}
+
+@media (max-width:860px){
+  .sv-page{display:flex;flex-direction:column;min-height:0;padding:calc(var(--nav-h) + 22px) 20px 70px}
+  .sv-h{position:static;font-size:clamp(76px,27vw,130px);line-height:1;margin:0 0 18px -.02em}
+  .sv-stage{display:contents}
+  .sv-fw{order:1;width:100%}
+  .sv-seal{order:2;position:relative;left:auto;top:auto;translate:none;width:46vw;margin:-9vw auto 0}
+  .sv{order:3;margin-top:22px}
+  .sv .copy-body{font-size:19px}
+}
+@media (prefers-reduced-motion:reduce){
+  .sv-h .ln>span{transform:none;transition:none}
+  .sv-fw .sv-frame{clip-path:none;transition:none}.sv-fw .sv-frame .ss{transform:none;transition:none}
+  .sv .copy-body p{opacity:1;transform:none;transition:none}
+  .sv-seal[data-reveal].in{animation:none}.sv-seal{transition:none}
+}
