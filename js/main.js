@@ -22,7 +22,7 @@ es:{nav_home:"Inicio",nav_alb:"Álbumes",nav_video:"Video",nav_about:"Nosotros",
  about2_a:"Cada imagen es una pieza preciada, elegida y editada con <i>sensibilidad</i>. Fotografías para vivirlas hoy. Imágenes para volver a ellas después.",about2_b:"Hecho por <i>personas</i>. Hecho por <i>artistas</i>.",
  next_serv:"Siguiente · Servicios",next_home:"Volver al inicio",
  serv_h:"Servicios",
- serv_p:"<p>Nuestros <u>Fotogramas</u> (o <i>experiencias fotográficas</i>) comienzan <span class='nb'>desde S/&nbsp;5,500.</span></p><p>Lo que se construye aquí es algo que va a existir mucho <i>después</i> de la fiesta. Fotografías que los transportan otra vez a la luz de esa tarde, a la risa, al abrazo.</p><p>Por eso cada propuesta se arma a medida, a partir de una <i>conversación</i> sobre cómo imaginan su boda y qué les gustaría tener entre las manos cuando pase el <i>tiempo</i>. Si esto se parece a lo que buscan, escríbannos. Lo demás lo vamos armando <u>juntos</u>.</p>",
+ serv_p:"<p>Nuestros <u>Fotogramas</u> (o <i>experiencias fotográficas</i>) comienzan <span class='nb'>desde S/&nbsp;5,500.</span></p><p>Lo que se construye aquí es algo que va a existir mucho <i>después</i> de la fiesta. Fotografías que los transportan otra vez a la luz de esa tarde, a la risa, al abrazo.</p><p>Por eso cada propuesta se arma a medida, a partir de una <i>conversación</i> sobre cómo imaginan su boda y qué les gustaría tener entre las manos cuando pase el <i>tiempo</i>. Si esto se parece a lo que buscan, escríbannos. Lo demás lo vamos armando <a class='jl' href='#contacto'>juntos</a>.</p>",
  cta:"¡Escríbenos!",
  c_h:"¡Conversemos!",c_sub:"<span class=\"l1\">Gracias por considerar</span><span class=\"l2\">hacernos parte de su</span><span class=\"l3\">celebración.</span>",
  c_p1:"Queremos conocer su historia, saber qué están planeando y conversar sobre cómo podemos acompañarlos. Estaremos encantados de responderles.",
@@ -39,7 +39,7 @@ en:{nav_home:"Home",nav_alb:"Albums",nav_video:"Video",nav_about:"About",nav_ser
  about2_a:"Every image is a treasured piece, chosen and edited with <i>sensitivity</i>. Photographs to live today. Images to return to later.",about2_b:"Made by <i>people</i>. Made by <i>artists</i>.",
  next_serv:"Next · Services",next_home:"Back to start",
  serv_h:"Services",
- serv_p:"<p>Our <u>Fotogramas</u> (or <i>photographic experiences</i>) start at <span class='nb'>S/&nbsp;5,500.</span></p><p>What we build here will exist long <i>after</i> the party. Photographs that carry you back to the light of that afternoon, to the laughter, to the embrace.</p><p>That is why every proposal is tailored, starting from a <i>conversation</i> about how you imagine your wedding and what you would like to hold in your hands as <i>time</i> goes by. If this sounds like what you are looking for, write to us. The rest we build <u>together</u>.</p>",
+ serv_p:"<p>Our <u>Fotogramas</u> (or <i>photographic experiences</i>) start at <span class='nb'>S/&nbsp;5,500.</span></p><p>What we build here will exist long <i>after</i> the party. Photographs that carry you back to the light of that afternoon, to the laughter, to the embrace.</p><p>That is why every proposal is tailored, starting from a <i>conversation</i> about how you imagine your wedding and what you would like to hold in your hands as <i>time</i> goes by. If this sounds like what you are looking for, write to us. The rest we build <a class='jl' href='#contacto'>together</a>.</p>",
  cta:"Write to us!",
  c_h:"Let’s talk!",c_sub:"<span class=\"l1\">Thank you for considering</span><span class=\"l2\">us as part of your</span><span class=\"l3\">celebration.</span>",
  c_p1:"We would love to hear your story, learn what you are planning and talk about how we can accompany you. We will be happy to answer.",
@@ -61,7 +61,7 @@ function applyLang(){
   $('#lbClose').setAttribute('aria-label',d.lbclose);$('#lbPrev').setAttribute('aria-label',d.lbprev);$('#lbNext').setAttribute('aria-label',d.lbnext);
   $$('.ph-label').forEach(l=>l.textContent=d.ph);
   menuBtn.setAttribute('aria-label',d.menu); $('#drawerClose').setAttribute('aria-label',d.close+' '+d.menu.toLowerCase()); drawer.setAttribute('aria-label',d.menu);
-  renderQuotes(); renderAlbumHead(); albInfoRefresh();
+  renderQuotes(); renderAlbumHead(); albInfoRefresh(); { const s2=$('#seal2'); if(s2) s2.setAttribute('aria-label',I18N[lang].cta.replace(/[¡!]/g,'')); }
 }
 $('#lang').addEventListener('click',()=>{
   lang = lang==='es'?'en':'es'; store.set('registro-lang',lang);
@@ -132,8 +132,8 @@ function buildSS(el){
 }
 /* Contacto: sello de papel (PNG cuadrado de 1832 × 1832 px en assets/logo/sello-papel.png).
    Mientras no exista se ve el placeholder. Al cargar, mide el óvalo dentro del PNG y lo ajusta al tamaño del diseño (sin importar cuánto margen transparente tenga). */
-(function(){
-  const seal=$('#seal'); if(!seal) return;
+function initSeal(seal,src){
+  if(!seal) return;
   const SEAL_AR=143/302;                       /* proporción del óvalo en el diseño de referencia */
   const im=new Image(); im.alt=''; im.draggable=false; im.decoding='async';
   im.onload=()=>{
@@ -153,8 +153,10 @@ function buildSS(el){
     } else im.className='fit';
     seal.append(im); seal.classList.add('has-img');
   };
-  im.src='assets/logo/sello-papel.png?v=1';
-})();
+  im.src=src;
+}
+initSeal($('#seal'),'assets/logo/sello-papel.png?v=1');
+initSeal($('#seal2'),'assets/logo/Sello%20Escribenos.png?v=1');
 /* Nosotros, 2.ª pantalla: si existe la imagen compuesta (PNG con las 3 fotos), reemplaza a los 3 marcos sueltos */
 (function(){
   const src=(SLIDES.retratos||[])[0]; const pols=$('.polaroids'); if(!src||!pols) return;
