@@ -726,18 +726,30 @@ body.swapping .drawer{opacity:0}
 
 
 /* =====================================================================
-   Logo del Home · dibujo a trazo
-   El PNG del logo se revela con una máscara de trazos que siguen el centro del óvalo y de cada letra (stroke-dashoffset).
-   El dibujo original no se altera: la máscara solo decide cuánto se ve, así que el borde irregular de tu logo queda intacto.
-   Orden: el óvalo se dibuja de una vuelta (sentido antihorario, desde arriba) y, a mitad de camino, la pluma escribe cada letra de izquierda a derecha.
+   Logo del Home · sello que se estampa
+   Un solo gesto, sutil: el sello baja (un poco más grande y desenfocado), toca el papel con una compresión mínima y se asienta.
+   En el contacto sale un halo de tinta muy tenue que se disipa. Solo se anima transform, opacity y un blur de 3px (todo en el compositor).
    ===================================================================== */
-.logo-draw{--ring-ease:cubic-bezier(.65,0,.35,1);display:block;overflow:visible;width:clamp(260px,25vw,540px);height:auto;pointer-events:none;-webkit-user-select:none;user-select:none}
-.logo-draw .st{stroke-dasharray:1 2;stroke-dashoffset:1.01}
-.hero.go .logo-draw .st{animation:strokeDraw var(--t) var(--e,linear) var(--d) both}
-@keyframes strokeDraw{from{stroke-dashoffset:1.01}to{stroke-dashoffset:0}}
-.hero.go .tagline{animation-delay:1.75s}
-.hero.go .explore{animation-delay:2.35s}
+.logo-stamp{position:relative;display:block;width:clamp(260px,25vw,540px);aspect-ratio:1525/720;pointer-events:none;-webkit-user-select:none;user-select:none}
+.logo-stamp img{position:absolute;inset:0;width:100%;height:100%;display:block;-webkit-user-drag:none}
+.logo-stamp .face{opacity:0}
+.logo-stamp .bloom{opacity:0;filter:blur(5px)}
+.hero.go .logo-stamp .face{animation:stampFace .8s linear .12s both}
+.hero.go .logo-stamp .bloom{animation:stampBloom .95s linear .12s both}
+@keyframes stampFace{
+  0%{opacity:0;transform:scale(1.05) rotate(-.45deg);filter:blur(3px);animation-timing-function:cubic-bezier(.5,0,.35,1)}
+  36%{opacity:1;transform:scale(.993) rotate(0deg);filter:blur(0);animation-timing-function:cubic-bezier(.23,1,.32,1)}
+  100%{opacity:1;transform:none;filter:blur(0)}
+}
+@keyframes stampBloom{
+  0%,30%{opacity:0;transform:scale(1);animation-timing-function:cubic-bezier(.23,1,.32,1)}
+  40%{opacity:.2;transform:scale(1.01);animation-timing-function:cubic-bezier(.4,0,.2,1)}
+  100%{opacity:0;transform:scale(1.03)}
+}
+.hero.go .tagline{animation-delay:1s}
+.hero.go .explore{animation-delay:1.5s}
 @media (prefers-reduced-motion:reduce){
-  .logo-draw .st{stroke-dashoffset:0;animation:none!important}
+  .logo-stamp .face{opacity:1;animation:none!important}
+  .logo-stamp .bloom{display:none}
   .hero.go .tagline,.hero.go .explore{animation-delay:0s}
 }
