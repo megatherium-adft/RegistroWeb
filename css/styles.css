@@ -720,3 +720,6 @@ body.swapping .drawer{opacity:0}
   .sv .copy-body p{opacity:1;transform:none;transition:none}
   .sv-seal{transition:none}
 }
+
+/* Sellos: no se muestra ningún marcador; el sello aparece solo cuando su PNG ya está cargado y ajustado */
+.seal:not(.has-img){visibility:hidden}
