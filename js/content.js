@@ -76,7 +76,7 @@ const ALBUMS = [
     "assets/img/Veronica&Mario/Vero&Mario-15.JPG",
     "assets/img/Veronica&Mario/Vero&Mario-16.JPG"
   ]},
-  {slug:"adriana-javier", loc:"", couple:"Adriana & Javier", date:"Mayo 2026", dateEn:"May 2026", cover:"assets/img/Adriana&Javier/AdrianaJavier-Cover.jpg", r:0.75, photos:[
+  {slug:"adriana-javier", loc:"Lima", couple:"Adriana & Javier", date:"Mayo 2026", dateEn:"May 2026", cover:"assets/img/Adriana&Javier/AdrianaJavier-Cover.jpg", r:0.75, photos:[
     "assets/img/Adriana&Javier/Adriana&Javier-1.jpg",
     "assets/img/Adriana&Javier/Adriana&Javier-2.jpg",
     "assets/img/Adriana&Javier/Adriana&Javier-3.jpg",
