@@ -748,3 +748,8 @@ body.swapping .drawer{opacity:0}
   .logo-mark .letters{opacity:1;filter:none;animation:none!important}
   .hero.go .tagline,.hero.go .explore{animation-delay:0s}
 }
+
+
+/* Color de marca en textos puntuales: "Registrar es observar…" (Home, 2.ª pantalla) y título de Nosotros. El enlace "Explora nuestro trabajo" y su flecha conservan su color. */
+.s1 .txt-in p{color:var(--red)}
+.n1 h1{color:var(--red)}
