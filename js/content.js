@@ -36,10 +36,65 @@ const SLIDES = {
    Los nombres de archivo distinguen mayúsculas y minúsculas (.jpg ≠ .JPG).
    ===================================================================== */
 const ALBUMS = [
-  {slug:"darinka-rudy", loc:"Valle de Santa Eulalia", couple:"Darinka & Rudy", date:"Septiembre 2026", cover:"assets/img/DarinkaRudy-Cover.jpg", r:0.75, photos:[]},
-  {slug:"veronica-mario", loc:"Barranco", couple:"Verónica & Mario", date:"", cover:"assets/img/VeronicaMario-Cover.jpg", r:1.3333, photos:[]},
-  {slug:"album-3", loc:"", couple:"", cover:"", r:1.3333, photos:[]},
-  {slug:"album-4", loc:"", couple:"", cover:"", r:0.75, photos:[]}
+  {slug:"darinka-rudy", loc:"Valle de Santa Eulalia", couple:"Darinka & Rudy", date:"Septiembre 2026", dateEn:"September 2026", cover:"assets/img/DarinkaRudy-Cover.jpg", r:0.75, photos:[
+    "assets/img/Darinka&Rudy/Darinka&Rudy-1.JPG",
+    "assets/img/Darinka&Rudy/Darinka&Rudy-2.JPG",
+    "assets/img/Darinka&Rudy/Darinka&Rudy-3.JPG",
+    "assets/img/Darinka&Rudy/Darinka&Rudy-4.JPG",
+    "assets/img/Darinka&Rudy/Darinka&Rudy-5.JPG",
+    "assets/img/Darinka&Rudy/Darinka&Rudy-6.JPG",
+    "assets/img/Darinka&Rudy/Darinka&Rudy-7.JPG",
+    "assets/img/Darinka&Rudy/Darinka&Rudy-8.JPG",
+    "assets/img/Darinka&Rudy/Darinka&Rudy-9.JPG",
+    "assets/img/Darinka&Rudy/Darinka&Rudy-10.JPG",
+    "assets/img/Darinka&Rudy/Darinka&Rudy-11.JPG",
+    "assets/img/Darinka&Rudy/Darinka&Rudy-12.JPG",
+    "assets/img/Darinka&Rudy/Darinka&Rudy-13.jpg",
+    "assets/img/Darinka&Rudy/Darinka&Rudy-14.jpg",
+    "assets/img/Darinka&Rudy/Darinka&Rudy-15.jpg",
+    "assets/img/Darinka&Rudy/Darinka&Rudy-16.jpg",
+    "assets/img/Darinka&Rudy/Darinka&Rudy-17.jpg",
+    "assets/img/Darinka&Rudy/Darinka&Rudy-18.jpg",
+    "assets/img/Darinka&Rudy/Darinka&Rudy-19.jpg",
+    "assets/img/Darinka&Rudy/Darinka&Rudy-20.jpg"
+  ]},
+  {slug:"veronica-mario", loc:"Barranco", couple:"Verónica & Mario", date:"Septiembre 2022", dateEn:"September 2022", cover:"assets/img/VeronicaMario-Cover.jpg", r:1.3333, photos:[
+    "assets/img/Veronica&Mario/Vero&Mario-1.JPG",
+    "assets/img/Veronica&Mario/Vero&Mario-2.JPG",
+    "assets/img/Veronica&Mario/Vero&Mario-3.JPG",
+    "assets/img/Veronica&Mario/Vero&Mario-4.JPG",
+    "assets/img/Veronica&Mario/Vero&Mario-5.JPG",
+    "assets/img/Veronica&Mario/Vero&Mario-6.JPG",
+    "assets/img/Veronica&Mario/Vero&Mario-7.JPG",
+    "assets/img/Veronica&Mario/Vero&Mario-8.JPG",
+    "assets/img/Veronica&Mario/Vero&Mario-9.JPG",
+    "assets/img/Veronica&Mario/Vero&Mario-10.JPG",
+    "assets/img/Veronica&Mario/Vero&Mario-11.JPG",
+    "assets/img/Veronica&Mario/Vero&Mario-12.JPG",
+    "assets/img/Veronica&Mario/Vero&Mario-13.JPG",
+    "assets/img/Veronica&Mario/Vero&Mario-14.JPG",
+    "assets/img/Veronica&Mario/Vero&Mario-15.JPG",
+    "assets/img/Veronica&Mario/Vero&Mario-16.JPG"
+  ]},
+  {slug:"adriana-javier", loc:"", couple:"Adriana & Javier", date:"Mayo 2026", dateEn:"May 2026", cover:"assets/img/Adriana&Javier/AdrianaJavier-Cover.jpg", r:0.75, photos:[
+    "assets/img/Adriana&Javier/Adriana&Javier-1.jpg",
+    "assets/img/Adriana&Javier/Adriana&Javier-2.jpg",
+    "assets/img/Adriana&Javier/Adriana&Javier-3.jpg",
+    "assets/img/Adriana&Javier/Adriana&Javier-4.jpg",
+    "assets/img/Adriana&Javier/Adriana&Javier-5.jpg",
+    "assets/img/Adriana&Javier/Adriana&Javier-6.jpg",
+    "assets/img/Adriana&Javier/Adriana&Javier-7.jpg",
+    "assets/img/Adriana&Javier/Adriana&Javier-8.jpg",
+    "assets/img/Adriana&Javier/Adriana&Javier-9.jpg",
+    "assets/img/Adriana&Javier/Adriana&Javier-10.jpg",
+    "assets/img/Adriana&Javier/Adriana&Javier-11.jpg",
+    "assets/img/Adriana&Javier/Adriana&Javier-12.jpg",
+    "assets/img/Adriana&Javier/Adriana&Javier-13.jpg",
+    "assets/img/Adriana&Javier/Adriana&Javier-14.jpg",
+    "assets/img/Adriana&Javier/Adriana&Javier-15.jpg",
+    "assets/img/Adriana&Javier/Adriana&Javier-16.jpg",
+    "assets/img/Adriana&Javier/Adriana&Javier-17.jpg"
+  ]}
 ];
 const QUOTES = [ {es:"Tradujeron con exactitud lo que buscábamos comunicar. Las sombras, los gestos, el movimiento. Gracias, chicos, por este registro tan pro y tan sentido.", en:"They translated exactly what we wanted to communicate. The shadows, the gestures, the movement. Thank you, guys, for such a professional and heartfelt record.", by:"Darinka & Rudy"} ];
 
