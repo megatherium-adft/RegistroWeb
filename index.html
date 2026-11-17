@@ -119,6 +119,7 @@
   <!-- ============ GALERÍA DE UN ÁLBUM ============ -->
   <section class="page" data-page="album" hidden>
     <header class="alb-head" data-reveal>
+      <a class="alb-back" href="#albumes"><span class="arr" aria-hidden="true">←</span><span data-i18n="alb_back">Todos los álbumes</span></a>
       <p class="alb-loc" id="albLoc"></p>
       <h1 class="alb-couple" id="albCouple"></h1>
     </header>
@@ -131,11 +132,10 @@
 
   <!-- ============ VIDEO ============ -->
   <section class="page" data-page="video" hidden>
-    <div class="video"><div class="video-in">
-      <h1 class="vhead" data-reveal><img class="wm-img" src="assets/logo/registro-sin-circulo.png?v=2" alt="registro" draggable="false"><span class="rest" data-i18n="video_h">en movimiento</span></h1>
+    <div class="video">
+      <h1 class="vhead" data-reveal><img class="wm-img" src="assets/logo/registro-sin-circulo.png?v=2" alt="registro" draggable="false"><span class="rest" data-i18n="video_h"><i>en</i> movimiento</span></h1>
       <div class="vframe" data-reveal style="--d:80ms"><div class="ss" data-ss="video" data-tone="dusk"></div></div>
-      <p data-reveal style="--d:140ms" data-i18n="video_p">Aquí irá el video de la marca.</p>
-    </div></div>
+    </div>
   </section>
 
   <!-- ============ NOSOTROS ============ -->
@@ -177,20 +177,20 @@
   <!-- ============ CONTACTO ============ -->
   <section class="page" data-page="contacto" data-snap hidden>
     <div class="screen c1" data-screen>
-      <div class="c1-frame">
-        <div class="ss" data-ss="contacto" data-tone="sand" data-shuffle data-nozoom data-fade="1800" data-interval="5200"></div>
+      <div class="c1-frame" data-reveal>
+        <div class="c1-slide"><div class="ss" data-ss="contacto" data-tone="sand" data-shuffle data-nozoom data-fade="1800" data-interval="5200"></div></div>
       </div>
-      <h1 class="c1-h" data-reveal data-i18n="c_sub"><span class="l1">Gracias por considerar</span><span class="l2">hacernos parte de su</span><span class="l3">celebración.</span></h1>
+      <h1 class="c1-h" data-reveal data-i18n="c_sub"><span class="l1"><span class="m">Gracias por considerar</span></span><span class="l2"><span class="m">hacernos parte de su</span></span><span class="l3"><span class="m">celebración.</span></span></h1>
       <div class="seal" id="seal" aria-hidden="true"></div>
       <div class="c1-in">
         <div class="c1-txt">
-          <p class="p" data-reveal style="--d:130ms" data-i18n="c_p1">Queremos conocer su historia, saber qué están planeando y conversar sobre cómo podemos acompañarlos. Estaremos encantados de responderles.</p>
-          <p class="p" data-reveal style="--d:190ms" data-i18n="c_p2">Si lo prefieren, también podemos coordinar una videollamada para conocernos, resolver sus dudas y conversar con más calma sobre su celebración.</p>
+          <div class="mk" data-reveal style="--d:.38s"><p class="p" data-i18n="c_p1">Queremos conocer su historia, saber qué están planeando y conversar sobre cómo podemos acompañarlos. Estaremos encantados de responderles.</p></div>
+          <div class="mk" data-reveal style="--d:.48s"><p class="p" data-i18n="c_p2">Si lo prefieren, también podemos coordinar una videollamada para conocernos, resolver sus dudas y conversar con más calma sobre su celebración.</p></div>
         </div>
-        <div class="cbox" data-reveal style="--d:250ms">
+        <div class="mk" data-reveal style="--d:.6s"><div class="cbox">
           <div class="cr"><span class="ck">e-mail</span><a class="cvl" href="mailto:registro.album.pe@gmail.com" id="mail">registro.album.pe@gmail.com</a></div>
           <div class="cr"><span class="ck">instagram</span><a class="cvl" href="https://instagram.com/registro.album" target="_blank" rel="noopener noreferrer">@registro.album</a></div>
-        </div>
+        </div></div>
       </div>
       <div class="pager"><a href="#contacto" data-down><span>↓</span></a></div>
     </div>
