@@ -576,7 +576,7 @@ body.swapping .drawer{opacity:0}
 /* grilla de covers */
 .idx-r{flex:1 1 0;min-width:0;padding-top:6.1vw;container-type:inline-size}
 @supports (width:1cqw){.idx{--L:calc(100cqw / 1.85)}}
-.idx-grid{display:flex;flex-wrap:wrap;align-items:flex-start;gap:calc(var(--L)*.2) calc(var(--L)*.1)}
+.idx-grid{display:flex;flex-wrap:wrap;align-items:flex-start;gap:calc(var(--L)*.1) calc(var(--L)*.1)}
 .cd{display:block;flex:none;width:calc(var(--L)*var(--k,1));color:inherit;text-decoration:none;-webkit-tap-highlight-color:transparent}
 .cv{position:relative;aspect-ratio:var(--r,1.3333);overflow:hidden;background:#ddd5c9;transition:transform .5s var(--ease-out)}
 .cv .ph,.cv img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
@@ -753,3 +753,61 @@ body.swapping .drawer{opacity:0}
 /* Color de marca en textos puntuales: "Registrar es observar…" (Home, 2.ª pantalla) y título de Nosotros. El enlace "Explora nuestro trabajo" y su flecha conservan su color. */
 .s1 .txt-in p{color:var(--red)}
 .n1 h1{color:var(--red)}
+
+
+/* =====================================================================
+   Video · mismo lenguaje que Álbumes: logo sin elipse + "en movimiento" arriba a la derecha, marco 16:9 debajo
+   Medidas de la referencia (1920): marco 410→1510 (21.35vw, 57.3vw), logo 22.8vw con margen derecho 68px (3.54vw).
+   ===================================================================== */
+.video{position:relative;display:block;place-items:normal;min-height:100svh;padding:calc(var(--nav-h) + 10.8vw) 0 clamp(70px,8vw,150px) 21.35vw}
+.video .vframe{width:57.3vw}
+.video h1.vhead{position:absolute;z-index:2;top:calc(var(--nav-h) + 4vw);right:3.54vw;margin:0;display:block;text-align:right;font-family:var(--display);font-weight:400;
+  font-size:clamp(36px,3.35vw,84px);line-height:.9;letter-spacing:-.03em;pointer-events:none}
+.video .vhead .wm-img{width:22.8vw;max-width:none;top:0;margin:0 0 .04em auto}
+.video .vhead .rest{display:block;font-family:var(--display);letter-spacing:-.035em}
+@media (max-width:860px){
+  .video{padding:calc(var(--nav-h) + 34px) 20px 70px}
+  .video h1.vhead{position:static;text-align:left;font-size:34px;margin-bottom:28px}
+  .video .vhead .wm-img{width:190px;margin-left:0}
+  .video .vframe{width:100%}
+}
+
+/* =====================================================================
+   Álbum · botón "Todos los álbumes" arriba (discreto, alineado al borde de la galería) + título de la pareja rojo al pasar el cursor
+   ===================================================================== */
+.alb-head{position:relative}
+.alb-back{position:absolute;left:max(16px,8.1vw);top:calc(var(--nav-h) + clamp(16px,1.7vw,32px));display:inline-flex;gap:.55em;align-items:center;padding:8px 0;font-size:clamp(14px,1vw,19px);line-height:1.2;color:var(--ink);transition:opacity .2s var(--ease-out)}
+.alb-back::after{content:"";position:absolute;left:0;right:0;bottom:3px;height:1px;background:currentColor;transform:scaleX(0);transform-origin:left;transition:transform .4s var(--ease-out)}
+.alb-back .arr{display:inline-block;transition:transform .35s var(--ease-out)}
+.alb-back:active{opacity:.6}
+@media (hover:hover) and (pointer:fine){.alb-back:hover::after{transform:scaleX(1)}.alb-back:hover .arr{transform:translateX(-5px)}}
+.alb-couple{width:fit-content;max-width:100%;margin-inline:auto;transition:color .22s var(--ease-out)}
+@media (hover:hover) and (pointer:fine){.alb-couple:hover{color:var(--red)}}
+@media (max-width:860px){.alb-head{padding-top:calc(var(--nav-h) + 64px)}.alb-back{left:16px;top:calc(var(--nav-h) + 14px)}}
+
+/* =====================================================================
+   Contacto · entradas: título, textos y recuadros emergen desde abajo a través de una máscara; el slideshow sale de derecha a izquierda (como de un sobre).
+   El sello queda fijo, sin animación: hace de "boca" del sobre.
+   ===================================================================== */
+.c1 h1.c1-h[data-reveal]{opacity:1;transform:none;transition:none}
+.c1 h1.c1-h .l1,.c1 h1.c1-h .l2,.c1 h1.c1-h .l3{clip-path:inset(-.2em -.1em -.25em -.1em)}
+.c1 h1.c1-h .m{display:block;transform:translateY(140%);transition:transform 1.15s cubic-bezier(.16,1,.3,1)}
+.c1 h1.c1-h .l2 .m{transition-delay:.09s}
+.c1 h1.c1-h .l3 .m{transition-delay:.18s}
+.c1 h1.c1-h.in .m{transform:none}
+.mk{overflow:hidden;padding:4px 0 10px;margin:-4px 0 -10px}
+.mk[data-reveal]{opacity:1;transform:none;transition:none}
+.mk>*{transform:translateY(calc(100% + 14px));transition:transform 1.05s cubic-bezier(.16,1,.3,1) var(--d,0s)}
+.mk.in>*{transform:none}
+.c1-frame[data-reveal]{opacity:1;transform:none;transition:none}
+.c1-slide{position:absolute;inset:0;transform:translateX(100%);transition:transform 1.3s cubic-bezier(.32,.72,0,1)}
+.c1-frame.in .c1-slide{transform:none}
+@media (max-width:860px){
+  .c1 h1.c1-h .l1,.c1 h1.c1-h .l2,.c1 h1.c1-h .l3{clip-path:none}
+  .c1 h1.c1-h .m{display:inline;transform:none;opacity:0;transition:opacity .8s var(--ease-out)}
+  .c1 h1.c1-h .l2 .m{transition-delay:.09s}.c1 h1.c1-h .l3 .m{transition-delay:.18s}
+  .c1 h1.c1-h.in .m{opacity:1}
+}
+@media (prefers-reduced-motion:reduce){
+  .c1-slide,.mk>*,.c1 h1.c1-h .m{transform:none!important;transition:none!important;opacity:1!important}
+}
