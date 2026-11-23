@@ -94,6 +94,20 @@ const ALBUMS = [
     "assets/img/Adriana&Javier/Adriana&Javier-15.jpg",
     "assets/img/Adriana&Javier/Adriana&Javier-16.jpg",
     "assets/img/Adriana&Javier/Adriana&Javier-17.jpg"
+  ]},
+  {slug:"lu-antonio", loc:"Miraflores", couple:"Lu & Antonio", date:"2026", dateEn:"2026", cover:"assets/img/Lu&Antonio/LuAntonio-Cover.jpg", r:0.75, photos:[
+    "assets/img/Lu&Antonio/Lu&Antonio-1.JPG",
+    "assets/img/Lu&Antonio/Lu&Antonio-2.JPG",
+    "assets/img/Lu&Antonio/Lu&Antonio-3.JPG",
+    "assets/img/Lu&Antonio/Lu&Antonio-4.JPG",
+    "assets/img/Lu&Antonio/Lu&Antonio-5.JPG",
+    "assets/img/Lu&Antonio/Lu&Antonio-6.JPG",
+    "assets/img/Lu&Antonio/Lu&Antonio-7.JPG",
+    "assets/img/Lu&Antonio/Lu&Antonio-8.JPG",
+    "assets/img/Lu&Antonio/Lu&Antonio-9.JPG",
+    "assets/img/Lu&Antonio/Lu&Antonio-10.JPG",
+    "assets/img/Lu&Antonio/Lu&Antonio-11.JPG",
+    "assets/img/Lu&Antonio/Lu&Antonio-12.JPG"
   ]}
 ];
 const QUOTES = [ {es:"Tradujeron con exactitud lo que buscábamos comunicar. Las sombras, los gestos, el movimiento. Gracias, chicos, por este registro tan pro y tan sentido.", en:"They translated exactly what we wanted to communicate. The shadows, the gestures, the movement. Thank you, guys, for such a professional and heartfelt record.", by:"Darinka & Rudy"} ];
