@@ -132,9 +132,15 @@
 
   <!-- ============ VIDEO ============ -->
   <section class="page" data-page="video" hidden>
-    <div class="video">
-      <h1 class="vhead" data-reveal><img class="wm-img" src="assets/logo/registro-sin-circulo.png?v=2" alt="registro" draggable="false"><span class="rest" data-i18n="video_h"><i>en</i> movimiento</span></h1>
-      <div class="vframe" data-reveal style="--d:80ms"><div class="ss" data-ss="video" data-tone="dusk"></div></div>
+    <div class="vh" id="vhMain">
+      <h1 class="vhead"><img class="wm-img" src="assets/logo/registro-sin-circulo.png?v=2" alt="registro" draggable="false"><span class="rest" data-i18n="video_h"><i>en</i> movimiento</span></h1>
+      <div class="vs" id="vsMain" tabindex="0" role="region" aria-roledescription="carrusel" aria-label="Video"><div class="vtrack"></div></div>
+      <div class="vbar" id="vbMain"><button type="button" class="vb" data-vp aria-label="Anterior"><span class="arr" aria-hidden="true">←</span></button><span class="vcount" aria-live="polite">01 / 02</span><button type="button" class="vb" data-vn aria-label="Siguiente"><span class="arr" aria-hidden="true">→</span></button></div>
+    </div>
+    <div class="vh" id="vhSub" hidden>
+      <a class="alb-back" href="#video"><span class="arr" aria-hidden="true">←</span><span data-i18n="vid_back">Todos los videos</span></a>
+      <div class="vs" id="vsSub" tabindex="0" role="region" aria-roledescription="carrusel" aria-label="Video"><div class="vtrack"></div></div>
+      <div class="vbar" id="vbSub"><button type="button" class="vb" data-vp aria-label="Anterior"><span class="arr" aria-hidden="true">←</span></button><span class="vcount" aria-live="polite">01 / 02</span><button type="button" class="vb" data-vn aria-label="Siguiente"><span class="arr" aria-hidden="true">→</span></button></div>
     </div>
   </section>
 
