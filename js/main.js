@@ -16,7 +16,7 @@ es:{nav_home:"Inicio",nav_alb:"Álbumes",nav_video:"Video",nav_about:"Nosotros",
  tagline:"Momentos interpretados<br>por <i>artistas</i>.",explore:"Explora nuestro trabajo.",
  h1a:"Registrar es observar, elegir y guardar.<br>Lo hacemos entre artistas que se complementan, cada uno con su mirada, para interpretar un día especial con atención y cuidado.",h1b:"Para que quede como una pieza <i>atemporal</i>.",
  made:"HECHO",by:"POR",humans:"HUMANOS.",artists:"ARTISTAS.",
- gal_of:"de <i>nuestro</i><br>trabajo.",video_h:"<i>en</i> movimiento",video_p:"Aquí irá el video de la marca.",
+ gal_of:"de <i>nuestro</i><br>trabajo.",video_h:"<i>en</i> movimiento",vid_back:"Todos los videos",vid_prev:"Anterior",vid_next:"Siguiente",vid_play:"Reproducir",vid_open:"Abrir proyecto",vid_close:"Cerrar video",video_p:"Aquí irá el video de la marca.",
  about_h:"Sobre nosotros<br>y <i>nuestra</i> misión",
  about_p:"<p><span class='wm'>registro</span> nace en la intersección de la fotografía, el arte y el álbum familiar.</p><p>Lo que ofrecemos son momentos interpretados por artistas. Antes de fotografiar, nos interesa conocer a cada pareja: su <i>historia</i>, sus <i>vínculos</i>, su <i>complicidad</i>.</p><p>Buscamos momentos honestos. Nos conmueve la humanidad de lo que ocurre sin ser dirigido.</p>",
  about2_a:"Cada imagen es una pieza preciada, elegida y editada con <i>sensibilidad</i>. Fotografías para vivirlas hoy. Imágenes para volver a ellas después.",about2_b:"Hecho por <i>personas</i>. Hecho por <i>artistas</i>.",
@@ -33,7 +33,7 @@ en:{nav_home:"Home",nav_alb:"Albums",nav_video:"Video",nav_about:"About",nav_ser
  tagline:"Moments interpreted<br>by <i>artists</i>.",explore:"Explore our work.",
  h1a:"To register is to observe, choose and keep.<br>We do it as artists who complement each other, each with their own eye, to interpret a special day with attention and care.",h1b:"So it remains as a <i>timeless</i> piece.",
  made:"MADE",by:"BY",humans:"HUMANS.",artists:"ARTISTS.",
- gal_of:"of <i>our</i><br>work.",video_h:"<i>in</i> motion",video_p:"The brand film will live here.",
+ gal_of:"of <i>our</i><br>work.",video_h:"<i>in</i> motion",vid_back:"All videos",vid_prev:"Previous",vid_next:"Next",vid_play:"Play",vid_open:"Open project",vid_close:"Close video",video_p:"The brand film will live here.",
  about_h:"About us<br>and <i>our</i> mission",
  about_p:"<p><span class='wm'>registro</span> was born at the intersection of photography, art and the family album.</p><p>What we offer are moments interpreted by artists. Before photographing, we want to know each couple: their <i>story</i>, their <i>bonds</i>, their <i>complicity</i>.</p><p>We look for honest moments. We are moved by the humanity of what happens without being directed.</p>",
  about2_a:"Every image is a treasured piece, chosen and edited with <i>sensitivity</i>. Photographs to live today. Images to return to later.",about2_b:"Made by <i>people</i>. Made by <i>artists</i>.",
@@ -61,7 +61,7 @@ function applyLang(){
   $('#lbClose').setAttribute('aria-label',d.lbclose);$('#lbPrev').setAttribute('aria-label',d.lbprev);$('#lbNext').setAttribute('aria-label',d.lbnext);
   $$('.ph-label').forEach(l=>l.textContent=d.ph);
   menuBtn.setAttribute('aria-label',d.menu); $('#drawerClose').setAttribute('aria-label',d.close+' '+d.menu.toLowerCase()); drawer.setAttribute('aria-label',d.menu);
-  renderQuotes(); renderAlbumHead(); albInfoRefresh(); { const s2=$('#seal2'); if(s2) s2.setAttribute('aria-label',I18N[lang].cta.replace(/[¡!]/g,'')); }
+  renderQuotes(); renderAlbumHead(); albInfoRefresh(); videoLang(); { const s2=$('#seal2'); if(s2) s2.setAttribute('aria-label',I18N[lang].cta.replace(/[¡!]/g,'')); }
 }
 $('#lang').addEventListener('click',()=>{
   lang = lang==='es'?'en':'es'; store.set('registro-lang',lang);
@@ -430,6 +430,165 @@ const navEl=$('#nav');
 function tickNav(){ navEl.classList.toggle('scrolled',scrollY>4); }
 addEventListener('scroll',tickNav,{passive:true});
 
+
+/* ===================== Video · carrusel (hub principal + sub‑hub) ===================== */
+const ytThumbs=id=>['maxresdefault','sddefault','hqdefault'].map(n=>`https://i.ytimg.com/vi/${id}/${n}.jpg`);
+function ytImg(img,id){            /* maxres → sd → hq; YouTube devuelve un placeholder de 120px si no existe maxres */
+  const list=ytThumbs(id); let i=0;
+  const next=()=>{ if(i<list.length) img.src=list[i++]; };
+  img.addEventListener('error',next);
+  img.addEventListener('load',()=>{ if(img.naturalWidth<=120&&i<list.length) next(); });
+  next();
+}
+const clamp01=v=>Math.max(0,Math.min(1,v));
+function createCarousel(vs,items,onOpenHub){
+  const N=items.length, wrap=N>=3, track=$('.vtrack',vs), bar=vs.parentElement.querySelector('.vbar');
+  const cnt=$('.vcount',bar), bp=$('[data-vp]',bar), bn=$('[data-vn]',bar);
+  let pos=0,vel=0,tgt=0,W=0,step=0,raf=0,last=0,dragging=false,playing=-1;
+  const mod=(a,n)=>((a%n)+n)%n;
+  const act=()=>wrap?mod(Math.round(tgt),N):Math.max(0,Math.min(N-1,Math.round(tgt)));
+  const cards=items.map((it,i)=>{
+    const el=document.createElement('article'); el.className='vc'; el.dataset.i=i; el.style.setProperty('--o',Math.min(i,3));
+    el.innerHTML='<div class="vc-in"><div class="vc-f"><img class="vc-img" alt="" draggable="false"><button type="button" class="vc-hit"><span class="vc-play" aria-hidden="true"></span></button></div><div class="vc-t"><div class="vc-h"></div><div class="vc-s"></div></div></div>';
+    $('.vc-h',el).textContent=it.title; $('.vc-s',el).textContent=it.sub||'';
+    $('.vc-play',el).innerHTML=it.hub
+      ?'<svg viewBox="0 0 24 24"><path d="M4 12h15M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+      :'<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>';
+    const img=$('.vc-img',el);
+    if(it.cover){ img.src=it.cover; if(it.hub) img.addEventListener('error',()=>ytImg(img,it.hub[0].yt),{once:true}); }
+    else ytImg(img,it.yt);
+    track.appendChild(el);
+    return {el,inner:$('.vc-in',el),f:$('.vc-f',el),hit:$('.vc-hit',el)};
+  });
+  function labels(){
+    const d=I18N[lang];
+    cards.forEach((c,i)=>c.hit.setAttribute('aria-label',(items[i].hub?d.vid_open:d.vid_play)+' · '+items[i].title));
+    bp.setAttribute('aria-label',d.vid_prev); bn.setAttribute('aria-label',d.vid_next);
+    const x=$('.vc-x',vs); if(x) x.setAttribute('aria-label',d.vid_close);
+  }
+  function measure(){ W=cards[0].el.offsetWidth; step=W*1.025+innerWidth*.01; }
+  function render(){
+    const a=act();
+    for(let i=0;i<N;i++){
+      let d=i-pos; if(wrap) d=mod(d+N/2,N)-N/2;
+      const k=Math.max(0,1-Math.abs(d)), c=cards[i];
+      c.el.style.transform=`translate3d(${(d*step).toFixed(2)}px,0,0)`;
+      c.el.style.setProperty('--k',k.toFixed(3));
+      if(N===3) c.inner.style.opacity=clamp01((1.5-Math.abs(d))/.35).toFixed(3);   /* con 3 el que salta de lado se desvanece */
+      c.el.classList.toggle('on',i===a);
+    }
+  }
+  function ui(){
+    const a=act(); cnt.textContent=String(a+1).padStart(2,'0')+' / '+String(N).padStart(2,'0');
+    bp.disabled=!wrap&&tgt<=0; bn.disabled=!wrap&&tgt>=N-1;
+  }
+  function tick(t){
+    const dt=Math.min(.032,(t-last)/1000||.016); last=t;
+    if(reduce){ pos=tgt; vel=0; }
+    else if(!dragging){
+      const w=2*Math.PI/.34, z=.85, n=Math.ceil(dt/.004), h=dt/n;
+      for(let i=0;i<n;i++){ vel+=(-w*w*(pos-tgt)-2*z*w*vel)*h; pos+=vel*h; }
+    }
+    render();
+    if(!dragging&&Math.abs(pos-tgt)<.0005&&Math.abs(vel)<.005){ pos=tgt; vel=0; render(); raf=0; return; }
+    raf=requestAnimationFrame(tick);
+  }
+  const wake=()=>{ if(!raf){ last=performance.now(); raf=requestAnimationFrame(tick); } };
+  function stop(){
+    if(playing<0) return;
+    const c=cards[playing]; $('.vc-yt',c.f)?.remove(); $('.vc-x',c.f)?.remove(); c.el.classList.remove('playing'); playing=-1;
+  }
+  function play(i){
+    stop(); const c=cards[i], it=items[i];
+    const ifr=document.createElement('iframe'); ifr.className='vc-yt';
+    ifr.src=`https://www.youtube-nocookie.com/embed/${it.yt}?autoplay=1&rel=0&modestbranding=1&playsinline=1`;
+    ifr.allow='autoplay; encrypted-media; picture-in-picture; fullscreen'; ifr.allowFullscreen=true; ifr.title=it.title;
+    const x=document.createElement('button'); x.type='button'; x.className='vc-x'; x.textContent='✕'; x.setAttribute('aria-label',I18N[lang].vid_close);
+    c.f.append(ifr,x); c.el.classList.add('playing'); playing=i;
+  }
+  function setTarget(t){
+    t=wrap?t:Math.max(0,Math.min(N-1,t));
+    if(t!==tgt){ stop(); tgt=t; ui(); } wake();
+  }
+  const go=dl=>setTarget(Math.round(tgt)+dl);
+  function goIndex(i){ const cur=Math.round(tgt); setTarget(wrap?cur+(mod(i-cur+N/2,N)-N/2):i); }
+  function open(i){ const it=items[i]; if(it.hub) onOpenHub(it); else if(it.yt) play(i); }
+  const rubber=o=>(o*.55)/(1+.55*Math.abs(o));
+  /* — arrastre con velocidad y proyección de inercia — */
+  let down=false,moved=false,sx=0,spos=0,pid=null,smp=[];
+  vs.addEventListener('pointerdown',e=>{
+    if(e.button>0||e.target.closest('.vc-yt,.vc-x')) return;
+    down=true; moved=false; sx=e.clientX; spos=pos; pid=e.pointerId; smp=[[e.timeStamp,e.clientX]];
+  });
+  vs.addEventListener('pointermove',e=>{
+    if(!down||e.pointerId!==pid) return;
+    const dx=e.clientX-sx;
+    if(!moved&&Math.abs(dx)>6){ moved=true; dragging=true; vel=0; try{vs.setPointerCapture(pid);}catch(_){} vs.classList.add('drag'); stop(); wake(); }
+    if(!moved) return;
+    let p=spos-dx/step;
+    if(!wrap){ if(p<0) p=-rubber(-p); else if(p>N-1) p=N-1+rubber(p-(N-1)); }
+    pos=p; smp.push([e.timeStamp,e.clientX]); while(smp.length>2&&e.timeStamp-smp[0][0]>100) smp.shift();
+  });
+  function release(e,fling){
+    if(!down||(e&&e.pointerId!==pid)) return; down=false;
+    if(!moved) return;
+    dragging=false; vs.classList.remove('drag'); try{vs.releasePointerCapture(pid);}catch(_){}
+    let v=0; const a=smp[0], b=smp[smp.length-1];
+    if(fling&&b[0]>a[0]&&(e.timeStamp-b[0])<80) v=(b[1]-a[1])/(b[0]-a[0])*1000;
+    const vu=-v/step, proj=pos+vu*.499, base=Math.round(spos);
+    let t=Math.round(proj); t=Math.max(base-2,Math.min(base+2,t));
+    t=wrap?t:Math.max(0,Math.min(N-1,t));
+    vel=vu; if(t!==tgt){ tgt=t; ui(); } wake();
+  }
+  vs.addEventListener('pointerup',e=>release(e,true));
+  vs.addEventListener('pointercancel',e=>release(e,false));
+  vs.addEventListener('click',e=>{
+    if(moved){ e.preventDefault(); e.stopPropagation(); moved=false; return; }
+    if(e.target.closest('.vc-x')){ stop(); return; }
+    const hit=e.target.closest('.vc-hit'); if(!hit) return;
+    const i=+hit.closest('.vc').dataset.i;
+    if(i===act()) open(i); else goIndex(i);
+  },true);
+  /* — rueda: un paso por gesto, ignorando la cola de inercia del trackpad — */
+  let acc=0,lockUntil=0,lastAbs=0,lastT=0;
+  vs.addEventListener('wheel',e=>{
+    e.preventDefault();
+    const d=Math.abs(e.deltaX)>Math.abs(e.deltaY)?e.deltaX:e.deltaY, ab=Math.abs(d), now=performance.now();
+    if(now<lockUntil){ if(ab<=lastAbs) lockUntil=Math.max(lockUntil,now+130); lastAbs=ab; return; }
+    if(now-lastT>160) acc=0; lastT=now; acc+=d;
+    if(Math.abs(acc)>=40){ go(acc>0?1:-1); acc=0; lockUntil=now+380; lastAbs=ab; }
+  },{passive:false});
+  bp.addEventListener('click',()=>go(-1)); bn.addEventListener('click',()=>go(1));
+  new ResizeObserver(()=>{ if(vs.offsetWidth){ measure(); render(); } }).observe(vs);
+  return {
+    go, stop, labels,
+    layout(){ measure(); render(); ui(); labels(); },
+    reset(){ stop(); pos=tgt=0; vel=0; render(); ui(); }
+  };
+}
+let carMain=null,carSub=null,subSlug=null;
+function videoLang(){ carMain&&carMain.labels(); carSub&&carSub.labels(); }
+function videoShow(sub){
+  const hm=$('#vhMain'), hs=$('#vhSub');
+  if(!carMain) carMain=createCarousel($('#vsMain'),VIDEOS,it=>{ location.hash='#video/'+it.slug; });
+  const proj=sub&&VIDEOS.find(v=>v.slug===sub&&v.hub);
+  if(proj){
+    if(subSlug!==sub){ $('#vsSub .vtrack').innerHTML=''; carSub=createCarousel($('#vsSub'),proj.hub,()=>{}); subSlug=sub; }
+    carMain.stop(); hm.hidden=true; hs.hidden=false; carSub.reset(); carSub.layout();
+  } else {
+    carSub&&carSub.stop(); hs.hidden=true; hm.hidden=false; carMain.layout();
+  }
+}
+function videoLeave(){ carMain&&carMain.stop(); carSub&&carSub.stop(); }
+addEventListener('keydown',e=>{
+  if(!current||current.split('/')[0]!=='video') return;
+  if(lb.classList.contains('open')||drawer.classList.contains('open')) return;
+  const sub=!$('#vhSub').hidden, car=sub?carSub:carMain; if(!car) return;
+  if(e.key==='ArrowRight'){ car.go(1); e.preventDefault(); }
+  else if(e.key==='ArrowLeft'){ car.go(-1); e.preventDefault(); }
+  else if(e.key==='Escape'&&sub){ location.hash='#video'; }
+});
+
 /* ===================== Router (hash) ===================== */
 const ROUTES=['home','albumes','video','nosotros','servicios','contacto'];
 let current=null, dotIO=null;
@@ -441,6 +600,12 @@ function parseHash(){
     const a=ALBUMS.find(x=>x.slug===arg);
     if(a) return {key:'album/'+a.slug,page:'album',album:a};
     history.replaceState(null,'','#albumes'); return {key:'albumes',page:'albumes'};
+  }
+  if(r==='video'){
+    const p=arg&&VIDEOS.find(v=>v.slug===arg&&v.hub);
+    if(p) return {key:'video/'+p.slug,page:'video',sub:p.slug};
+    if(arg) history.replaceState(null,'','#video');
+    return {key:'video',page:'video'};
   }
   return ROUTES.includes(r)?{key:r,page:r}:{key:'home',page:'home'};
 }
@@ -460,6 +625,7 @@ function route(){
   if(R.page!=='album') document.title='Registro · Fotografía de bodas en Lima';
   if(R.page==='album'){ buildGallery(R.album); renderAlbumHead(); }
   observeReveals(page);
+  if(R.page==='video') videoShow(R.sub); else videoLeave();
   if(R.page==='home'){ const hero=$('.hero'); hero.classList.remove('go'); void hero.offsetWidth; hero.classList.add('go'); }
   buildDots(page);
   tickParallax(); tickNav();
