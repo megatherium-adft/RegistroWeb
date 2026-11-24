@@ -119,3 +119,15 @@ const TONES = {
   dusk: [["#8d8798","#5d5868","#34303d"],["#9a8f94","#665b63","#3b3339"],["#847f90","#575366","#312e3d"],["#a0949a","#6c606a","#3d343b"]],
   sand: [["#c4ab8d","#8e745a","#54422f"],["#b9a48b","#85705a","#4c3d2e"],["#cdb496","#97795e","#5b4532"],["#bda489","#876f58","#4f3e2e"]]
 };
+
+
+/* Video · hub principal (carrusel). Un proyecto con "hub" abre su propio carrusel; uno con "yt" reproduce directo. */
+const VIDEOS = [
+  {slug:"darinka-rudy", title:"Darinka & Rudy", sub:"Digital + Digicam", cover:"assets/img/Darinka&Rudy/CoverProyectoVideo-DarinkRudy.png",
+   hub:[
+     {yt:"2cNeLJeOv8o", title:"Darinka & Rudy Highlight Reel", sub:"Digital"},
+     {yt:"5jPon5MZ2Jk", title:"Darinka & Rudy Digicam Reel Nº1", sub:"Digicam"},
+     {yt:"8-zLCneEo1c", title:"Darinka & Rudy Digicam Reel Nº2", sub:"Digicam"}
+   ]},
+  {slug:"lu-antonio", title:"Lu & Antonio", sub:"Digital + Digicam", yt:"M0sHvSF0OPc"}
+];
