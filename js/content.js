@@ -125,9 +125,9 @@ const TONES = {
 const VIDEOS = [
   {slug:"darinka-rudy", title:"Darinka & Rudy", sub:"Digital + Digicam", cover:"assets/img/Darinka&Rudy/CoverProyectoVideo-DarinkRudy.png",
    hub:[
-     {yt:"2cNeLJeOv8o", title:"Darinka & Rudy Highlight Reel", sub:"Digital"},
-     {yt:"5jPon5MZ2Jk", title:"Darinka & Rudy Digicam Reel Nº1", sub:"Digicam"},
-     {yt:"8-zLCneEo1c", title:"Darinka & Rudy Digicam Reel Nº2", sub:"Digicam"}
+     {vm:"1249543227", title:"Darinka & Rudy Highlights", sub:"Digital"},
+     {vm:"1249543257", title:"Darinka & Rudy Digicam Reel Nº1", sub:"Digicam"},
+     {vm:"1249543258", title:"Darinka & Rudy Digicam Reel Nº2", sub:"Digicam"}
    ]},
-  {slug:"lu-antonio", title:"Lu & Antonio", sub:"Digital + Digicam", yt:"M0sHvSF0OPc"}
+  {slug:"lu-antonio", title:"Lu & Antonio", sub:"Digital + Digicam", vm:"1249543229"}
 ];
