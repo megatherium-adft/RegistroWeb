@@ -129,5 +129,5 @@ const VIDEOS = [
      {vm:"1249543257", title:"Darinka & Rudy Digicam Reel Nº1", sub:"Digicam"},
      {vm:"1249543258", title:"Darinka & Rudy Digicam Reel Nº2", sub:"Digicam"}
    ]},
-  {slug:"lu-antonio", title:"Lu & Antonio", sub:"Digital + Digicam", vm:"1249543229"}
+  {slug:"lu-antonio", title:"Lu & Antonio", sub:"Digital", vm:"1249543229"}
 ];
