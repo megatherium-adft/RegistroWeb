@@ -756,23 +756,6 @@ body.swapping .drawer{opacity:0}
 
 
 /* =====================================================================
-   Video · mismo lenguaje que Álbumes: logo sin elipse + "en movimiento" arriba a la derecha, marco 16:9 debajo
-   Medidas de la referencia (1920): marco 410→1510 (21.35vw, 57.3vw), logo 22.8vw con margen derecho 68px (3.54vw).
-   ===================================================================== */
-.video{position:relative;display:block;place-items:normal;min-height:100svh;padding:calc(var(--nav-h) + 10.8vw) 0 clamp(70px,8vw,150px) 21.35vw}
-.video .vframe{width:57.3vw}
-.video h1.vhead{position:absolute;z-index:2;top:calc(var(--nav-h) + 4vw);right:3.54vw;margin:0;display:block;text-align:right;font-family:var(--display);font-weight:400;
-  font-size:clamp(36px,3.35vw,84px);line-height:.9;letter-spacing:-.03em;pointer-events:none}
-.video .vhead .wm-img{width:22.8vw;max-width:none;top:0;margin:0 0 .04em auto}
-.video .vhead .rest{display:block;font-family:var(--display);letter-spacing:-.035em}
-@media (max-width:860px){
-  .video{padding:calc(var(--nav-h) + 34px) 20px 70px}
-  .video h1.vhead{position:static;text-align:left;font-size:34px;margin-bottom:28px}
-  .video .vhead .wm-img{width:190px;margin-left:0}
-  .video .vframe{width:100%}
-}
-
-/* =====================================================================
    Álbum · botón "Todos los álbumes" arriba (discreto, alineado al borde de la galería) + título de la pareja rojo al pasar el cursor
    ===================================================================== */
 .alb-head{position:relative}
@@ -811,3 +794,56 @@ body.swapping .drawer{opacity:0}
 @media (prefers-reduced-motion:reduce){
   .c1-slide,.mk>*,.c1 h1.c1-h .m{transform:none!important;transition:none!important;opacity:1!important}
 }
+
+
+/* =====================================================================
+   Video · hub carrusel. Medidas de la referencia (1920): marco lateral 843px (43.9vw), activo ×1.05, separación 19px,
+   texto activo ×1.27. Todo se escala desde --W (ancho del marco lateral).
+   ===================================================================== */
+.vh{position:relative;height:100svh;min-height:calc(var(--nav-h) + 560px);overflow:hidden;--W:min(43.9vw,calc(.9*(100svh - var(--nav-h)) - 79px))}
+.vh[hidden]{display:none}
+.vhead{position:absolute;z-index:3;top:calc(var(--nav-h) + .6vw);right:3.54vw;margin:0;display:block;text-align:right;font-family:var(--display);font-weight:400;
+  font-size:clamp(30px,3.35vw,84px);line-height:.9;letter-spacing:-.03em;pointer-events:none;animation:vcIn .9s var(--ease-out) both}
+.vhead .wm-img{width:22.8vw;max-width:none;top:0;margin:0 0 .04em auto;display:block}
+.vhead .rest{display:block;font-family:var(--display);letter-spacing:-.035em}
+.vs{position:absolute;inset:var(--nav-h) 0 0 0;overflow:hidden;cursor:grab;touch-action:pan-y;outline:none;-webkit-user-select:none;user-select:none}
+.vs.drag{cursor:grabbing}
+.vtrack{position:absolute;inset:0}
+.vc{position:absolute;left:50%;top:19.9%;width:var(--W);margin-left:calc(var(--W)/-2);will-change:transform;animation:vcIn .7s var(--ease-out) both;animation-delay:calc(var(--o,0)*70ms)}
+@keyframes vcIn{from{opacity:0}to{opacity:1}}
+.vc-in{display:block}
+.vc-f{position:relative;aspect-ratio:1.353;overflow:hidden;background:#5b5869;transform:scale(calc(1 + .05*var(--k,0)));transform-origin:50% 50%}
+.vc-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;-webkit-user-drag:none;pointer-events:none}
+.vc-hit{position:absolute;inset:0;width:100%;border:0;padding:0;background:none;cursor:inherit;display:grid;place-items:center;color:#fff}
+.vc-hit:focus-visible{outline:2px solid var(--red);outline-offset:-6px}
+.vc-play{display:grid;place-items:center;width:calc(var(--W)*.095);aspect-ratio:1;border-radius:50%;border:1.5px solid rgba(255,255,255,.92);background:rgba(11,11,11,.12);
+  opacity:calc(var(--k,0)*var(--k,0));transform:scale(calc(.9 + .1*var(--k,0)));transition:transform .35s var(--ease-out),background-color .25s var(--ease-out);filter:drop-shadow(0 1px 6px rgba(0,0,0,.25))}
+.vc-play svg{width:34%;height:34%;display:block}
+@media (hover:hover) and (pointer:fine){.vc-hit:hover .vc-play{transform:scale(1.07);background:rgba(11,11,11,.28)}}
+.vc-hit:active .vc-play{transform:scale(.96)}
+.vc.playing .vc-hit{display:none}
+.vc-x{position:absolute;z-index:2;top:12px;right:12px;width:36px;height:36px;border-radius:50%;border:1px solid rgba(255,255,255,.7);background:rgba(11,11,11,.45);color:#fff;font-size:15px;line-height:1;cursor:pointer;display:grid;place-items:center;transition:transform .25s var(--ease-out),background-color .25s}
+.vc-x:active{transform:scale(.92)}
+@media (hover:hover){.vc-x:hover{background:rgba(11,11,11,.7)}}
+.vc-yt{position:absolute;inset:0;width:100%;height:100%;border:0;background:#000}
+.vc-t{margin-top:calc(var(--W)*.0215);white-space:nowrap;transform-origin:0 0;
+  transform:translate(calc(var(--k,0)*var(--W)*-.025),calc(var(--k,0)*var(--W)*.0185)) scale(calc(1 + .27*var(--k,0)))}
+.vc-h{font-family:var(--display);font-size:calc(var(--W)*.0524);line-height:1.02;letter-spacing:-.04em}
+.vc-s{margin-top:.12em;font-family:var(--display);font-style:italic;font-size:calc(var(--W)*.0285);line-height:1.1;letter-spacing:-.03em}
+.vc-s:empty{display:none}
+.vbar{position:absolute;z-index:4;left:50%;bottom:clamp(18px,2.2vw,40px);transform:translateX(-50%);display:flex;align-items:center;gap:22px;font:400 11px/1 'Helvetica Neue',Helvetica,Arial,sans-serif;letter-spacing:.16em;color:rgba(11,11,11,.6)}
+.vb{position:relative;width:44px;height:44px;display:grid;place-items:center;border:0;background:none;color:var(--ink);font-size:16px;cursor:pointer;transition:opacity .25s var(--ease-out)}
+.vb .arr{display:inline-block;transition:transform .35s var(--ease-out)}
+.vb:active .arr{transform:scale(.88)}
+.vb:disabled{opacity:.25;cursor:default}
+@media (hover:hover) and (pointer:fine){.vb[data-vp]:not(:disabled):hover .arr{transform:translateX(-5px)}.vb[data-vn]:not(:disabled):hover .arr{transform:translateX(5px)}}
+.vb:focus-visible{outline:2px solid var(--red);outline-offset:-4px}
+.vh .alb-back{z-index:4}
+@media (max-width:860px){
+  .vh{--W:74vw}
+  .vhead{top:calc(var(--nav-h) + 10px);right:16px;font-size:20px}
+  .vhead .wm-img{width:34vw}
+  .vc{top:24%}
+  .vc-h{font-size:calc(var(--W)*.075)}.vc-s{font-size:calc(var(--W)*.04)}
+}
+@media (prefers-reduced-motion:reduce){.vc,.vhead{animation:none}}
